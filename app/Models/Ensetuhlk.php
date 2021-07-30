@@ -9,5 +9,5 @@ class Ensetuhlk extends Model
 {
     use HasFactory;
 protected $table="ensetuhlk";
-protected $fillable= ['id','personne_id','username','password','dateCreation','etat']
+protected $fillable= ['id','id_ens','id_etud','id_hlk']
 }
