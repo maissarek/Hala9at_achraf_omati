@@ -9,5 +9,5 @@ class Compte extends Model
 {
     use HasFactory;
    protected $table="Compte";
-protected $fillable= ""
+protected $fillable= ['id','personne_id','username','password','dateCreation','etat']
 }
