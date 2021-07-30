@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Compte extends Model
 {
     use HasFactory;
-   protected $table="Compte";
+   protected $table="compte";
 protected $fillable= ['id','personne_id','username','password','dateCreation','etat']
 }
