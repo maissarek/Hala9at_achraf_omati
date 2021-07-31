@@ -10,3 +10,4 @@ class Halaka extends Model
     use HasFactory;
 protected   $table= 'halaka';
        protected  $fillable= ['id','name','lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax']
+}
