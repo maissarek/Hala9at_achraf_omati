@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
+$table->integer('id')->primary();
+            $table->string('libelle', 100);
 }
