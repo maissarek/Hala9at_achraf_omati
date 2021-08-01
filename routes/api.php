@@ -18,56 +18,56 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/comptes',[CompteController::class,'index']);
+Route::post('/compte',[CompteController::class,'store']);
+Route::post('/comptes/{id}',[CompteController::class,'show']);
+Route::put('/comptes/{id}',[CompteController::class,'update']);
+Route::delete('/comptes/{id}',[CompteController::class,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[EnseiganteController::class,'index']);
+Route::post('/',[EnseiganteController::class,'store']);
+Route::post('/',[EnseiganteController::class,'show']);
+Route::put('/',[EnseiganteController::class,'update']);
+Route::delete('/',[EnseiganteController::class,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[,'index']);
+Route::post('/',[,'store']);
+Route::post('/',[,'show']);
+Route::put('/',[,'update']);
+Route::delete('/',[,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[,'index']);
+Route::post('/',[,'store']);
+Route::post('/',[,'show']);
+Route::put('/',[,'update']);
+Route::delete('/',[,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[,'index']);
+Route::post('/',[,'store']);
+Route::post('/',[,'show']);
+Route::put('/',[,'update']);
+Route::delete('/',[,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[,'index']);
+Route::post('/',[,'store']);
+Route::post('/',[,'show']);
+Route::put('/',[,'update']);
+Route::delete('/',[,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[,'index']);
+Route::post('/',[,'store']);
+Route::post('/',[,'show']);
+Route::put('/',[,'update']);
+Route::delete('/',[,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[,'index']);
+Route::post('/',[,'store']);
+Route::post('/',[,'show']);
+Route::put('/',[,'update']);
+Route::delete('/',[,'destroy']);
 
-Route::get('',[,]);
-Route::post('',[,]);
-Route::post('',[,]);
-Route::put('',[,]);
-Route::delete('',[,]);
+Route::get('/',[,'index']);
+Route::post('/',[,'store']);
+Route::post('/',[,'show']);
+Route::put('/',[,'update']);
+Route::delete('/',[,'destroy']);
