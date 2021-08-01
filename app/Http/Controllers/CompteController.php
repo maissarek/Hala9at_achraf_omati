@@ -14,8 +14,8 @@ class CompteController extends Controller
      */
     public function index()
     {
-        $comptes = Post::paginate(10);
-        return PostResource::collection($comptes);
+        $comptes = Compte::paginate(10);
+        return CompteResource::collection($comptes);
     }
 
     /**
