@@ -24,11 +24,11 @@ Route::post('/comptes/{id}',[CompteController::class,'show']);
 Route::put('/comptes/{id}',[CompteController::class,'update']);
 Route::delete('/comptes/{id}',[CompteController::class,'destroy']);
 
-Route::get('/',[EnseiganteController::class,'index']);
-Route::post('/',[EnseiganteController::class,'store']);
-Route::post('/',[EnseiganteController::class,'show']);
-Route::put('/',[EnseiganteController::class,'update']);
-Route::delete('/',[EnseiganteController::class,'destroy']);
+Route::get('/Enseigantes',[EnseiganteController::class,'index']);
+Route::post('/Enseigante',[EnseiganteController::class,'store']);
+Route::post('/Enseigantes/{id}',[EnseiganteController::class,'show']);
+Route::put('//Enseigantes/{id}',[EnseiganteController::class,'update']);
+Route::delete('//Enseigantes/{id}',[EnseiganteController::class,'destroy']);
 /*
 Route::get('/',[,'index']);
 Route::post('/',[,'store']);
