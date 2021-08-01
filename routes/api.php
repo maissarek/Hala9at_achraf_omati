@@ -29,7 +29,7 @@ Route::post('/',[EnseiganteController::class,'store']);
 Route::post('/',[EnseiganteController::class,'show']);
 Route::put('/',[EnseiganteController::class,'update']);
 Route::delete('/',[EnseiganteController::class,'destroy']);
-
+/*
 Route::get('/',[,'index']);
 Route::post('/',[,'store']);
 Route::post('/',[,'show']);
@@ -71,3 +71,4 @@ Route::post('/',[,'store']);
 Route::post('/',[,'show']);
 Route::put('/',[,'update']);
 Route::delete('/',[,'destroy']);
+*/
