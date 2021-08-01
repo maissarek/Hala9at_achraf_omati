@@ -14,7 +14,8 @@ class CompteController extends Controller
      */
     public function index()
     {
-        //
+        $comptes = Post::paginate(10);
+        return PostResource::collection($comptes);
     }
 
     /**
@@ -35,7 +36,8 @@ class CompteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $compte= new Compte();
+        $compte ->; = $request->;
     }
 
     /**
