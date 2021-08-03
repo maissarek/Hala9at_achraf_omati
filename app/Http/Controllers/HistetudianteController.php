@@ -7,15 +7,72 @@ use Illuminate\Http\Request;
 
 class HistetudianteController extends Controller
 {
+
+
+public function index()
+    {
+return response()->json(Histetudiante::all(),200);
+        }
+
+
+
+public function store(Request $request)
+    {
+        $histetudiante=Histetudiante::create($request->all());
+        return response($histetudiante,201);
+    }
+
+
+
+
+public function show($id)
+    {
+        $histetudiante=Histetudiante::find($id);
+        if(is_null($histetudiante)){
+
+           return response()->json(['message'=>'Histetudiante not found',404]);
+}
+           return response()->json($histetudiante::find($id),200);
+    }
+
+
+
+
+
+public function update(Request $request,$id)
+    {
+        $histetudiante= Histetudiante::find($id);
+        if(is_null($histetudiante)){
+
+           return response()->json(['message'=>'Histetudiante not found',404]);
+}
+$histetudiante->update ($request->all());
+return response($histetudiante,201);
+    }
+
+
+
+
+
+public function destroy($id)
+    {
+        $histetudiante= Histetudiante::find($id);
+        if(is_null($histetudiante)){
+
+           return response()->json(['message'=>'Histetudiante not found',404]);
+}
+$histetudiante->delete();
+return response()->json(null,204);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +90,7 @@ class HistetudianteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    
 
     /**
      * Display the specified resource.
@@ -44,10 +98,7 @@ class HistetudianteController extends Controller
      * @param  \App\Models\Histetudiante  $histetudiante
      * @return \Illuminate\Http\Response
      */
-    public function show(Histetudiante $histetudiante)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -67,10 +118,7 @@ class HistetudianteController extends Controller
      * @param  \App\Models\Histetudiante  $histetudiante
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Histetudiante $histetudiante)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +126,5 @@ class HistetudianteController extends Controller
      * @param  \App\Models\Histetudiante  $histetudiante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Histetudiante $histetudiante)
-    {
-        //
-    }
+    
 }
