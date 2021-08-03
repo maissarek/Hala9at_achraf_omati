@@ -7,15 +7,70 @@ use Illuminate\Http\Request;
 
 class personneController extends Controller
 {
+
+public function index()
+    {
+return response()->json(Personne::all(),200);
+        }
+
+
+
+public function store(Request $request)
+    {
+        $personne=  Personne::create($request->all());
+        return response($personne,201);
+    }
+
+
+
+
+public function show($id)
+    {
+        $personne=Personne::find($id);
+        if(is_null($personne)){
+
+           return response()->json(['message'=>'Personne not found',404]);
+}
+           return response()->json($personne::find($id),200);
+    }
+
+
+
+
+
+public function update(Request $request,$id)
+    {
+        $personne= Personne::find($id);
+        if(is_null($personne)){
+
+           return response()->json(['message'=>'Personne not found',404]);
+}
+$personne->update ($request->all());
+return response($personne,201);
+    }
+
+
+
+
+
+public function destroy($id)
+    {
+        $personne= Personne::find($id);
+        if(is_null($personne)){
+
+           return response()->json(['message'=>'Personne not found',404]);
+}
+$personne->delete();
+return response()->json(null,204);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +88,7 @@ class personneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    
 
     /**
      * Display the specified resource.
@@ -44,10 +96,7 @@ class personneController extends Controller
      * @param  \App\Models\personne  $personne
      * @return \Illuminate\Http\Response
      */
-    public function show(personne $personne)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -67,10 +116,8 @@ class personneController extends Controller
      * @param  \App\Models\personne  $personne
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, personne $personne)
-    {
-        //
-    }
+    
+
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +125,5 @@ class personneController extends Controller
      * @param  \App\Models\personne  $personne
      * @return \Illuminate\Http\Response
      */
-    public function destroy(personne $personne)
-    {
-        //
-    }
+    
 }
