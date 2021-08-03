@@ -14,9 +14,8 @@ class CompteController extends Controller
      */
     public function index()
     {
-        $comptes = Compte::paginate(10);
-        return CompteResource::collection($comptes);
-    }
+return response()->json(Compte::all(),200);
+        }
 
     /**
      * Show the form for creating a new resource.
@@ -36,8 +35,8 @@ class CompteController extends Controller
      */
     public function store(Request $request)
     {
-        $compte= new Compte();
-        $compte ->; = $request->;
+        $compte=  Compte::create($request->all());
+        return response($compte,201);
     }
 
     /**
@@ -46,9 +45,14 @@ class CompteController extends Controller
      * @param  \App\Models\Compte  $compte
      * @return \Illuminate\Http\Response
      */
-    public function show(Compte $compte)
+    public function show($id)
     {
-        //
+        $compte=Compte::find($id);
+        if(is_null($compte)){
+
+           return response()->json(['message'=>'Compte not found',404]);
+}
+           return response()->json($compte::find($id),200);
     }
 
     /**
@@ -69,9 +73,15 @@ class CompteController extends Controller
      * @param  \App\Models\Compte  $compte
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Compte $compte)
+    public function update(Request $request,$id)
     {
-        //
+        $compte= Compte::find($id);
+        if(is_null($compte)){
+
+           return response()->json(['message'=>'Compte not found',404]);
+}
+$compte->update ($request->all());
+return response($compte,201);
     }
 
     /**
@@ -82,6 +92,12 @@ class CompteController extends Controller
      */
     public function destroy(Compte $compte)
     {
-        //
+        $compte= Compte::find($id);
+        if(is_null($compte)){
+
+           return response()->json(['message'=>'Compte not found',404]);
+}
+$compte->delete();
+return response()->json(null,204);
     }
 }
