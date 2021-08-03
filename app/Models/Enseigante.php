@@ -9,5 +9,5 @@ class Enseigante extends Model
 {
     use HasFactory;
    protected $table="enseigante";
-protected $fillable= ['id','experienceTeaching','lieuKhatm','dateKhatm','ensKhatm','Remplace','Rempl_day']
+protected $fillable= ['experienceTeaching','lieuKhatm','dateKhatm','ensKhatm','Remplace','Rempl_day']
 }
