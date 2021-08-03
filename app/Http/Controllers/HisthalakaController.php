@@ -7,15 +7,73 @@ use Illuminate\Http\Request;
 
 class HisthalakaController extends Controller
 {
+
+
+
+public function index()
+    {
+return response()->json(Histhalaka::all(),200);
+        }
+
+
+
+public function store(Request $request)
+    {
+        $histhalaka=Histhalaka::create($request->all());
+        return response($histhalaka,201);
+    }
+
+
+
+
+public function show($id)
+    {
+        $histhalaka=Histhalaka::find($id);
+        if(is_null($histhalaka)){
+
+           return response()->json(['message'=>'Histhalaka not found',404]);
+}
+           return response()->json($Histhalaka::find($id),200);
+    }
+
+
+
+
+
+public function update(Request $request,$id)
+    {
+        $histhalaka= Histhalaka::find($id);
+        if(is_null($histhalaka)){
+
+           return response()->json(['message'=>'Histhalaka not found',404]);
+}
+$histhalaka->update ($request->all());
+return response($histhalaka,201);
+    }
+
+
+
+
+
+public function destroy($id)
+    {
+        $histhalaka= Histhalaka::find($id);
+        if(is_null($histhalaka)){
+
+           return response()->json(['message'=>'Histhalaka not found',404]);
+}
+$histhalaka->delete();
+return response()->json(null,204);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +91,7 @@ class HisthalakaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    
 
     /**
      * Display the specified resource.
@@ -44,11 +99,7 @@ class HisthalakaController extends Controller
      * @param  \App\Models\Histhalaka  $histhalaka
      * @return \Illuminate\Http\Response
      */
-    public function show(Histhalaka $histhalaka)
-    {
-        //
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -67,10 +118,7 @@ class HisthalakaController extends Controller
      * @param  \App\Models\Histhalaka  $histhalaka
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Histhalaka $histhalaka)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +126,5 @@ class HisthalakaController extends Controller
      * @param  \App\Models\Histhalaka  $histhalaka
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Histhalaka $histhalaka)
-    {
-        //
-    }
+    
 }
