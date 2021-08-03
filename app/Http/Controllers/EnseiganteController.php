@@ -12,10 +12,63 @@ class EnseiganteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+public function index()
     {
-        //
+return response()->json(Enseigante::all(),200);
+        }
+
+
+
+public function store(Request $request)
+    {
+        $enseigante=Enseigante::create($request->all());
+        return response($enseigante,201);
     }
+
+
+
+
+public function show($id)
+    {
+        $enseigante=Enseigante::find($id);
+        if(is_null($enseigante)){
+
+           return response()->json(['message'=>'Enseigante not found',404]);
+}
+           return response()->json($enseigante::find($id),200);
+    }
+
+
+
+
+
+public function update(Request $request,$id)
+    {
+        $enseigante= Enseigante::find($id);
+        if(is_null($enseigante)){
+
+           return response()->json(['message'=>'Enseigante not found',404]);
+}
+$enseigante->update ($request->all());
+return response($enseigante,201);
+    }
+
+
+
+
+
+public function destroy($id)
+    {
+        $enseigante= Enseigante::find($id);
+        if(is_null($enseigante)){
+
+           return response()->json(['message'=>'Enseigante not found',404]);
+}
+$enseigante->delete();
+return response()->json(null,204);
+    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +86,7 @@ class EnseiganteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    
 
     /**
      * Display the specified resource.
@@ -44,10 +94,7 @@ class EnseiganteController extends Controller
      * @param  \App\Models\Enseigante  $enseigante
      * @return \Illuminate\Http\Response
      */
-    public function show(Enseigante $enseigante)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -67,10 +114,7 @@ class EnseiganteController extends Controller
      * @param  \App\Models\Enseigante  $enseigante
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Enseigante $enseigante)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +122,5 @@ class EnseiganteController extends Controller
      * @param  \App\Models\Enseigante  $enseigante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Enseigante $enseigante)
-    {
-        //
-    }
+    
 }
