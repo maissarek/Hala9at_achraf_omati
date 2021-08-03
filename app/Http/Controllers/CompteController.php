@@ -44,7 +44,7 @@ $compte->update ($request->all());
 return response($compte,201);
     }
 
-public function destroy(Compte $compte)
+public function destroy($id)
     {
         $compte= Compte::find($id);
         if(is_null($compte)){
