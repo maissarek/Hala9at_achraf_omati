@@ -7,15 +7,71 @@ use Illuminate\Http\Request;
 
 class HalakaController extends Controller
 {
+
+
+
+     public function index()
+    {
+return response()->json(Halaka::all(),200);
+        }
+
+
+
+public function store(Request $request)
+    {
+       $halaka=  Halaka::create($request->all());
+        return response($halaka,201);
+    }
+
+
+
+
+public function show($id)
+    {
+        $halaka=Halaka::find($id);
+        if(is_null($halaka)){
+
+           return response()->json(['message'=>'Halaka not found',404]);
+}
+           return response()->json($halaka::find($id),200);
+    }
+
+
+
+
+
+public function update(Request $request,$id)
+    {
+        $halaka= Halaka::find($id);
+        if(is_null($halaka)){
+
+           return response()->json(['message'=>'Halaka not found',404]);
+}
+$halaka->update ($request->all());
+return response($halaka,201);
+    }
+
+
+
+
+
+public function destroy($id)
+    {
+        $halaka= Halaka::find($id);
+        if(is_null($halaka)){
+
+           return response()->json(['message'=>'Halaka not found',404]);
+}
+$Halaka->delete();
+return response()->json(null,204);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +89,7 @@ class HalakaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    
 
     /**
      * Display the specified resource.
@@ -44,10 +97,7 @@ class HalakaController extends Controller
      * @param  \App\Models\Halaka  $halaka
      * @return \Illuminate\Http\Response
      */
-    public function show(Halaka $halaka)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -67,10 +117,7 @@ class HalakaController extends Controller
      * @param  \App\Models\Halaka  $halaka
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Halaka $halaka)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +125,5 @@ class HalakaController extends Controller
      * @param  \App\Models\Halaka  $halaka
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Halaka $halaka)
-    {
-        //
-    }
+    
 }
