@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Enseigante;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class EnseiganteController extends Controller
 {
@@ -14,18 +15,33 @@ class EnseiganteController extends Controller
 
 public function index()
     {
-return response()->json(Enseigante::all(),200);
+    
+   return response()->json(Enseigante::all(),200);
         }
 
 
 
+ 
 public function store(Request $request)
     {
-        $enseigante=Enseigante::create($request->all());
-        return response($enseigante,201);
+   
+try{
+  
+ $enseigante = Enseigante::create($request->all());
+
+      return response($enseigante,201);
+      }catch(Throwable $e){
+     report($e);
+     return false;
+      }
     }
 
-
+     /*
+     public function search($name)
+    {
+        //
+        return Product::where('name','like','%'.$name.'%')->get();
+    }*/
 
 
 public function show($id)
@@ -33,9 +49,9 @@ public function show($id)
         $enseigante=Enseigante::find($id);
         if(is_null($enseigante)){
 
-           return response()->json(['message'=>'Enseigante not found',404]);
+         return response()->json(['message'=>'Enseigante not found',404]);
 }
-           return response()->json($enseigante::find($id),200);
+         return response()->json($enseigante::find($id),200);
     }
 
 
@@ -49,7 +65,8 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'Enseigante not found',404]);
 }
-$enseigante->update ($request->all());
+
+$enseigante->update($request->all());
 return response($enseigante,201);
     }
 
@@ -64,7 +81,7 @@ public function destroy($id)
 
            return response()->json(['message'=>'Enseigante not found',404]);
 }
-$enseigante->delete();
+            $enseigante->delete();
 return response()->json(null,204);
     }
     

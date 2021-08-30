@@ -3,22 +3,34 @@
 namespace App\Http\Controllers;
 use App\Models\Etudiante;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class EtudianteController extends Controller
 {
     
       public function index()
-    {
-return response()->json(Etudiante::all(),200);
-        }
+	  {
+
+ return response()->json(Etudiante::all(),200);
+   
+}
 
 
 
 public function store(Request $request)
     {
-        $etudiante=  Etudiante::create($request->all());
-        return response($etudiante,201);
+     try{
+
+ $etudiante = Etudiante::create($request->all());
+      return response($etudiante,201);
+
+      }catch(Throwable $e){
+     report($e);
+     return false;
+      }
     }
+    
+      }
 
 
 
@@ -44,8 +56,10 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'Etudiante not found',404]);
 }
+
 $etudiante->update ($request->all());
 return response($etudiante,201);
+
     }
 
 
@@ -112,20 +126,5 @@ return response()->json(null,204);
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Etudiante  $etudiante
-     * @return \Illuminate\Http\Response
-     */
-    
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Etudiante  $etudiante
-     * @return \Illuminate\Http\Response
-     */
     
 }

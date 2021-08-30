@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Halaka extends Model
 {
     use HasFactory;
+    public $timestamps=false;
 protected   $table= 'halaka';
-       protected  $fillable= ['name','lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax']
+protected  $fillable= ['name','lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax'];
 }

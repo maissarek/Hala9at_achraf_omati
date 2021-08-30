@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Halaka;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HalakaController extends Controller
 {
@@ -18,8 +19,15 @@ return response()->json(Halaka::all(),200);
 
 public function store(Request $request)
     {
-       $halaka=  Halaka::create($request->all());
-        return response($halaka,201);
+  try{
+
+ $halaka = Halaka::create($request->all());
+      return response($halaka,201);
+      }catch(Throwable $e){
+     report($e);
+     return false;
+      }
+
     }
 
 
