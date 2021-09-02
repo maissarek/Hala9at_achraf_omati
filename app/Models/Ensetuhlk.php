@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ensetuhlk extends Model
 {
     use HasFactory;
-protected $table="ensetuhlk";
-protected $fillable= ['id_ens','id_etud','id_hlk'];
+    public $timestamps=false;
+protected $table="ensetudhlk";
+protected $fillable= ['id','id_ens','id_etud','id_hlk'];
 
 }

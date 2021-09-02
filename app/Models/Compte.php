@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Compte extends Model
 {
     use HasFactory;
+    public $timestamps=false;
    protected $table='compte';
-protected $fillable= ['personne_id','username','password','dateCreation','etat'];
+protected $fillable= ['id','personne_id','username','password','dateCreation','etat'];
 }

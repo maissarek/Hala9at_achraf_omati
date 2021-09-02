@@ -8,6 +8,9 @@ use App\Http\Controllers\HalakaController;
 use App\Http\Controllers\CompteController;
 use App\Http\Controllers\PersonneController;
 use App\Http\Controllers\HistetudianteController;
+use App\Http\Controllers\EnsetuhlkController;
+use App\Http\Controllers\HisthalakaController;
+use App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,15 +39,13 @@ return view('welcome');
 });
 
 
-
-/*
 Route::get('/comptes',[CompteController::class,'index']);
 Route::post('/compte',[CompteController::class,'store']);
 Route::get('/comptes/{id}',[CompteController::class,'show']);
 Route::put('/comptes/{id}',[CompteController::class,'update']);
 Route::delete('/comptes/{id}',[CompteController::class,'destroy']);
 
-*/
+
 
 Route::get('/Halakat',[HalakaController::class,'index']);
 Route::post('/Halaka',[HalakaController::class,'store']);
@@ -63,22 +64,22 @@ Route::post('/Histetudiante_save',[HistetudianteController::class,'store']);
 Route::get('/Histetudiante/{id}',[HistetudianteController::class,'show']);
 Route::put('/Histetudiante/{id}',[HistetudianteController::class,'update']);
 Route::delete('/Histetudiante/{id}',[HistetudianteController::class,'destroy']);
-/*
-Route::get('/',[,'index']);
-Route::post('/',[,'store']);
-Route::post('/',[,'show']);
-Route::put('/',[,'update']);
-Route::delete('/',[,'destroy']);
 
-Route::get('/',[,'index']);
-Route::post('/',[,'store']);
-Route::post('/',[,'show']);
-Route::put('/',[,'update']);
-Route::delete('/',[,'destroy']);
+Route::get('/Ensetuhlks',[EnsetuhlkController::class,'index']);
+Route::post('/Ensetuhlk',[EnsetuhlkController::class,'store']);
+Route::get('/Ensetuhlk/{id}',[EnsetuhlkController::class,'show']);
+Route::put('/Ensetuhlk/{id}',[EnsetuhlkController::class,'update']);
+Route::delete('/Ensetuhlk/{id}',[EnsetuhlkController::class,'destroy']);
 
-Route::get('/',[,'index']);
-Route::post('/',[,'store']);
-Route::post('/',[,'show']);
-Route::put('/',[,'update']);
-Route::delete('/',[,'destroy']);
-*/
+Route::get('/Histhalakat',[HisthalakaController::class,'index']);
+Route::post('/Histhalaka',[HisthalakaController::class,'store']);
+Route::get('/Histhalaka/{id}',[HisthalakaController::class,'show']);
+Route::put('/Histhalaka/{id}',[HisthalakaController::class,'update']);
+Route::delete('/Histhalaka/{id}',[HisthalakaController::class,'destroy']);
+
+Route::get('/Roles',[RoleController::class,'index']);
+Route::post('/Role',[RoleController::class,'store']);
+Route::get('/Role/{id}',[RoleController::class,'show']);
+Route::put('/Role/{id}',[RoleController::class,'update']);
+Route::delete('/Role/{id}',[RoleController::class,'destroy']);
+
