@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Histetudiante;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HistetudianteController extends Controller
 {
