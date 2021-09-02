@@ -10,7 +10,7 @@ class EtudianteController extends Controller
     
       public function index()
 	  {
-
+    
  return response()->json(Etudiante::all(),200);
    
 }
@@ -19,7 +19,8 @@ class EtudianteController extends Controller
 
 public function store(Request $request)
     {
-     try{
+
+    try{
 
  $etudiante = Etudiante::create($request->all());
       return response($etudiante,201);
@@ -28,7 +29,7 @@ public function store(Request $request)
      report($e);
      return false;
       }
-    }
+    
     
       }
 

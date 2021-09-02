@@ -6,6 +6,7 @@ use App\Http\Controllers\EnseiganteController;
 use App\Http\Controllers\EtudianteController;
 use App\Http\Controllers\HalakaController;
 use App\Http\Controllers\CompteController;
+use App\Http\Controllers\PersonneController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -49,13 +50,13 @@ Route::post('/Halaka',[HalakaController::class,'store']);
 Route::get('/Halaka/{id}',[HalakaController::class,'show']);
 Route::put('/Halaka/{id}',[HalakaController::class,'update']);
 Route::delete('/Halaka/{id}',[HalakaController::class,'destroy']);
-/*
-Route::get('/',[,'index']);
-Route::post('/',[,'store']);
-Route::post('/',[,'show']);
-Route::put('/',[,'update']);
-Route::delete('/',[,'destroy']);
 
+Route::get('/personnes',[PersonneController::class,'index']);
+Route::post('/personne_save',[PersonneController::class,'store']);
+Route::get('/personne/{id}',[PersonneController::class,'show']);
+Route::put('/personne/{id}',[PersonneController::class,'update']);
+Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
+/*
 Route::get('/',[,'index']);
 Route::post('/',[,'store']);
 Route::post('/',[,'show']);

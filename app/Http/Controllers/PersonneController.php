@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 use App\Models\Personne;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PersonneController extends Controller
 {
 
 public function index()
     {
+    
 return response()->json(Personne::all(),200);
         }
 
@@ -16,9 +18,15 @@ return response()->json(Personne::all(),200);
 
 public function store(Request $request)
     {
+    try{
         $personne=  Personne::create($request->all());
         return response($personne,201);
-    }
+
+        }catch(Throwable $e){
+     report($e);
+     return false;
+      }
+      }
 
 
 
