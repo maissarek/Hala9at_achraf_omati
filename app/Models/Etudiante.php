@@ -18,12 +18,14 @@ class Etudiante extends Model
        'ensKhatm',
        'teach',
        'teachPlace',
-       'personne_id'
+       'personne_id',
+       'hizb'
        ];
 
          public function personne()
    {
-   return $this->belongsTo(personne::class);
-   }						
-
+   return $this -> belongsTo(Personne::class);
+   }
+   
+    
 }

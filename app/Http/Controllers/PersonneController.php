@@ -10,34 +10,35 @@ class PersonneController extends Controller
 
 public function index()
     {
-     $enseigante = Personne::with('Ens_relat')->get();
-       $etu = Personne::with('Etu_relat')->get();
- dd($enseigante,$etu);
-
-return response()->json(Personne::all(),200);
-        }
+        $enseigante = Personne::with('Ens_relat')->get();
+        $etu = Personne::with('Etu_relat')->get();
+        dd($enseigante,$etu);
+        return response()->json(Personne::all(),200);
+    }
 
 
 
 public function store(Request $request)
     {
         $personne= Personne::create($request->all());
-         return response($personne,201);
-
-      
+         return response($personne,201);      
       }
 
+
+//////////////////////////*** intrface 1 ***//////////////////////////////////////
 
 
  public function  save_pers_ens(Request $request){
 
-   $personne= Personne::create($request->all());
-  $ens = Enseigante::create($request->all());
+         $personne= Personne::create($request->all());
+         $ens = Enseigante::create($request->all());
          $personne->Ens_relat()->save($ens);
           return response([$personne,$etu],201);
 
        
  }
+
+ //////////////////////////*** intrface 3 ***//////////////////////////////////////
 
 public function  save_pers_etu(Request $request){
 
@@ -47,6 +48,14 @@ public function  save_pers_etu(Request $request){
              return response([$personne,$etu],201);
             
  }
+
+ 
+
+
+
+
+
+
 
 public function show($id)
     {

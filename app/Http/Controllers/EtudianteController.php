@@ -1,13 +1,54 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Etudiante;
+use Carbon\Carbon;
+use App\Models\{Personne,Halaka,Etudiante,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class EtudianteController extends Controller
 {
-    
+
+
+
+//////////////////////////*** intrface 4 ***//////////////////////////////////////
+
+public function all_etudiante()
+{
+
+        // $query->select('id','nom','prenom',Carbon:parse('Y-m-d', 'dateNaiss')->diff(Carbon::now())->y);
+        
+        $etu= Etudiante::select('hizb','personne_id')
+            ->with(array('personne'=>function($query){
+                   $query->select('id','nom','prenom','dateNaiss');
+                     }))
+            ->get();
+
+
+
+
+
+
+
+
+
+
+       /* ->with(array('personne'=>function($query){
+                   $query->select('id','nom','prenom','dateNaiss');
+                     }))->get();
+        */return response($etu,201);
+
+}
+
+
+
+
+
+
+
+
+
+
       public function index()
 	  {
     

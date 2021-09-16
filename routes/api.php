@@ -54,9 +54,22 @@ Route::post('/personne_save',[PersonneController::class,'store']);
 Route::get('/personne/{id}',[PersonneController::class,'show']);
 Route::put('/personne/{id}',[PersonneController::class,'update']);
 Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+
+Route::get('/etudiante_list',[EtudianteController::class,'all_etudiante']);
 Route::post('/enseignante_add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante_add',[PersonneController::class,'save_pers_etu']);
 
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
 Route::get('/Histetudiantes',[HistetudianteController::class,'index']);
 Route::post('/Histetudiante_save',[HistetudianteController::class,'store']);
 Route::get('/Histetudiante/{id}',[HistetudianteController::class,'show']);
