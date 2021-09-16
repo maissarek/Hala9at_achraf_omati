@@ -5698,16 +5698,16 @@
         },
         {
             "name": "kitloong/laravel-migrations-generator",
-            "version": "v4.5.0",
+            "version": "v4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kitloong/laravel-migrations-generator.git",
-                "reference": "b027a1d174a031b401fb14ab1e288281eb5df46e"
+                "reference": "65a6a2f6b9811f343da1092be75c450b51293e7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kitloong/laravel-migrations-generator/zipball/b027a1d174a031b401fb14ab1e288281eb5df46e",
-                "reference": "b027a1d174a031b401fb14ab1e288281eb5df46e",
+                "url": "https://api.github.com/repos/kitloong/laravel-migrations-generator/zipball/65a6a2f6b9811f343da1092be75c450b51293e7c",
+                "reference": "65a6a2f6b9811f343da1092be75c450b51293e7c",
                 "shasum": ""
             },
             "require": {
@@ -5757,9 +5757,15 @@
             ],
             "support": {
                 "issues": "https://github.com/kitloong/laravel-migrations-generator/issues",
-                "source": "https://github.com/kitloong/laravel-migrations-generator/tree/v4.5.0"
+                "source": "https://github.com/kitloong/laravel-migrations-generator/tree/v4.5.1"
             },
-            "time": "2021-07-06T16:05:08+00:00"
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/kitloong",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-08-31T13:55:56+00:00"
         },
         {
             "name": "laravel/sail",
@@ -7820,5 +7826,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

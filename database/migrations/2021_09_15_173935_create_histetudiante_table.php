@@ -14,7 +14,7 @@ class CreateHistetudianteTable extends Migration
     public function up()
     {
         Schema::create('histetudiante', function (Blueprint $table) {
-           $table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('HistHalaka')->index('HistHalaka');
             $table->unsignedInteger('ensEtudHlk_id')->index('ensEtudHlk_id');
             $table->integer('hizb');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleTable extends Migration
+class AddForeignKeysToEnseiganteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('role', function (Blueprint $table) {
-             $table->increments('id');
-            $table->string('libelle', 100);
+        Schema::table('enseigante', function (Blueprint $table) {
+            $table->foreign('personne_id', 'enseigante_ibfk_1')->references('id')->on('personne');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateRoleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role');
+        Schema::table('enseigante', function (Blueprint $table) {
+            $table->dropForeign('enseigante_ibfk_1');
+        });
     }
 }

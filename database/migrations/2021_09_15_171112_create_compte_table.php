@@ -14,7 +14,7 @@ class CreateCompteTable extends Migration
     public function up()
     {
         Schema::create('compte', function (Blueprint $table) {
-             $table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('personne_id')->index('personne_id');
             $table->string('username', 50);
             $table->string('password', 50);

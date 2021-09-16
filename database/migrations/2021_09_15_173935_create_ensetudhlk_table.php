@@ -14,7 +14,7 @@ class CreateEnsetudhlkTable extends Migration
     public function up()
     {
         Schema::create('ensetudhlk', function (Blueprint $table) {
-             $table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('id_ens')->index('id_ens');
             $table->unsignedInteger('id_etud')->index('id_etud');
             $table->unsignedInteger('id_hlk')->index('id_hlk');

@@ -5,11 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class personne extends Model
+class Personne extends Model
 {
-    use HasFactory;
+
+use HasFactory;
 public $timestamps=false;
 protected $table="personne";
-protected $fillable=['id','nom','prenom','dateNaiss','adresse','telephone','email', 'fonction', 'niveauScolaire','dateEntree'];
+protected $fillable = [
+'nom',
+'prenom',
+'dateNaiss',
+'adresse',
+'telephone',
+'email',
+'fonction',
+'niveauScolaire',
+'dateEntree'];
+
+public function Ens_relat()
+    {
+        return $this->hasOne(Enseigante::class);
+    }
+
+public function Etu_relat()
+    {
+        return $this->hasOne(Etudiante::class);
+    }
 
 }

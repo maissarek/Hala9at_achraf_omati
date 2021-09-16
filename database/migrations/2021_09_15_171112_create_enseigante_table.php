@@ -21,6 +21,7 @@ class CreateEnseiganteTable extends Migration
             $table->string('ensKhatm', 100);
             $table->string('Remplace', 100);
             $table->date('Rempl_day');
+            $table->unsignedInteger('personne_id')->index('personne_id');
         });
     }
 

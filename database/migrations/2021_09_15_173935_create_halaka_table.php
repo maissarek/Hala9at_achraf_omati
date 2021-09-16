@@ -14,7 +14,7 @@ class CreateHalakaTable extends Migration
     public function up()
     {
         Schema::create('halaka', function (Blueprint $table) {
-             $table->increments('id');
+            $table->increments('id');
             $table->string('name', 500);
             $table->string('lieu', 500);
             $table->string('jour', 100);

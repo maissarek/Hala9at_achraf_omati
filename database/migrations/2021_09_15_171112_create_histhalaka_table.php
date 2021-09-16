@@ -14,7 +14,7 @@ class CreateHisthalakaTable extends Migration
     public function up()
     {
         Schema::create('histhalaka', function (Blueprint $table) {
-             $table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('ensRemplacante')->index('ensRemplacante');
             $table->date('date');
             $table->string('moraja3a', 100);

@@ -15,8 +15,8 @@ class EnseiganteController extends Controller
 
 public function index()
     {
-    
-   return response()->json(Enseigante::all(),200);
+    return response()->json(Enseigante::all(),200);
+
         }
 
 

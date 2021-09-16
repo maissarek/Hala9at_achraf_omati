@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Personne;
+use App\Models\{Personne,Enseigante,Etudiante};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -10,7 +10,10 @@ class PersonneController extends Controller
 
 public function index()
     {
-    
+     $enseigante = Personne::with('Ens_relat')->get();
+       $etu = Personne::with('Etu_relat')->get();
+ dd($enseigante,$etu);
+
 return response()->json(Personne::all(),200);
         }
 
@@ -18,18 +21,32 @@ return response()->json(Personne::all(),200);
 
 public function store(Request $request)
     {
-    try{
-        $personne=  Personne::create($request->all());
-        return response($personne,201);
+        $personne= Personne::create($request->all());
+         return response($personne,201);
 
-        }catch(Throwable $e){
-     report($e);
-     return false;
-      }
+      
       }
 
 
 
+ public function  save_pers_ens(Request $request){
+
+   $personne= Personne::create($request->all());
+  $ens = Enseigante::create($request->all());
+         $personne->Ens_relat()->save($ens);
+          return response([$personne,$etu],201);
+
+       
+ }
+
+public function  save_pers_etu(Request $request){
+
+             $personne= Personne::create($request->all()); 
+            $etu = Etudiante::create($request->all());
+             $personne->Etu_relat()->save($etu);
+             return response([$personne,$etu],201);
+            
+ }
 
 public function show($id)
     {

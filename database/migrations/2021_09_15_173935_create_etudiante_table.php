@@ -21,6 +21,7 @@ class CreateEtudianteTable extends Migration
             $table->string('ensKhatm', 100)->nullable();
             $table->string('teach', 10)->nullable();
             $table->string('teachPlace', 100)->nullable();
+            $table->unsignedInteger('personne_id')->index('personne_id');
         });
     }
 

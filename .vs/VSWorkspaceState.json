@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\app\\Exceptions",
-    "\\config"
+    "\\app",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
+    "\\app\\Models",
+    "\\routes"
   ],
-  "SelectedNode": "\\config\\app.php",
+  "SelectedNode": "\\app\\Models\\Histhalaka.php",
   "PreviewInSolutionExplorer": false
 }

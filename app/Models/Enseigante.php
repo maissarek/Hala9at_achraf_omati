@@ -10,7 +10,19 @@ class Enseigante extends Model
     use HasFactory;
     public $timestamps=false;
    protected $table='enseigante';
-   protected $fillable= ['id','experienceTeaching','lieuKhatm','dateKhatm','ensKhatm','Remplace','Rempl_day'];
+   protected $fillable= [
+   'id',
+   'experienceTeaching',
+   'lieuKhatm',
+   'dateKhatm',
+   'ensKhatm',
+   'Remplace',
+   'Rempl_day',
+   'personne_id'
+   ];
 
- 
+   public function personne()
+   {
+   return $this->belongsTo(Personne::class);
+   }
 }
