@@ -20,10 +20,10 @@ class CreatePersonneTable extends Migration
             $table->date('dateNaiss');
             $table->string('adresse', 1000);
             $table->integer('telephone');
-            $table->string('email', 50);
-            $table->string('fonction', 500);
+            $table->string('email', 50)->nullable();
+            $table->string('fonction', 500)->nullable();
             $table->string('niveauScolaire', 50);
-            $table->date('dateEntree');
+            $table->date('dateEntree')->nullable();
         });
     }
 

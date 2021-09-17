@@ -10,7 +10,7 @@ class Etudiante extends Model
     use HasFactory;
     public $timestamps=false;
       protected   $table='etudiante';
-       protected  $fillable= [
+      protected  $fillable= [
        'id',
        'niveauAhkam',
        'lieuKhatm',
@@ -18,14 +18,17 @@ class Etudiante extends Model
        'ensKhatm',
        'teach',
        'teachPlace',
-       'personne_id',
-       'hizb'
+       'hizb','personne_id'
        ];
 
          public function personne()
    {
    return $this -> belongsTo(Personne::class);
    }
-   
+
+   public function getEnsetuhlk()
+   {
+   return $this -> belongsTo(Ensetuhlk::class);
+   } 
     
 }

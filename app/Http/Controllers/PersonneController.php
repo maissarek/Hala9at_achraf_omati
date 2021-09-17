@@ -10,6 +10,7 @@ class PersonneController extends Controller
 
 public function index()
     {
+
         $enseigante = Personne::with('Ens_relat')->get();
         $etu = Personne::with('Etu_relat')->get();
         dd($enseigante,$etu);
@@ -33,7 +34,7 @@ public function store(Request $request)
          $personne= Personne::create($request->all());
          $ens = Enseigante::create($request->all());
          $personne->Ens_relat()->save($ens);
-          return response([$personne,$etu],201);
+          return response([$personne,$ens],201);
 
        
  }

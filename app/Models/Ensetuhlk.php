@@ -19,7 +19,7 @@ protected $fillable =
 'id_ens',
 'id_etud',
 'id_hlk',
-'date_affectation',
+'date_affectation'
 
 ];
 

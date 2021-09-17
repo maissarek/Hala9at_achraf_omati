@@ -19,7 +19,7 @@ HisthalakaController,RoleController};
 */
 Route::get('/etudiantes',[EtudianteController::class,'index']);
 Route::post('/etudiante_save',[EtudianteController::class,'store']);
-Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
+//Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
 Route::put('/etudiante/{id}',[EtudianteController::class,'update']);
 Route::delete('/etudiante/{id}',[EtudianteController::class,'destroy']);
 
@@ -60,9 +60,9 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
 
 
-Route::get('/etudiante_list',[EtudianteController::class,'all_etudiante']);
-Route::post('/enseignante_add',[PersonneController::class,'save_pers_ens']);
-Route::post('/etudiante_add',[PersonneController::class,'save_pers_etu']);
+Route::get('/etudiante/list',[EtudianteController::class,'all_etudiante']);
+Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
+Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
 
 
 
