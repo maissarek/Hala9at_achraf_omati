@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Enseigante;
+use App\Models\{Enseigante,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -12,6 +12,23 @@ class EnseiganteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+public function all_enseignate()
+{
+
+$data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+          ->join('personne','personne.id','=','enseigante.personne_id')
+         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->join('groupe','groupe.id','=','halaka.id_groupe')
+         /**/
+                ->select('personne.id','personne.nom','personne.prenom',
+        'personne.dateNaiss','halaka.name_h','groupe.name','remplace')
+     ->get();
+               
+        return response($data,200);
+}
+
+
+
 
 public function index()
     {

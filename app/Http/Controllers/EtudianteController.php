@@ -18,57 +18,17 @@ class EtudianteController extends Controller
 public function all_etudiante()
 {
 
-
 $data = Ensetuhlk::join('etudiante','etudiante.id','=','ensetudhlk.id_etud')
           ->join('personne','personne.id','=','etudiante.personne_id')
          ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->join('groupe','groupe.id','=','halaka.id_groupe')
-         
-        ->select('personne.id','personne.nom','personne.prenom',
+         /**/
+                ->select('personne.id','personne.nom','personne.prenom',
         'personne.dateNaiss','etudiante.hizb','halaka.name_h','groupe.name')
-        //->where(DB::raw('MAX(ensetudhlk.date_affectation)')
-        ->get();
+     ->latest()
+     ->first();
+               
         return response($data,200);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // $query->select('id','nom','prenom',Carbon:parse('Y-m-d', 'dateNaiss')->diff(Carbon::now())->y);
-        
-     /*   $etu= Etudiante::select('hizb','personne_id')
-        ->with(array('personne'=>function($query){
-                   $query->select('id','nom','prenom','dateNaiss');
-                     }))
-
-        ->with(array('getEnsetuhlk'=>function($query){
-                   $query->select('id','id_etud','id_hlk');
-                     }))
-                   
-        ->get();
-
-            return response($etu,201);
-
-       /* ->with(array('personne'=>function($query){
-                   $query->select('id','nom','prenom','dateNaiss');
-                     }))->get();
-        */
-
 }
 
 

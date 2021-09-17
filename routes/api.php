@@ -6,7 +6,7 @@ use App\Http\Controllers\{EnseiganteController,
 EtudianteController,HalakaController,
 CompteController,PersonneController,
 HistetudianteController,EnsetuhlkController,
-HisthalakaController,RoleController};
+HisthalakaController,RoleController,GroupController};
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,7 +43,7 @@ Route::delete('/comptes/{id}',[CompteController::class,'destroy']);
 
 
 
-Route::get('/halakat',[HalakaController::class,'index']);
+
 Route::post('/halaka',[HalakaController::class,'store']);
 Route::get('/halaka/{id}',[HalakaController::class,'show']);
 Route::put('/halaka/{id}',[HalakaController::class,'update']);
@@ -59,12 +59,12 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
 
 
-
+Route::get('/enseignante/list',[enseiganteController::class,'all_enseignate']);
 Route::get('/etudiante/list',[EtudianteController::class,'all_etudiante']);
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
-
-
+Route::get('/halakat/list',[HalakaController::class,'index']);
+Route::get('/groupe/list',[GroupController::class,'index']);
 
 
 
