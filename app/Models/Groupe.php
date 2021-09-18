@@ -13,9 +13,5 @@ protected   $table= 'groupe';
 protected  $fillable= ['id','name'];
 
 
-public function Halaka(){
-
-return $this->hasMany(Halaka::class);
-}
 
 }
