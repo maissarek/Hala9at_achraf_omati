@@ -5,8 +5,8 @@
     "\\app\\Http",
     "\\app\\Http\\Controllers",
     "\\app\\Models",
-    "\\routes"
+    "\\database"
   ],
-  "SelectedNode": "\\app\\Models\\Histhalaka.php",
+  "SelectedNode": "\\app\\Http\\Controllers\\HalakaController.php",
   "PreviewInSolutionExplorer": false
 }

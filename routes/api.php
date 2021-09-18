@@ -63,7 +63,7 @@ Route::get('/enseignante/list',[enseiganteController::class,'all_enseignate']);
 Route::get('/etudiante/list',[EtudianteController::class,'all_etudiante']);
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
-Route::get('/halakat/list',[HalakaController::class,'index']);
+Route::get('/halakatbygroup/list/{id}',[HalakaController::class,'getHalakatbyGroupeId']);
 Route::get('/groupe/list',[GroupController::class,'index']);
 
 

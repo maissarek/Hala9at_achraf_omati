@@ -11,4 +11,7 @@ class GroupController extends Controller
     return response()->json(Groupe::all(),200);
 
         }
+
+       
+   
 }

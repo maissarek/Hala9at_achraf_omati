@@ -8,6 +8,16 @@ use Illuminate\Http\Response;
 class HalakaController extends Controller
 {
 
+ public function getHalakatbyGroupeId($id){
+
+        $data = Halaka::join('groupe','groupe.id','=','halaka.id_groupe')
+       
+                ->select('halaka.name_h')
+                ->get();
+
+                return response()->json($data,200);
+
+        }
 
 
      public function index()

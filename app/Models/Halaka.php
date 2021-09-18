@@ -12,5 +12,8 @@ class Halaka extends Model
 protected   $table= 'halaka';
 protected  $fillable= ['id','name_h','lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax'];
 
+public function groupe(){
 
+return $this->belongToMany(Group::class);
+}
 }
