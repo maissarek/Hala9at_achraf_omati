@@ -17,8 +17,7 @@ class Enseigante extends Model
    'dateKhatm',
    'ensKhatm',
    'Remplace',
-   'Rempl_day',
-   'personne_id'
+   'Rempl_day'
    ];
 
    public function personne()

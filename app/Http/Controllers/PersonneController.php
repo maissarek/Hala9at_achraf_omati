@@ -32,7 +32,16 @@ public function store(Request $request)
  public function  save_pers_ens(Request $request){
 
          $personne= Personne::create($request->all());
-         $ens = Enseigante::create($request->all());
+          $ens = new Enseigante;
+
+$ens->experienceTeaching= $request->experienceTeaching;
+   $ens->lieuKhatm = $request->lieuKhatm;
+ $ens->  dateKhatm= $request->dateKhatm;
+ $ens->  ensKhatm= $request->ensKhatm;
+ $ens->  Remplace= $request->Remplace;
+ $ens->  Rempl_day= $request->Rempl_day;
+        
+        // $ens = ::create($request->all());
          $personne->Ens_relat()->save($ens);
           return response([$personne,$ens],201);
 
