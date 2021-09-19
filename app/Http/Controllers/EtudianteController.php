@@ -19,11 +19,11 @@ public function all_etudiante()
 {
 
 $data = Ensetuhlk::join('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-          ->join('personne','personne.id','=','etudiante.personne_id')
+         ->join('personne','personne.id','=','etudiante.personne_id')
          ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->join('groupe','groupe.id','=','halaka.id_groupe')
          /**/
-                ->select('personne.id','personne.nom','personne.prenom',
+         ->select('personne.id','personne.nom','personne.prenom',
         'personne.dateNaiss','etudiante.hizb','halaka.name_h','groupe.name')
      ->latest()
      ->first();
@@ -31,6 +31,20 @@ $data = Ensetuhlk::join('etudiante','etudiante.id','=','ensetudhlk.id_etud')
         return response($data,200);
 }
 
+public function update_etudiante($request){
+
+$data = Ensetuhlk::join('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+         ->join('personne','personne.id','=','etudiante.personne_id')
+         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->join('groupe','groupe.id','=','halaka.id_groupe')
+         /**/
+         ->select('personne.id','personne.nom','personne.prenom',
+        'personne.dateNaiss','etudiante.hizb','halaka.name_h','groupe.name')
+     ->latest()
+     ->update(['personne.nom' => $request.nom, 'personne.prenom' =>$request.prenom]);
+return response($data,200);
+
+}
 
 public function index()
 	  {

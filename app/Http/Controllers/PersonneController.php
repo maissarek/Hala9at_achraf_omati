@@ -34,8 +34,8 @@ public function store(Request $request)
          $personne= Personne::create($request->all());
           $ens = new Enseigante;
 
-$ens->experienceTeaching= $request->experienceTeaching;
-   $ens->lieuKhatm = $request->lieuKhatm;
+ $ens->experienceTeaching= $request->experienceTeaching;
+ $ens->lieuKhatm = $request->lieuKhatm;
  $ens->  dateKhatm= $request->dateKhatm;
  $ens->  ensKhatm= $request->ensKhatm;
  $ens->  Remplace= $request->Remplace;
