@@ -53,7 +53,15 @@ $ens->experienceTeaching= $request->experienceTeaching;
 public function  save_pers_etu(Request $request){
 
              $personne= Personne::create($request->all()); 
-            $etu = Etudiante::create($request->all());
+            $etu = new Etudiante;
+
+            $etu->niveauAhkam = $request->niveauAhkam;
+            $etu->lieuKhatm = $request->lieuKhatm;
+            $etu->dateKhatm = $request->dateKhatm;
+            $etu->ensKhatm = $request->ensKhatm;
+            $etu->teach = $request->teach;
+            $etu->teachPlace = $request->teachPlace;
+            $etu->hizb = $request->hizb;
              $personne->Etu_relat()->save($etu);
              return response([$personne,$etu],201);
             
