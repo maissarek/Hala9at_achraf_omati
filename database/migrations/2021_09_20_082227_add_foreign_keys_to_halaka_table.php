@@ -15,7 +15,7 @@ class AddForeignKeysToHalakaTable extends Migration
     {
         Schema::table('halaka', function (Blueprint $table) {
             $table->foreign('id_groupe', 'halaka_ibfk_1')->references('id')->on('groupe');
-        $table->foreign('id_lieu', 'halaka_ibfk_2')->references('id')->on('lieu');
+            $table->foreign('id_lieu', 'halaka_ibfk_2')->references('id')->on('lieu');
         });
     }
 
@@ -28,7 +28,7 @@ class AddForeignKeysToHalakaTable extends Migration
     {
         Schema::table('halaka', function (Blueprint $table) {
             $table->dropForeign('halaka_ibfk_1');
-             $table->dropForeign('halaka_ibfk_2');
+            $table->dropForeign('halaka_ibfk_2');
         });
     }
 }

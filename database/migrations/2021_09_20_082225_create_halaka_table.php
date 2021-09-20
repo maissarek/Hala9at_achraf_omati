@@ -24,7 +24,6 @@ class CreateHalakaTable extends Migration
             $table->string('fiaMax', 100);
             $table->unsignedInteger('id_groupe')->index('id_groupe');
             $table->unsignedInteger('id_lieu')->index('id_lieu');
-      
         });
     }
 

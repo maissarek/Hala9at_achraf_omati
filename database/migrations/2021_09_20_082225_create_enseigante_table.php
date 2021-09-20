@@ -16,11 +16,11 @@ class CreateEnseiganteTable extends Migration
         Schema::create('enseigante', function (Blueprint $table) {
             $table->increments('id');
             $table->string('experienceTeaching', 100);
-            $table->string('lieuKhatm', 100);
-            $table->date('dateKhatm');
-            $table->string('ensKhatm', 100);
-            $table->string('Remplace', 100);
-            $table->date('Rempl_day');
+            $table->string('lieuKhatm', 100)->nullable();
+            $table->date('dateKhatm')->nullable();
+            $table->string('ensKhatm', 100)->nullable();
+            $table->string('Remplace', 100)->nullable();
+            $table->date('Rempl_day')->nullable();
             $table->unsignedInteger('personne_id')->index('personne_id');
         });
     }

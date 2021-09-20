@@ -16,7 +16,7 @@ class CreateLieuTable extends Migration
         Schema::create('lieu', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 500);
-              });
+        });
     }
 
     /**

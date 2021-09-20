@@ -11,7 +11,7 @@ class Halaka extends Model
     public $timestamps=false;
 protected   $table= 'halaka';
 protected  $fillable=
-['id','name_h','id_lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax','id_groupe'];
+['id','name','id_lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax','id_groupe'];
 
 public function groupe(){
 

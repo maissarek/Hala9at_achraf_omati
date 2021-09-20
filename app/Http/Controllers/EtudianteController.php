@@ -18,13 +18,13 @@ class EtudianteController extends Controller
 public function all_etudiante()
 {
 
-$data = Ensetuhlk::rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+$data = Ensetuhlk::join('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->join('personne','personne.id','=','etudiante.personne_id')
-        ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
+        ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->join('groupe','groupe.id','=','halaka.id_groupe')
          /**/
          ->select('personne.id','personne.nom','personne.prenom',
-        'personne.dateNaiss','etudiante.hizb','halaka.name_h  as halaka','groupe.name as groupe')
+        'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
      ->latest()
      ->first();
                
