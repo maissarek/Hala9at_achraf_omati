@@ -22,6 +22,7 @@ class CreateEnseiganteTable extends Migration
             $table->string('Remplace', 100)->nullable();
             $table->date('Rempl_day')->nullable();
             $table->unsignedInteger('personne_id')->index('personne_id');
+            $table->softDeletes();
         });
     }
 

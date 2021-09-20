@@ -16,6 +16,7 @@ class CreateRoleTable extends Migration
         Schema::create('role', function (Blueprint $table) {
             $table->increments('id');
             $table->string('libelle', 100);
+            $table->softDeletes();
         });
     }
 

@@ -22,6 +22,7 @@ class CreateHisthalakaTable extends Migration
             $table->string('autres', 5000);
             $table->string('absence_Ens', 10);
             $table->string('justification_Ens', 500);
+            $table->softDeletes();
         });
     }
 

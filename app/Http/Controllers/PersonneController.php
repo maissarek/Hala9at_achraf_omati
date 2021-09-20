@@ -11,9 +11,9 @@ class PersonneController extends Controller
 public function index()
     {
 
-        $enseigante = Personne::with('Ens_relat')->get();
+     /*   $enseigante = Personne::with('Ens_relat')->get();
         $etu = Personne::with('Etu_relat')->get();
-        dd($enseigante,$etu);
+        dd($enseigante,$etu);*/
         return response()->json(Personne::all(),200);
     }
 
@@ -112,7 +112,7 @@ public function destroy($id)
            return response()->json(['message'=>'Personne not found',404]);
 }
 $personne->delete();
-return response()->json(null,204);
+return response()->json(['message'=>'Personne deleted ! ',204]);
     }
 
 

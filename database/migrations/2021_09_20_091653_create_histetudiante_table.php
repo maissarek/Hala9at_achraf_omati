@@ -27,6 +27,7 @@ class CreateHistetudianteTable extends Migration
             $table->tinyInteger('absent');
             $table->string('justificatif', 500);
             $table->string('observations', 1000);
+            $table->softDeletes();
         });
     }
 

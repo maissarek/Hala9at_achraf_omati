@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Halaka extends Model
 {
     use HasFactory;
     public $timestamps=false;
+    use SoftDeletes;
 protected   $table= 'halaka';
 protected  $fillable=
 ['id','name','id_lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax','id_groupe'];

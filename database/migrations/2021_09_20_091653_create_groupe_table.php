@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompteTable extends Migration
+class CreateGroupeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateCompteTable extends Migration
      */
     public function up()
     {
-        Schema::create('compte', function (Blueprint $table) {
+        Schema::create('groupe', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('personne_id')->index('personne_id');
-            $table->string('username', 50);
-            $table->string('password', 50);
-            $table->date('dateCreation');
-            $table->tinyInteger('etat');
+            $table->string('name', 500);
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +27,6 @@ class CreateCompteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compte');
+        Schema::dropIfExists('groupe');
     }
 }
