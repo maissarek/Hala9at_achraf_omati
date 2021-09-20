@@ -59,12 +59,18 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
 
 
-Route::get('/enseignante/list',[enseiganteController::class,'all_enseignate']);
+Route::get('/enseignante/list',[EnseiganteController::class,'all_enseignate']);
 Route::get('/etudiante/list',[EtudianteController::class,'all_etudiante']);
-Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
-Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
+
 Route::get('/halakatbygroup/list/{id}',[HalakaController::class,'getHalakatbyGroupeId']);
 Route::get('/groupe/list',[GroupController::class,'index']);
+
+Route::put('/etudiante/update/{id}',[EtudianteController::class,'update']);
+Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
+
+Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
+Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
+
 
 
 

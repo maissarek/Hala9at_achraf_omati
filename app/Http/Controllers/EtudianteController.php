@@ -17,33 +17,20 @@ class EtudianteController extends Controller
 public function all_etudiante()
 {
 
-$data = Ensetuhlk::join('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-         ->join('personne','personne.id','=','etudiante.personne_id')
-        ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->join('groupe','groupe.id','=','halaka.id_groupe')
+$data = Ensetuhlk::rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+         ->leftJoin('personne','personne.id','=','etudiante.personne_id')
+        ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
          /**/
-         ->select('personne.id','personne.nom','personne.prenom',
+         ->select('etudiante.id','personne.nom','personne.prenom',
         'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
      ->latest()
-     ->first();
+     ->get();
                
         return response($data,200);
 }
 
-public function update_etudiante($request){
 
-$data = Ensetuhlk::join('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-         ->join('personne','personne.id','=','etudiante.personne_id')
-         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->join('groupe','groupe.id','=','halaka.id_groupe')
-         /**/
-         ->select('personne.id','personne.nom','personne.prenom',
-        'personne.dateNaiss','etudiante.hizb','halaka.name_h','groupe.name')
-     ->latest()
-     ->update(['personne.nom' => $request.nom, 'personne.prenom' =>$request.prenom]);
-return response($data,200);
-
-}
 
 public function index()
 	  {
@@ -94,9 +81,14 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'Etudiante not found',404]);
 }
+$etudiante = Etudiante::join('personne','etudiante.id','=',$id)
+            -> where(`etudiante.deleted_at`, null)
+              ->update($request->all());
 
-$etudiante->update ($request->all());
-return response($etudiante,201);
+
+ /*$personne->update($request->all());
+    $personne->Ens_relat()->save($etudiante);*/
+          return response($etudiante,201);
 
     }
 
