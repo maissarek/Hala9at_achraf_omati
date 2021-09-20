@@ -12,7 +12,7 @@ class HalakaController extends Controller
 
         $data = Halaka::join('groupe','groupe.id','=','halaka.id_groupe')
        
-                ->select('halaka.name_h')
+                ->select('halaka.name')
                 ->get();
 
                 return response()->json($data,200);
@@ -29,13 +29,12 @@ return response()->json(Halaka::all(),200);
 
 public function store(Request $request)
     {
-  try{
+
 
  $halaka = Halaka::create($request->all());
       return response($halaka,201);
-      }catch(Throwable $e){
-     report($e);
-     return false;
+
+
       }
 
     }

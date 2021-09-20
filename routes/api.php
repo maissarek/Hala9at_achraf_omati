@@ -40,7 +40,7 @@ Route::delete('/comptes/{id}',[CompteController::class,'destroy']);
 
 
 
-Route::post('/halaka',[HalakaController::class,'store']);
+
 Route::get('/halaka/{id}',[HalakaController::class,'show']);
 Route::put('/halaka/{id}',[HalakaController::class,'update']);
 Route::delete('/halaka/{id}',[HalakaController::class,'destroy']);
@@ -56,8 +56,10 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
 
 Route::get('/enseignantes/list',[EnseiganteController::class,'all_enseignate']);
+Route::get('/enseignantes/list/names',[EnseiganteController::class,'all_enseignate_names']);
 Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);
 Route::get('/halakatbygroup/list/{id}',[HalakaController::class,'getHalakatbyGroupeId']);
+
 Route::get('/groupe/list',[GroupController::class,'index']);
 
 Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
@@ -70,6 +72,7 @@ Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
 
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
+Route::post('/halaka/add',[HalakaController::class,'store']);
 
 Route::delete('/etudiante/delete/{id}',[EtudianteController::class,'destroy']);
 Route::delete('/enseigante/delete/{id}',[EnseiganteController::class,'destroy']);

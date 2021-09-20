@@ -30,6 +30,23 @@ $data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
 
 
 
+public function all_enseignate_names()
+{
+
+$data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+          ->join('personne','personne.id','=','enseigante.personne_id')
+         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->join('groupe','groupe.id','=','halaka.id_groupe')
+         ->select('enseigante.id','personne.nom')
+         ->where('enseigante.Remplace','=','0')
+     ->get();
+               
+        return response($data,200);
+}
+
+
+
+
 
 public function index()
     {
