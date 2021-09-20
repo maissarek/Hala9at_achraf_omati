@@ -26,7 +26,6 @@ Route::delete('/etudiante/{id}',[EtudianteController::class,'destroy']);
 Route::get('/enseigantes',[EnseiganteController::class,'index']);
 Route::post('/enseigante_save',[EnseiganteController::class,'store']);
 Route::get('/enseigante/{id}',[EnseiganteController::class,'show']);
-Route::put('/enseigante/{id}',[EnseiganteController::class,'update']);
 Route::delete('/enseigante/{id}',[EnseiganteController::class,'destroy']);
 
 

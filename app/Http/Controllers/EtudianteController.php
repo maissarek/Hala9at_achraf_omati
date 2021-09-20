@@ -81,14 +81,19 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'Etudiante not found',404]);
 }
-$etudiante = Etudiante::join('personne','etudiante.id','=',$id)
-            -> where(`etudiante.deleted_at`, null)
-              ->update($request->all());
 
+DB::table('etudiante as e')
+    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->where('e.id','=',$id)
+    ->update($request->all());
+  $etudiante= Etudiante::find($id);
 
- /*$personne->update($request->all());
-    $personne->Ens_relat()->save($etudiante);*/
-          return response($etudiante,201);
+$personne=DB::table('etudiante as e')
+    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->where('e.id','=',$id)
+    ->get('p.*');
+    
+          return response([$etudiante,$personne],201);
 
     }
 

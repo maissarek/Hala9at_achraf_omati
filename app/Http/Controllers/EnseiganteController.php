@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\{Enseigante,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class EnseiganteController extends Controller
 {
@@ -75,17 +76,29 @@ public function show($id)
 
 
 
-public function update(Request $request,$id)
-    {
-        $enseigante= Enseigante::find($id);
-        if(is_null($enseigante)){
+public function update(Request $request,$id)  {
 
-           return response()->json(['message'=>'Enseigante not found',404]);
+ $etudiante= Enseigante::find($id);
+        if(is_null($etudiante)){
+
+           return response()->json(['message'=>'Enseignante not found',404]);
 }
 
-$enseigante->update($request->all());
-return response($enseigante,201);
+DB::table('enseigante as e')
+    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->where('e.id','=',$id)
+    ->update($request->all());
+  $etudiante= Enseigante::find($id);
+
+$personne=DB::table('enseigante as e')
+    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->where('e.id','=',$id)
+    ->get('p.*');
+    
+          return response([$etudiante,$personne],201);
+
     }
+ 
 
 
 
