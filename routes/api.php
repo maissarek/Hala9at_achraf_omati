@@ -19,14 +19,11 @@ HisthalakaController,RoleController,GroupController};
 */
 Route::get('/etudiantes',[EtudianteController::class,'index']);
 Route::post('/etudiante_save',[EtudianteController::class,'store']);
-//Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
+
 Route::put('/etudiante/{id}',[EtudianteController::class,'update']);
-Route::delete('/etudiante/{id}',[EtudianteController::class,'destroy']);
 
 Route::get('/enseigantes',[EnseiganteController::class,'index']);
 Route::post('/enseigante_save',[EnseiganteController::class,'store']);
-Route::get('/enseigante/{id}',[EnseiganteController::class,'show']);
-Route::delete('/enseigante/{id}',[EnseiganteController::class,'destroy']);
 
 
 Route::get('/',function(){
@@ -58,11 +55,15 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
 
 
-Route::get('/enseignante/list',[EnseiganteController::class,'all_enseignate']);
-Route::get('/etudiante/list',[EtudianteController::class,'all_etudiante']);
-
+Route::get('/enseignantes/list',[EnseiganteController::class,'all_enseignate']);
+Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);
 Route::get('/halakatbygroup/list/{id}',[HalakaController::class,'getHalakatbyGroupeId']);
 Route::get('/groupe/list',[GroupController::class,'index']);
+
+Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
+Route::get('/enseigante/{id}',[EnseiganteController::class,'show']);
+
+
 
 Route::put('/etudiante/update/{id}',[EtudianteController::class,'update']);
 Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
@@ -70,6 +71,8 @@ Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
 
+Route::delete('/etudiante/delete/{id}',[EtudianteController::class,'destroy']);
+Route::delete('/enseigante/delete/{id}',[EnseiganteController::class,'destroy']);
 
 
 

@@ -22,7 +22,7 @@ $data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
          ->join('groupe','groupe.id','=','halaka.id_groupe')
          /**/
                 ->select('personne.id','personne.nom','personne.prenom',
-        'personne.dateNaiss','halaka.name_h','groupe.name','remplace')
+        'personne.dateNaiss','halaka.name as halaka','groupe.name as groupe','remplace')
      ->get();
                
         return response($data,200);
@@ -69,7 +69,18 @@ public function show($id)
 
          return response()->json(['message'=>'Enseigante not found',404]);
 }
-         return response()->json($enseigante::find($id),200);
+
+$data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+          ->join('personne','personne.id','=','enseigante.personne_id')
+         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->join('groupe','groupe.id','=','halaka.id_groupe')
+         ->where('enseigante.id','=',$id)
+         ->select('personne.id','personne.nom','personne.prenom',
+        'personne.dateNaiss','halaka.name as halaka','groupe.name as groupe','remplace')
+        
+     ->get();
+
+return response()->json($data,200);
     }
 
 
