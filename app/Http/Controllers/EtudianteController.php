@@ -74,8 +74,7 @@ $data=Ensetuhlk::rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
          ->where('etudiante.id','=',$id)
          /**/
-         ->select('etudiante.id','personne.nom','personne.prenom',
-        'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
+         ->select('etudiante.*','personne.*','halaka.name  as halaka','groupe.name as groupe')
         ->get();
     
            return response()->json($data,200);

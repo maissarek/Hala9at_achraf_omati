@@ -30,6 +30,12 @@ public function getetudiant(){
     }
 
 
+public function getens(){
+
+    return $this -> hasMany(Enseigante::class);
+
+    }
+
 public function gethalaka(){
 
     return $this -> hasMany(Halaka::class);

@@ -19,11 +19,18 @@ class Enseigante extends Model
    'dateKhatm',
    'ensKhatm',
    'Remplace',
-   'Rempl_day'
+   
    ];
 
    public function personne()
    {
    return $this->belongsTo(Personne::class);
+   }
+
+
+   public function relationship(){
+
+   return $this->belongsToMany(Ensetuhlk::class);
+
    }
 }

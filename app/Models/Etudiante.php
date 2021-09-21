@@ -19,7 +19,7 @@ class Etudiante extends Model
        'dateKhatm',
        'ensKhatm',
        'teach',
-       'teachPlace',
+       'teachPlace','khatima',
        'hizb','personne_id'
        ];
 

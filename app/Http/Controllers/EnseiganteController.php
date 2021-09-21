@@ -16,13 +16,11 @@ class EnseiganteController extends Controller
 public function all_enseignate()
 {
 
-$data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-          ->join('personne','personne.id','=','enseigante.personne_id')
-         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->join('groupe','groupe.id','=','halaka.id_groupe')
-         /**/
-                ->select('personne.id','personne.nom','personne.prenom',
-        'personne.dateNaiss','halaka.name as halaka','groupe.name as groupe','remplace')
+$data = Ensetuhlk::rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+          ->leftjoin('personne','personne.id','=','enseigante.personne_id')
+         ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
+         ->select('personne.id','personne.nom','personne.prenom','personne.telephone')
      ->get();
                
         return response($data,200);
@@ -33,10 +31,10 @@ $data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
 public function all_enseignate_names()
 {
 
-$data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-          ->join('personne','personne.id','=','enseigante.personne_id')
-         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->join('groupe','groupe.id','=','halaka.id_groupe')
+$data = Ensetuhlk::rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+          ->leftjoin('personne','personne.id','=','enseigante.personne_id')
+         ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
          ->select('enseigante.id','personne.nom')
          ->where('enseigante.Remplace','=','0')
      ->get();
@@ -87,16 +85,18 @@ public function show($id)
          return response()->json(['message'=>'Enseigante not found',404]);
 }
 
-$data = Ensetuhlk::join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-          ->join('personne','personne.id','=','enseigante.personne_id')
-         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->join('groupe','groupe.id','=','halaka.id_groupe')
+$data = Ensetuhlk::rightJoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+          ->leftJoin('personne','personne.id','=','enseigante.personne_id')
+         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
          ->where('enseigante.id','=',$id)
-         ->select('personne.id','personne.nom','personne.prenom',
-        'personne.dateNaiss','halaka.name as halaka','groupe.name as groupe','remplace')
-        
+         ->select('enseigante.*','personne.*',
+         'halaka.jour','tempsDebut','halaka.tempsFin','halaka.fiaMin','halaka.fiaMax','groupe.name as groupe','halaka.name as halakat')
+       
      ->get();
 
+//$data = Ensetuhlk::with('relationship')->get();
+  
 return response()->json($data,200);
     }
 
