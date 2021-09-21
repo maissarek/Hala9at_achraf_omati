@@ -39,7 +39,6 @@ public function store(Request $request)
  $ens->  dateKhatm= $request->dateKhatm;
  $ens->  ensKhatm= $request->ensKhatm;
  $ens->  Remplace= $request->Remplace;
- $ens->  Rempl_day= $request->Rempl_day;
         
         // $ens = ::create($request->all());
          $personne->Ens_relat()->save($ens);
@@ -62,6 +61,7 @@ public function  save_pers_etu(Request $request){
             $etu->teach = $request->teach;
             $etu->teachPlace = $request->teachPlace;
             $etu->hizb = $request->hizb;
+            $etu->khatima = $request->khatima;
              $personne->Etu_relat()->save($etu);
              return response([$personne,$etu],201);
             

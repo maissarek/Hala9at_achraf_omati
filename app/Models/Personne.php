@@ -11,7 +11,8 @@ class Personne extends Model
 
 use HasFactory;
 use SoftDeletes;
-const CREATED_AT= 'created_at';
+public $timestamps=false;
+//const CREATED_AT= 'date_inscription';
 protected $table="personne";
 protected $fillable = [
 'nom',
@@ -26,7 +27,7 @@ protected $fillable = [
 'statusSocial',
 'lieuNaiss',
 'dateEntree',
-'created_at'];
+'date_inscription'];
 
 public function Ens_relat()
     {

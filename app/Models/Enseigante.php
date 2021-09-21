@@ -18,7 +18,7 @@ class Enseigante extends Model
    'lieuKhatm',
    'dateKhatm',
    'ensKhatm',
-   'Remplace',
+   'Remplace'
    
    ];
 
