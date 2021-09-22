@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       $this->call(TopicsSeeder::class);
+      $this->call(PersonneSeeder::class);
+      $this->call(EnseiganteSeeder::class);
+      $this->call(EtudianteSeeder::class);
+      $this->call(GroupeSeeder::class);
+      $this->call(LieuSeeder::class);
+      
     }
 }

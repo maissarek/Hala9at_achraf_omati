@@ -22,7 +22,11 @@ public function groupe(){
 return $this->belongToMany(Group::class);
 
 }
+public function lieu(){
 
+return $this->belongToMany(Lieu::class);
+
+}
  public function  save_hlk_group_ens(Request $request){
 
          $hlk= Halaka::create($request->all());

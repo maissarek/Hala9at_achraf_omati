@@ -20,7 +20,7 @@ $data = Ensetuhlk::rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens
           ->leftjoin('personne','personne.id','=','enseigante.personne_id')
          ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
-         ->select('personne.id','personne.nom','personne.prenom','personne.telephone')
+         ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone')
      ->get();
                
         return response($data,200);
