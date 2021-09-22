@@ -4,12 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Ensetuhlk extends Model
 {
 
 use HasFactory;
+use SoftDeletes;
+protected $dates = ['deleted_at'];
 const CREATED_AT= 'date_affectation';
+const UPDATED_AT= 'updated_at';
 protected $table="ensetudhlk";
 protected $fillable =
 
@@ -19,13 +24,14 @@ protected $fillable =
 'id_ens',
 'id_etud',
 'id_hlk',
-'date_affectation'
+'date_affectation',
+'updated_at'
 
 ];
 
 public function getetudiant(){
 
-    return $this -> hasMany(Etudiante::class);
+    return $this ->hasMany(Etudiante::class);
 
     }
 

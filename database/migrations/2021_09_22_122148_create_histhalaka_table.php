@@ -18,7 +18,7 @@ class CreateHisthalakaTable extends Migration
             $table->unsignedInteger('ensRemplacante')->index('ensRemplacante');
             $table->date('date');
             $table->string('moraja3a', 100);
-            $table->string('moton', 500);
+             $table->string('moton', 500);
             $table->string('autres', 5000);
             $table->string('absence_Ens', 10);
             $table->string('justification_Ens', 500);

@@ -19,6 +19,8 @@ class CreateEnsetudhlkTable extends Migration
             $table->unsignedInteger('id_etud')->index('id_etud');
             $table->unsignedInteger('id_hlk')->index('id_hlk');
             $table->dateTime('date_affectation');
+            $table->timestamp('updated_at')->nullable();
+            $table->softDeletes();
         });
     }
 

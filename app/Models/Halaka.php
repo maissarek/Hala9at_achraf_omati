@@ -12,6 +12,8 @@ class Halaka extends Model
     public $timestamps=false;
     use SoftDeletes;
 protected   $table= 'halaka';
+
+      protected $dates = ['deleted_at'];
 protected  $fillable=
 ['id','name','id_lieu','jour','tempsDebut','tempsFin','fiaMin','fiaMax','id_groupe'];
 

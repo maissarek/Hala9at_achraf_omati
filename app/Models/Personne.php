@@ -11,6 +11,8 @@ class Personne extends Model
 
 use HasFactory;
 use SoftDeletes;
+
+      protected $dates = ['deleted_at'];
 public $timestamps=false;
 //const CREATED_AT= 'date_inscription';
 protected $table="personne";

@@ -11,6 +11,8 @@ class Enseigante extends Model
     use HasFactory;
     use SoftDeletes;
     public $timestamps=false;
+    
+   protected $dates = ['deleted_at'];
    protected $table='enseigante';
    protected $fillable= [
    'id',

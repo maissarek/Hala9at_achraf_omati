@@ -10,6 +10,8 @@ class Role extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+      protected $dates = ['deleted_at'];
     public $timestamps=false;
 
 protected $table="role";

@@ -12,6 +12,7 @@ class Etudiante extends Model
     use SoftDeletes;
     public $timestamps=false;
       protected   $table='etudiante';
+      protected $dates = ['deleted_at'];
       protected  $fillable= [
        'id',
        'niveauAhkam',
@@ -30,7 +31,7 @@ class Etudiante extends Model
 
    public function getEnsetuhlk()
    {
-   return $this -> belongsTo(Ensetuhlk::class);
+   return $this -> belongsToMany(Ensetuhlk::class);
    } 
     
 }

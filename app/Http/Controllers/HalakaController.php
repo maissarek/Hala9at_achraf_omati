@@ -32,6 +32,7 @@ public function store(Request $request)
 
 
  $halaka = Halaka::create($request->all());
+
       return response($halaka,201);
 
 
