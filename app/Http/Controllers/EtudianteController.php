@@ -17,17 +17,17 @@ class EtudianteController extends Controller
 public function all_etudiante()
 {
 
-$data = Ensetuhlk::rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+$data = DB::table('ensetudhlk')
+->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->leftJoin('personne','personne.id','=','etudiante.personne_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
-         /**/
-         ->select('etudiante.id','personne.nom','personne.prenom',
+        ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
+        ->select('etudiante.id','personne.nom','personne.prenom',
         'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
-     ->latest()
+  //   ->latest()
      ->get();
                
-        return response($data,200);
+        return response($data, 200);
 }
 
 

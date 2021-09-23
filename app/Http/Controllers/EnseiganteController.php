@@ -16,7 +16,8 @@ class EnseiganteController extends Controller
 public function all_enseignate()
 {
 
-$data = Ensetuhlk::rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+$data = DB::table('ensetudhlk')
+->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
          ->leftjoin('personne','personne.id','=','enseigante.personne_id')
          ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
@@ -31,15 +32,16 @@ $data = Ensetuhlk::rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens
 public function all_enseignate_names()
 {
 
-$data = Ensetuhlk::rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-          ->leftjoin('personne','personne.id','=','enseigante.personne_id')
-         ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
-         ->select('enseigante.id','personne.nom')
-         ->where('enseigante.Remplace','=','0')
+$data = DB::table('ensetudhlk')
+->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+          ->join('personne','personne.id','=','enseigante.personne_id')
+         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->join('groupe','groupe.id','=','halaka.id_groupe')
+         ->select('enseigante.id','personne.prenom','personne.nom')
+         ->where('enseigante.Remplace','=',null)
      ->get();
                
-        return response($data,200);
+        return response()->json($data,200);
 }
 
 

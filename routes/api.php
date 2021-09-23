@@ -17,7 +17,7 @@ HisthalakaController,RoleController,GroupController};
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/etudiantes',[EtudianteController::class,'index']);
+//Route::get('/etudiantes',[EtudianteController::class,'index']);
 Route::post('/etudiante_save',[EtudianteController::class,'store']);
 
 Route::put('/etudiante/{id}',[EtudianteController::class,'update']);
@@ -41,7 +41,7 @@ Route::delete('/comptes/{id}',[CompteController::class,'destroy']);
 
 
 
-Route::get('/halaka/{id}',[HalakaController::class,'show']);
+//Route::get('/halaka/{id}',[HalakaController::class,'show']);
 Route::put('/halaka/{id}',[HalakaController::class,'update']);
 Route::delete('/halaka/{id}',[HalakaController::class,'destroy']);
 
@@ -59,8 +59,8 @@ Route::get('/enseignantes/list',[EnseiganteController::class,'all_enseignate']);
 Route::get('/enseignantes/list/names',[EnseiganteController::class,'all_enseignate_names']);
 Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);
 Route::get('/halakatbygroup/list/{id}',[HalakaController::class,'getHalakatbyGroupeId']);
-
 Route::get('/groupe/list',[GroupController::class,'index']);
+Route::get('/halaka/list',[HalakaController::class,'index']);
 
 Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
 Route::get('/enseigante/{id}',[EnseiganteController::class,'show']);

@@ -15,7 +15,7 @@ use SoftDeletes;
 protected $dates = ['deleted_at'];
 const CREATED_AT= ['date_affectation'];
 const UPDATED_AT= ['updated_at'];
-protected $table="ensetudhlk";
+protected $table='ensetudhlk';
 protected $fillable =
 
 [
@@ -28,7 +28,7 @@ protected $fillable =
 'updated_at'
 
 ];
-
+/*
 public function getetudiant(){
 
     return $this ->hasMany(Etudiante::class);
@@ -51,6 +51,6 @@ public function gethalaka(){
 public function getgroupe(){
 
     return $this -> hasManyThrough(Groupe::class, Halaka::class);
-
-    }
+    
+    }*/
 }

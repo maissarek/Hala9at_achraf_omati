@@ -21,10 +21,28 @@ class HalakaController extends Controller
         }
 
 
+
+
      public function index()
     {
-return response()->json(Halaka::all(),200);
+
+    
+$data = DB::table('ensetudhlk')
+->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
+         ->join('lieu','lieu.id','=','h.id_lieu')
+         ->join('groupe','groupe.id','=','h.id_groupe')
+        ->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut','h.tempsFin', 'h.fiaMin','h.fiaMax','ensetudhlk.id_ens')
+         ->get();
+               
+        return response()->json($data,200);
+
+
+
+
+//return response()->json(Halaka::all(),200);
         }
+
+
 
 
 
@@ -34,7 +52,11 @@ public function store(Request $request)
 
  $halaka = Halaka::create($request->all());
 
-DB::insert('insert into ensetudhlk (date_affectation, id_ens, id_etud , id_hlk) values (?, ?, ?, ?)', [NOW(),$request->id_ens, $request->id_etud, $halaka->id]);
+ foreach($request->id_etud as $id){
+
+DB::insert('insert into ensetudhlk (date_affectation, id_ens, id_etud , id_hlk) values (?, ?, ?, ?)', [NOW(),$request->id_ens, $id, $halaka->id]);
+
+}
 
  return  response()->json(['message'=>'Halaka saved !',200]);
 
