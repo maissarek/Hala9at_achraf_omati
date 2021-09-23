@@ -17,7 +17,7 @@ public function all_enseignate()
 {
 
 $data = DB::table('ensetudhlk')
-->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+         ->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
          ->leftjoin('personne','personne.id','=','enseigante.personne_id')
          ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')

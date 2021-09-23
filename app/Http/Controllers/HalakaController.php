@@ -29,9 +29,11 @@ class HalakaController extends Controller
     
 $data = DB::table('ensetudhlk')
 ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
+->join('enseigante as e','e.id','=','ensetudhlk.id_ens')
+->join('personne as p','p.id','=','e.personne_id')
          ->join('lieu','lieu.id','=','h.id_lieu')
          ->join('groupe','groupe.id','=','h.id_groupe')
-        ->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut','h.tempsFin', 'h.fiaMin','h.fiaMax','ensetudhlk.id_ens')
+        ->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut','h.tempsFin', 'h.fiaMin','h.fiaMax','p.nom', 'p.prenom' )
          ->get();
                
         return response()->json($data,200);
