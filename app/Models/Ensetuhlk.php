@@ -13,8 +13,8 @@ class Ensetuhlk extends Model
 use HasFactory;
 use SoftDeletes;
 protected $dates = ['deleted_at'];
-const CREATED_AT= 'date_affectation';
-const UPDATED_AT= 'updated_at';
+const CREATED_AT= ['date_affectation'];
+const UPDATED_AT= ['updated_at'];
 protected $table="ensetudhlk";
 protected $fillable =
 

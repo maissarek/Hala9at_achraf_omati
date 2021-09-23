@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Halaka;
+use App\Models\{Halaka,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class HalakaController extends Controller
 {
@@ -33,12 +34,23 @@ public function store(Request $request)
 
  $halaka = Halaka::create($request->all());
 
-      return response($halaka,201);
+DB::insert('insert into ensetudhlk (date_affectation, id_ens, id_etud , id_hlk) values (?, ?, ?, ?)', [NOW(),$request->id_ens, $request->id_etud, $halaka->id]);
+
+ return  response()->json(['message'=>'Halaka saved !',200]);
 
 
+ /*
+$ensetuhlk = new Ensetuhlk; 
+    $ensetuhlk-> id_ens = $request->id_ens;
+    $ensetuhlk->id_etud = $request->id_etud;            enregistre 1 row with exception
+    $ensetuhlk->id_hlk = $halaka->id;
+    $halaka->ensetuhlk()->save($ensetuhlk);
+    
+      return response([$halaka,$ensetuhlk],201);
+      */
       }
 
-    }
+    
 
 
 
