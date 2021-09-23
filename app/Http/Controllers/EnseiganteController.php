@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Enseigante,Ensetuhlk};
+use App\Models\{Enseigante,Halaka,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -82,22 +82,21 @@ public function show($id)
          return response()->json(['message'=>'Enseigante not found',404]);
 }
 
+$enseigante=DB::table('enseigante as e')
+    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->where('e.id','=',$id)
+    ->get();
 
-$data = Enseigante::leftJoin('ensetudhlk','enseigante.id','=','ensetudhlk.id_ens')
-          ->leftJoin('personne','personne.id','=','enseigante.personne_id')
-         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
-           ->select('enseigante.*','personne.*',
-         'halaka.jour','tempsDebut','halaka.tempsFin','halaka.fiaMin','halaka.fiaMax','groupe.name as groupe','halaka.name as halakat')
-         ->where('enseigante.id',$id)
-         ->with('relationship')->get();
-   
-  
-return response()->json($data,200);
+$data = Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
+  ->join('groupe','groupe.id','=','halaka.id_groupe')
+       ->where('ensetudhlk.id_ens','=',$id)
+                ->select('groupe.name as groupe','halaka.name as halaka')
+                ->get();
+
+return response()->json([$enseigante,$data],200);
 
 
 }
-
 
 
 
@@ -137,7 +136,6 @@ public function destroy($id)
 
            return response()->json(['message'=>'Enseigante not found',404]);
 }
-
 
  DB::table('ensetudhlk')->where('id_ens','=',$id)->delete(); //suppression_physique 
             $enseigante->delete();
