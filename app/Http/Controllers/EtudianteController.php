@@ -44,16 +44,11 @@ public function index()
 public function store(Request $request)
     {
 
-    try{
+    
 
  $etudiante = Etudiante::create($request->all());
       return response($etudiante,201);
 
-      }catch(Throwable $e){
-     report($e);
-     return false;
-      }
-    
     
       }
 

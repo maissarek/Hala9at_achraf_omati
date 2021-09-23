@@ -88,7 +88,6 @@ Route::put('/Histetudiante/{id}',[HistetudianteController::class,'update']);
 Route::delete('/Histetudiante/{id}',[HistetudianteController::class,'destroy']);
 
 Route::get('/Ensetuhlks',[EnsetuhlkController::class,'index']);
-Route::post('/Ensetuhlk',[EnsetuhlkController::class,'store']);
 Route::get('/Ensetuhlk/{id}',[EnsetuhlkController::class,'show']);
 Route::put('/Ensetuhlk/{id}',[EnsetuhlkController::class,'update']);
 Route::delete('/Ensetuhlk/{id}',[EnsetuhlkController::class,'destroy']);

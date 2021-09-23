@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Halaka,Ensetuhlk};
+use App\Models\{Halaka,Etudiante,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -96,13 +96,27 @@ $ensetuhlk = new Ensetuhlk;
 
 public function show($id)
     {
-        $halaka=Halaka::fin
-        d($id);
+        $halaka=Halaka::find($id);
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
            }
-           return response()->json($halaka::find($id),200);
+
+$halaka=Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
+   ->join('groupe','groupe.id','=','halaka.id_groupe')
+  ->join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+  ->join('personne','personne.id','=','enseigante.personne_id')
+  ->where('ensetudhlk.id_hlk','=',$id)
+  ->select('personne.nom as name_enseignante','personne.prenom as prenom_enseignante','groupe.name as groupe','halaka.*')
+  ->get();
+
+$data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
+  ->join('personne as p','p.id','=','etudiante.personne_id')
+  ->where('ensetudhlk.id_hlk','=',$id)
+  ->select('p.nom','p.prenom','p.dateNaiss','p.adresse','niveauAhkam','hizb','ensetudhlk.date_affectation')
+  ->get();
+
+  return response()->json([$halaka,$data],200);
     }
 
 
@@ -116,7 +130,10 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'Halaka not found',404]);
 }
-$halaka->update ($request->all());
+
+$halaka->update($request->all());
+
+
 return response($halaka,201);
     }
 
@@ -132,6 +149,7 @@ public function destroy($id)
            return response()->json(['message'=>'Halaka not found',404]);
 }
 $halaka->delete();
+
 DB::table('ensetudhlk')->where('id_hlk','=',$id)->delete(); //suppression_physique 
  
 return response()->json(null,204);
