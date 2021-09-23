@@ -85,6 +85,9 @@ public function show($id)
 $enseigante=DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
+    ->select('p.nom',
+'p.prenom','p.dateNaiss','p.adresse','p.telephone','p.email','p.job','p.fonction','p.niveauScolaire','p.statusSocial','p.lieuNaiss',
+'p.dateEntree','e.id','e.experienceTeaching','e.lieuKhatm','e.dateKhatm','e.ensKhatm','e.Remplace')
     ->get();
 
 $data = Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')

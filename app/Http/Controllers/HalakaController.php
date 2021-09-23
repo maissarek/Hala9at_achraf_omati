@@ -96,11 +96,12 @@ $ensetuhlk = new Ensetuhlk;
 
 public function show($id)
     {
-        $halaka=Halaka::find($id);
+        $halaka=Halaka::fin
+        d($id);
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
-}
+           }
            return response()->json($halaka::find($id),200);
     }
 
@@ -130,7 +131,9 @@ public function destroy($id)
 
            return response()->json(['message'=>'Halaka not found',404]);
 }
-$Halaka->delete();
+$halaka->delete();
+DB::table('ensetudhlk')->where('id_hlk','=',$id)->delete(); //suppression_physique 
+ 
 return response()->json(null,204);
     }
 
