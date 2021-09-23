@@ -21,7 +21,7 @@ $data = DB::table('ensetudhlk')
          ->leftjoin('personne','personne.id','=','enseigante.personne_id')
          ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
-         ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone','groupe.name as groupe','halaka.name as halaka')
+         ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone')
          ->get();
                
         return response($data,200);
