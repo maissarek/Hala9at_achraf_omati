@@ -56,7 +56,6 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
 
 Route::get('/enseignantes/list',[EnseiganteController::class,'all_enseignate']);
-Route::get('/enseignante/{id}',[EnseiganteController::class,'show']);
 Route::get('/enseignantes/list/names',[EnseiganteController::class,'all_enseignate_names']);
 Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);
 Route::get('/halakatbygroup/list/{id}',[HalakaController::class,'getHalakatbyGroupeId']);
