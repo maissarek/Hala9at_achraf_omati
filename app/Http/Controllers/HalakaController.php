@@ -108,12 +108,12 @@ $halaka=Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
   ->join('personne','personne.id','=','enseigante.personne_id')
   ->where('ensetudhlk.id_hlk','=',$id)
   ->select('personne.nom as name_enseignante','personne.prenom as prenom_enseignante','groupe.name as groupe','halaka.*')
-  ->get();
+  ->first();
 
 $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
   ->join('personne as p','p.id','=','etudiante.personne_id')
   ->where('ensetudhlk.id_hlk','=',$id)
-  ->select('p.nom','p.prenom','p.dateNaiss','p.adresse','niveauAhkam','hizb','ensetudhlk.date_affectation')
+  ->select('etudiante.id','p.nom','p.prenom','p.dateNaiss','p.adresse','niveauAhkam','hizb','ensetudhlk.date_affectation')
   ->get();
 
   return response()->json([$halaka,$data],200);
