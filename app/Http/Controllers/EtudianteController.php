@@ -63,14 +63,15 @@ public function show($id)
            return response()->json(['message'=>'Etudiante not found',404]);
 }
 
-$data=Ensetuhlk::rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+$data=DB::table('ensetudhlk')
+->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->leftJoin('personne','personne.id','=','etudiante.personne_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
          ->where('etudiante.id','=',$id)
          ->select('etudiante.*','personne.*','halaka.name  as halaka','groupe.name as groupe')
         ->first();
-    
+
            return response()->json($data,200);
     }
 

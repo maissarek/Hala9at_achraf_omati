@@ -14,6 +14,17 @@ class Histhalaka extends Model
       protected $dates = ['deleted_at'];
     public $timestamps=false;
 protected $table="histhalaka";
-protected $fillable=['id','ensRemplacante','date','moraja3a','moton','autres','absence_Ens','justification_Ens'];
+protected $fillable=[
+
+'id',
+'ensRemplacante',
+'date',
+'moraja3a',
+'moton',
+'autres',
+'absence_Ens',
+'justification_Ens'
+
+];
 
 }

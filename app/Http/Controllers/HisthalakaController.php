@@ -13,13 +13,14 @@ class HisthalakaController extends Controller
 public function index()
     {
 return response()->json(Histhalaka::all(),200);
+
         }
 
 
 
 public function store(Request $request)
     {
-        $histhalaka=Histhalaka::create($request->all());
+        $histhalaka= Histhalaka::create($request->all());
         return response($histhalaka,201);
     }
 
@@ -29,6 +30,7 @@ public function store(Request $request)
 public function show($id)
     {
         $histhalaka=Histhalaka::find($id);
+
         if(is_null($histhalaka)){
 
            return response()->json(['message'=>'Histhalaka not found',404]);
