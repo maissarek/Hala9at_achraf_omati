@@ -4,8 +4,11 @@
     "\\app",
     "\\app\\Http",
     "\\app\\Http\\Controllers",
-    "\\app\\Models"
+    "\\app\\Models",
+    "\\database",
+    "\\database\\factories",
+    "\\database\\migrations"
   ],
-  "SelectedNode": "\\app\\Http\\Controllers\\EnseiganteController.php",
+  "SelectedNode": "\\app\\Models\\Histhalaka.php",
   "PreviewInSolutionExplorer": false
 }

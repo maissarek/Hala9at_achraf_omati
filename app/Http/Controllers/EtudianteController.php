@@ -52,7 +52,20 @@ public function store(Request $request)
     
       }
 
+public function getEtudiantesbyHalakaId($id){
 
+$data=DB::table('ensetudhlk')
+->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+         ->leftJoin('personne','personne.id','=','etudiante.personne_id')
+        ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
+         ->where('halaka.id','=',$id)
+         ->select('ensetudhlk.id','personne.nom','personne.prenom')
+        ->get();
+
+           return response()->json($data,200);
+
+
+}
 
 
 public function show($id)

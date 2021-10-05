@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToCompteTable extends Migration
+class AddForeignKeysToHisthalakaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToCompteTable extends Migration
      */
     public function up()
     {
-        Schema::table('compte', function (Blueprint $table) {
-            $table->foreign('personne_id', 'compte_ibfk_1')->references('id')->on('personne');
+        Schema::table('histhalaka', function (Blueprint $table) {
+            $table->foreign('ensRemplacante_id', 'histhalaka_ibfk_1')->references('id')->on('enseigante');
         });
     }
 
@@ -25,8 +25,8 @@ class AddForeignKeysToCompteTable extends Migration
      */
     public function down()
     {
-        Schema::table('compte', function (Blueprint $table) {
-            $table->dropForeign('compte_ibfk_1');
+        Schema::table('histhalaka', function (Blueprint $table) {
+            $table->dropForeign('histhalaka_ibfk_1');
         });
     }
 }

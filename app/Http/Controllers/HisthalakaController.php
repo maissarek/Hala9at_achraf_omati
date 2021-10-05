@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class HisthalakaController extends Controller
 {
 
+//route: halaka/{id}/etudiantes  input:id_hlk , output: list (id_ensetudhlk,nom,prenom etudiante) 
 
 
 public function index($id){
@@ -63,15 +64,27 @@ public function show($id)
 
 
 
-public function update(Request $request,$id)
+public function update(Request $request,$idhh,$idhe)
     {
-        $histhalaka= Histhalaka::find($id);
+        $histhalaka= Histhalaka::find($idhh);
+         $histetudiante=Histetudiante::find($idhe);
+
         if(is_null($histhalaka)){
 
            return response()->json(['message'=>'Histhalaka not found',404]);
-}
+
+}elseif(is_null($histetudiante)){
+
+ $histetudiante=Histetudiante::create($request->all());
+
+}else{
+
 $histhalaka->update ($request->all());
-return response($histhalaka,201);
+$histetudiante->update($request->all());
+
+}
+
+return response([$histhalaka,$histetudiante],201);
 
     }
 
@@ -80,9 +93,11 @@ return response($histhalaka,201);
 
 public function store(Request $request)
     {
-        $histhalaka= Histhalaka::create($request->all());
-        $histetudiante=Histetudiante::create($request->all());
-        return response([$histhalaka,$histetudiante],201);
+
+    
+    $histhalaka= Histhalaka::create($request->all());
+    $histetudiante=Histetudiante::create($request->all());
+    return response([$histhalaka,$histetudiante],201);
     }
 
 
