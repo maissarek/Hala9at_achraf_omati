@@ -14,6 +14,11 @@ class Histetudiante extends Model
       protected $dates = ['deleted_at'];
     public $timestamps=false;
  protected $table ='histetudiante';
-protected $fillable=['id','HistHalaka','ensEtudHlk_id','hizb','surat','aya_d','aya_f','mtn_name','mtn_num_d','mtn_num_f','absent','justificatif','observations']; 
+protected $fillable=[
+'id','HistHalaka',
+'ensEtudHlk_id','hizb',
+'el7ifd','Elmoraja3a','Elmtn',
+'retard','absent',
+'justificatif','observations']; 
 
 }
