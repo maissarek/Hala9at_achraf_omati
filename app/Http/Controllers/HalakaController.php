@@ -48,7 +48,8 @@ $data = DB::table('ensetudhlk')
 ->join('personne as p','p.id','=','e.personne_id')
          ->join('lieu','lieu.id','=','h.id_lieu')
          ->join('groupe','groupe.id','=','h.id_groupe')
-        ->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut','h.tempsFin', 'h.fiaMin','h.fiaMax','p.nom', 'p.prenom' )
+        ->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut','h.tempsFin','h.fiaMin','h.fiaMax','lieu.name as lieu','e.id as idEns','p.nom as nomEns', 'p.prenom as prenomEns' )
+         ->distinct()
          ->get();
                
         return response()->json($data,200);
@@ -104,10 +105,11 @@ public function show($id)
 
 $halaka=Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
    ->join('groupe','groupe.id','=','halaka.id_groupe')
+   ->join('lieu','lieu.id','=','halaka.id_lieu')
   ->join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
   ->join('personne','personne.id','=','enseigante.personne_id')
   ->where('ensetudhlk.id_hlk','=',$id)
-  ->select('personne.nom as name_enseignante','personne.prenom as prenom_enseignante','groupe.name as groupe','halaka.*')
+  ->select('personne.nom as name_enseignante','personne.prenom as prenom_enseignante','halaka.*','lieu.name as lieu_name','groupe.name as groupe_name')
   ->first();
 
 $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')

@@ -82,6 +82,7 @@ public function update(Request $request,$idhh,$idhe)
 $histhalaka->update ($request->all());
 $histetudiante->update($request->all());
 
+
 }
 
 return response([$histhalaka,$histetudiante],201);

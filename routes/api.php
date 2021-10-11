@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{EnseiganteController,
 EtudianteController,HalakaController,
-CompteController,PersonneController,
+UserController,PersonneController,
 HistetudianteController,EnsetuhlkController,
 HisthalakaController,RoleController,GroupController};
 /*
@@ -31,11 +31,10 @@ return view('welcome');
 });
 
 
-Route::get('/comptes',[CompteController::class,'index']);
-Route::post('/compte',[CompteController::class,'store']);
-Route::get('/comptes/{id}',[CompteController::class,'show']);
-Route::put('/comptes/{id}',[CompteController::class,'update']);
-Route::delete('/comptes/{id}',[CompteController::class,'destroy']);
+Route::get('/comptes',[UserController::class,'index']);
+Route::get('/comptes/{id}',[UserController::class,'show']);
+Route::put('/comptes/{id}',[UserController::class,'update']);
+Route::delete('/comptes/{id}',[UserController::class,'destroy']);
 
 
 
@@ -77,6 +76,7 @@ Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
 Route::post('/halaka/add',[HalakaController::class,'store']);
 Route::delete('/histhalaka/add',[HisthalakaController::class,'store']);
+Route::post('/user/add',[UserController::class,'store']);
 
 
 Route::delete('/etudiante/delete/{id}',[EtudianteController::class,'destroy']);

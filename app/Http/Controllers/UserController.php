@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Compte;
+use App\Models\User;
 use Illuminate\Http\Request;
-
-class CompteController extends Controller
+use Illuminate\Support\Facades\Hash;
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,14 @@ return response()->json(Compte::all(),200);
 
 public function store(Request $request)
     {
-        $compte=  Compte::create($request->all());
-        return response($compte,201);
-    }
+       $user= new User;
+       $user->name=$request->name;
+       $user->email=$request->email;
+       $user->password=Hash::make($request->password);
+       $user->save();
+       return response($user,201);
+
+       }
 
 public function show($id)
     {

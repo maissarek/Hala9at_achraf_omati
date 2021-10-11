@@ -16,15 +16,13 @@ class EnseiganteController extends Controller
 public function all_enseignate()
 {
 
-$data = DB::table('ensetudhlk')
-         ->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-         ->leftjoin('personne','personne.id','=','enseigante.personne_id')
-         ->leftjoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
+$data = DB::table('enseigante')
+         ->join('personne','personne.id','=','enseigante.personne_id')
          ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone')
          ->get();
                
-        return response($data,200);
+     return response($data,200);
+
 }
 
 
@@ -95,7 +93,7 @@ $data = Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
   ->join('groupe','groupe.id','=','halaka.id_groupe')
        ->where('ensetudhlk.id_ens','=',$id)
                 ->select('halaka.id','groupe.name as groupe','halaka.name as halaka','halaka.jour','halaka.tempsDebut','halaka.tempsFin', 'halaka.fiaMin','halaka.fiaMax')
-                ->get();
+              ->distinct()  ->get();
 
 return response()->json([$enseigante,$data],200);
 
