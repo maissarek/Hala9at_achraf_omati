@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Log;
 */
 
 Route::get('/', function () {
-Log::debug('mmmmmmmmmmmmmmm');
- Log::info('This is some useful information.'); 
     return view('welcome');
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

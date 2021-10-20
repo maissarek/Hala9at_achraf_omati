@@ -1,14 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\app",
-    "\\app\\Http",
-    "\\app\\Http\\Controllers",
-    "\\app\\Models",
-    "\\database",
-    "\\database\\factories",
-    "\\database\\migrations"
+    ""
   ],
-  "SelectedNode": "\\app\\Models\\Histhalaka.php",
+  "SelectedNode": "\\.gitattributes",
   "PreviewInSolutionExplorer": false
 }

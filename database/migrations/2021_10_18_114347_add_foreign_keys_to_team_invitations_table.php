@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToCompteTable extends Migration
+class AddForeignKeysToTeamInvitationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToCompteTable extends Migration
      */
     public function up()
     {
-        Schema::table('compte', function (Blueprint $table) {
-            $table->foreign('personne_id', 'compte_ibfk_1')->references('id')->on('personne');
+        Schema::table('team_invitations', function (Blueprint $table) {
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('CASCADE');
         });
     }
 
@@ -25,8 +25,8 @@ class AddForeignKeysToCompteTable extends Migration
      */
     public function down()
     {
-        Schema::table('compte', function (Blueprint $table) {
-            $table->dropForeign('compte_ibfk_1');
+        Schema::table('team_invitations', function (Blueprint $table) {
+            $table->dropForeign('team_invitations_team_id_foreign');
         });
     }
 }

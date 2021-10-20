@@ -27,7 +27,7 @@ public function store(Request $request)
        return response($user,201);
 
        }
-
+/*
 public function show($id)
     {
         $compte=Compte::find($id);
