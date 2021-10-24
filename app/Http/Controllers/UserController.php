@@ -5,19 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
+
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */ 
-    public function index()
-    {
-return response()->json(Compte::all(),200);
-        }
+     */
 
-public function store(Request $request)
+     public function store(Request $request)
     {
        $user= new User;
        $user->name=$request->name;
@@ -27,88 +25,60 @@ public function store(Request $request)
        return response($user,201);
 
        }
-/*
-public function show($id)
-    {
-        $compte=Compte::find($id);
-        if(is_null($compte)){
 
-           return response()->json(['message'=>'Compte not found',404]);
+       public function show($id)
+    {
+        $user=User::find($id);
+        if(is_null($user)){
+
+           return response()->json(['message'=>'User not found',404]);
 }
-           return response()->json($compte::find($id),200);
+           return response()->json($user::find($id),200);
     }
 
+    
 public function update(Request $request,$id)
     {
-        $compte= Compte::find($id);
-        if(is_null($compte)){
+        $user= User::find($id);
+        if(is_null($user)){
 
-           return response()->json(['message'=>'Compte not found',404]);
+           return response()->json(['message'=>'User not found',404]);
 }
-$compte->update ($request->all());
-return response($compte,201);
+$user->update ($request->all());
+return response($user,201);
     }
 
-public function destroy($id)
+    public function destroy($id)
     {
-        $compte= Compte::find($id);
-        if(is_null($compte)){
+        $user= User::find($id);
+        if(is_null($user)){
 
-           return response()->json(['message'=>'Compte not found',404]);
+           return response()->json(['message'=>'User not found',404]);
 }
-$compte->delete();
-return response()->json(null,204);
+$user->delete();
+return response()->json(['message'=>'User deleted ! ',204]);
+
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+   function login(Request $request)
     {
-        //
+        $user= User::where('email', $request->email)->first();
+        // print_r($data);
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response([
+                    'message' => ['These credentials do not match our records.']
+                ], 404);
+            }
+        
+             $token = $user->createToken('my-app-token')->plainTextToken;
+        
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+        
+             return response($response, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Compte  $compte
-     * @return \Illuminate\Http\Response
-     */
-    
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Compte  $compte
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Compte $compte)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Compte  $compte
-     * @return \Illuminate\Http\Response
-     */
-    
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Compte  $compte
-     * @return \Illuminate\Http\Response
-     */
-    
+  
 }

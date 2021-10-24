@@ -19,6 +19,8 @@ public function all_enseignate()
 $data = DB::table('enseigante')
          ->join('personne','personne.id','=','enseigante.personne_id')
          ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone')
+         ->WhereNull('enseigante.deleted_at')
+         ->orderBy('enseigante.id', 'asc')
          ->get();
                
      return response($data,200);
@@ -37,6 +39,7 @@ $data = DB::table('ensetudhlk')
          ->join('groupe','groupe.id','=','halaka.id_groupe')
          ->select('enseigante.id','personne.prenom','personne.nom')
          ->where('enseigante.Remplace','=',null)
+         ->distinct()
      ->get();
                
         return response()->json($data,200);

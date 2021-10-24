@@ -109,7 +109,13 @@ $halaka=Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
   ->join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
   ->join('personne','personne.id','=','enseigante.personne_id')
   ->where('ensetudhlk.id_hlk','=',$id)
-  ->select('personne.nom as name_enseignante','personne.prenom as prenom_enseignante','halaka.*','lieu.name as lieu_name','groupe.name as groupe_name')
+  ->select('enseigante.id as id_ens','personne.nom as name_enseignante','personne.prenom as prenom_enseignante','halaka.id'
+,'halaka.name',	
+'halaka.jour',	
+'halaka.tempsDebut'	
+,'halaka.tempsFin',	
+'halaka.fiaMin',	
+'halaka.fiaMax','lieu.name as lieu_name','groupe.name as groupe_name')
   ->first();
 
 $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')

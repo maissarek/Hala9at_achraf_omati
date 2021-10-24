@@ -10,7 +10,18 @@ use Illuminate\Support\Facades\DB;
 class EtudianteController extends Controller
 {
 
+public function all_etudiante_names()
+{
 
+$data = DB::table('ensetudhlk')
+->rightjoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+          ->join('personne','personne.id','=','etudiante.personne_id')
+         ->select('etudiante.id','personne.prenom','personne.nom')
+   ->distinct()
+     ->get();
+               
+        return response()->json($data,200);
+}
 
 //////////////////////////*** intrface 4 ***//////////////////////////////////////
 
@@ -25,6 +36,8 @@ $data = DB::table('ensetudhlk')
         ->select('etudiante.id','personne.nom','personne.prenom',
         'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
   //   ->latest()
+  ->WhereNull('etudiante.deleted_at')
+         ->orderBy('etudiante.id', 'asc')
      ->get();
                
         return response($data, 200);
