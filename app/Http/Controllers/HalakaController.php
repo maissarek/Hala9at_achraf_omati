@@ -46,18 +46,21 @@ $data = DB::table('ensetudhlk')
 ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
 ->join('enseigante as e','e.id','=','ensetudhlk.id_ens')
 ->join('personne as p','p.id','=','e.personne_id')
-         ->join('lieu','lieu.id','=','h.id_lieu')
-         ->join('groupe','groupe.id','=','h.id_groupe')
-        ->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut','h.tempsFin','h.fiaMin','h.fiaMax','lieu.name as lieu','e.id as idEns','p.nom as nomEns', 'p.prenom as prenomEns' )
-         ->distinct()
-         ->get();
-               
+->join('lieu','lieu.id','=','h.id_lieu')
+->join('groupe','groupe.id','=','h.id_groupe')
+->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut',
+'h.tempsFin','h.fiaMin','h.fiaMax','lieu.name as lieu','e.id as idEns',
+'p.nom as nomEns', 'p.prenom as prenomEns' )
+
+->distinct()
+->get();
+              
         return response()->json($data,200);
 
 
 
 
-//return response()->json(Halaka::all(),200);
+//return response()->json(,200);
         }
 
 

@@ -31,10 +31,6 @@ Route::get('/',function(){
 return view('welcome');
 });
 
-Route::get('/comptes/{id}',[UserController::class,'show']);
-Route::put('/comptes/{id}',[UserController::class,'update']);
-Route::delete('/comptes/{id}',[UserController::class,'destroy']);
-
 Route::get('/personnes',[PersonneController::class,'index']);
 Route::post('/personne_save',[PersonneController::class,'store']);
 Route::get('/personne/{id}',[PersonneController::class,'show']);
@@ -62,7 +58,7 @@ Route::get('/halaka/{id}/seance',[HisthalakaController::class,'index']);
 Route::get('/halaka/{id}/etudiantes',[EtudianteController::class,'getEtudiantesbyHalakaId']);
 
 Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
-Route::get('/enseigante/{id}',[EnseiganteController::class,'show']);
+Route::get('/enseignante/{id}',[EnseiganteController::class,'show']);
 Route::get('/halaka/{id}',[HalakaController::class,'show']);
 Route::get('/histhalaka/{id}',[HisthalakaController::class,'show']);
 
@@ -78,7 +74,7 @@ Route::post('/histhalaka/add',[HisthalakaController::class,'store']);
 
 
 Route::delete('/etudiante/delete/{id}',[EtudianteController::class,'destroy']);
-Route::delete('/enseigante/delete/{id}',[EnseiganteController::class,'destroy']);
+Route::delete('/enseignante/delete/{id}',[EnseiganteController::class,'destroy']);
 Route::delete('/halaka/delete/{id}',[HalakaController::class,'destroy']);
 Route::delete('/histhalaka/delete/{id}',[HisthalakaController::class,'destroy']);
 Route::delete('/lieu/delete/{id}',[LieuController::class,'destroy']);
