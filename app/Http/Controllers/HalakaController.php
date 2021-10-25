@@ -42,12 +42,12 @@ public function getHalakatbyenseignanteId($id){
     {
 
     
-$data = DB::table('ensetudhlk')
-->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
-->join('enseigante as e','e.id','=','ensetudhlk.id_ens')
-->join('personne as p','p.id','=','e.personne_id')
-->join('lieu','lieu.id','=','h.id_lieu')
-->join('groupe','groupe.id','=','h.id_groupe')
+$data = DB::table('halaka as h')
+->leftjoin('ensetudhlk','h.id','=','ensetudhlk.id_hlk')
+->leftjoin('enseigante as e','e.id','=','ensetudhlk.id_ens')
+->leftjoin('personne as p','p.id','=','e.personne_id')
+->leftjoin('lieu','lieu.id','=','h.id_lieu')
+->leftjoin('groupe','groupe.id','=','h.id_groupe')
 ->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut',
 'h.tempsFin','h.fiaMin','h.fiaMax','lieu.name as lieu','e.id as idEns',
 'p.nom as nomEns', 'p.prenom as prenomEns' )
