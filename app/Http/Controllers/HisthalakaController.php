@@ -16,20 +16,19 @@ public function index($id){
 
     $histhalaka = DB::table('histhalaka as hh')
     ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
-    ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')
+    ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')  
+->join('enseigante','enseigante.id','=','hh.ensRemplacante_id')
+->join('personne','personne.id','=','enseigante.personne_id')
     ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
     ->where('h.id','=',$id)
     ->whereNull('hh.deleted_at')
-    ->select('hh.*')
+    ->select('hh.*','personne.nom as nomEnsRempl','personne.prenom as prenomEnsRempl')
     ->orderBy('date', 'desc')
     ->get();
 
 
-    $halaka= DB::table('halaka')
-    ->where('id','=',$id)
-    ->get('halaka.name');
 
-    return response([$halaka,$histhalaka],200);
+    return response($histhalaka,200);
 }
 
 

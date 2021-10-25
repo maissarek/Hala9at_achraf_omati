@@ -54,7 +54,7 @@ Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);
 Route::get('/groupe/{id}/halakat',[HalakaController::class,'getHalakatbyGroupeId']);
 Route::get('/groupe/list',[GroupController::class,'index']);
 Route::get('/halakat/list',[HalakaController::class,'index']);
-Route::get('/halaka/{id}/seance',[HisthalakaController::class,'index']);
+Route::get('/halaka/{id}/seances',[HisthalakaController::class,'index']);
 Route::get('/halaka/{id}/etudiantes',[EtudianteController::class,'getEtudiantesbyHalakaId']);
 
 Route::get('/etudiante/{id}',[EtudianteController::class,'show']);
