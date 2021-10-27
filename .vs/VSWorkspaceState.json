@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
+    "\\app\\Models",
+    "\\database"
   ],
-  "SelectedNode": "\\.gitattributes",
+  "SelectedNode": "\\app\\Http\\Controllers\\EnseiganteController.php",
   "PreviewInSolutionExplorer": false
 }

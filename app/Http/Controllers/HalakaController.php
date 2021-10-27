@@ -106,12 +106,12 @@ public function show($id)
            return response()->json(['message'=>'Halaka not found',404]);
            }
 
-$halaka=Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
-   ->join('groupe','groupe.id','=','halaka.id_groupe')
-   ->join('lieu','lieu.id','=','halaka.id_lieu')
-  ->join('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-  ->join('personne','personne.id','=','enseigante.personne_id')
-  ->where('ensetudhlk.id_hlk','=',$id)
+$halaka=Halaka::leftjoin('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
+   ->leftjoin('groupe','groupe.id','=','halaka.id_groupe')
+   ->leftjoin('lieu','lieu.id','=','halaka.id_lieu')
+  ->leftjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+  ->leftjoin('personne','personne.id','=','enseigante.personne_id')
+  ->where('halaka.id','=',$id)
   ->select('enseigante.id as id_ens','personne.nom as name_enseignante','personne.prenom as prenom_enseignante','halaka.id'
 ,'halaka.name',	
 'halaka.jour',	

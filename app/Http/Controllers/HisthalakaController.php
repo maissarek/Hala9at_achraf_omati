@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Histhalaka;
+use App\Models\{Histhalaka,Histetudiante};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,6 +24,7 @@ public function index($id){
     ->whereNull('hh.deleted_at')
     ->select('hh.*','personne.nom as nomEnsRempl','personne.prenom as prenomEnsRempl')
     ->orderBy('date', 'desc')
+    ->distinct()
     ->get();
 
 
@@ -47,8 +48,17 @@ public function show($id)
         ->where('h.id','=',$id)
         ->whereNull('hh.deleted_at')
         ->select('groupe.name as groupe','h.name as halaka','personne.nom as enseigante_firstname',
-        'personne.prenom as enseigante_lastname','h.jour','h.fiaMin','h.fiaMax','hh.*','he.*')
-        ->first();
+        'personne.prenom as enseigante_lastname','h.jour','h.fiaMin','h.fiaMax','hh.*')//,'he.*')
+        ->distinct()->get();
+
+ $he = DB::table('histhalaka as hh')
+        ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
+        ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')
+        ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
+        ->where('h.id','=',$id)
+        ->whereNull('hh.deleted_at')
+        ->select('he.*')
+        ->get();
 
         if(is_null($histhalaka)){
 
@@ -56,7 +66,7 @@ public function show($id)
 }
         
 
-           return response()->json($histhalaka,200);
+           return response()->json([$histhalaka,$he],200);
     }
 
 
@@ -96,8 +106,24 @@ public function store(Request $request)
 
     
     $histhalaka= Histhalaka::create($request->all());
-    $histetudiante=Histetudiante::create($request->all());
+    $histetudiante=new Histetudiante;//::create($request->all());
+
+      $histetudiante->HistHalaka_id = $histhalaka->id;
+      $histetudiante->ensEtudHlk_id = $request->ensEtudHlk_id ;
+
+      $histetudiante->hizb= $request->hizb;
+      $histetudiante->el7ifd= $request->el7ifd;
+      $histetudiante->Elmoraja3a= $request->Elmoraja3a;
+      $histetudiante->Elmtn= $request->Elmtn;
+      $histetudiante->retard= $request->retard;
+      $histetudiante->absent= $request->absent;
+      $histetudiante->justificatif= $request->justificatif;
+      $histetudiante->observations= $request->observations;
+    
+
+    $histetudiante->save();
     return response([$histhalaka,$histetudiante],201);
+
     }
 
 
