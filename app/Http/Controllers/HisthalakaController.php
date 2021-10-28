@@ -104,7 +104,9 @@ return response([$histhalaka,$histetudiante],201);
 public function store(Request $request)
     {
 
-    
+    $select_histetudiante=Histetudiante::all();
+    echo $select_histetudiante;
+
     $histhalaka= Histhalaka::create($request->all());
     $histetudiante=new Histetudiante;//::create($request->all());
 
