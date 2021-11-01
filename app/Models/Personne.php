@@ -41,4 +41,8 @@ public function Etu_relat()
         return $this->hasOne(Etudiante::class);
     }
 
+public function user_relat()
+    {
+        return $this->hasOne(User::class);
+    }
 }

@@ -104,27 +104,95 @@ return response([$histhalaka,$histetudiante],201);
 public function store(Request $request)
     {
 
-    $select_histetudiante=Histetudiante::all();
-    echo $select_histetudiante;
-
+ 
     $histhalaka= Histhalaka::create($request->all());
-    $histetudiante=new Histetudiante;//::create($request->all());
 
-      $histetudiante->HistHalaka_id = $histhalaka->id;
-      $histetudiante->ensEtudHlk_id = $request->ensEtudHlk_id ;
+    /*
+    $data = [
+   ['something' => value1, 'somethingElse' => anotherValue1], // record 1
+   ['something' => value2, 'somethingElse' => anotherValue2], // record 2
+];
 
-      $histetudiante->hizb= $request->hizb;
-      $histetudiante->el7ifd= $request->el7ifd;
-      $histetudiante->Elmoraja3a= $request->Elmoraja3a;
-      $histetudiante->Elmtn= $request->Elmtn;
-      $histetudiante->retard= $request->retard;
-      $histetudiante->absent= $request->absent;
-      $histetudiante->justificatif= $request->justificatif;
-      $histetudiante->observations= $request->observations;
-    
+Model::insert($data);
+       foreach($request->detailedHistory as $data) 
+      {
+        $row = new YourModel();
+        $row ->column_name1 = $data['DetailedHistoryItem']['date'];
+        $row ->column_name2 = $data['DetailedHistoryItem']['source'];
+        // and so on for your all columns 
+        $row->save();   //at last save into db
+      }
+    */
+ /*DB::insert('insert into histetudiante (
+HistHalaka_id,	
+ensEtudHlk_id,	
+hizb,	
+Elmoraja3a,	
+Elmtn,	
+el7ifd,	
+retard,	
+absent,	
+justificatif,	
+observations) values (?,?,?,?,?, ?, ?, ?,?,?)',
+ [
+ $histhalaka->id,
+ $data->ensEtudHlk_id,
+ $data->hizb[$i],
+ $data->Elmoraja3a[$i],
+ $data->Elmtn[$i],
+ $data->el7ifd[$i],
+ $data->retard[$i],
+ $data->absent[$i],
+ $data->justificatif[$i],
+ $data->observations [$i]]);
+ $i++;
+ 
+    }
+*/
+ foreach($request->histEtud as $data) 
+      {
+        $row = new Histetudiante();
+        $row ->HistHalaka_id =$histhalaka->id;
+        $row ->ensEtudHlk_id = $data['ensEtudHlk_id'];
+        $row ->hizb = $data['hizb'];
+        $row ->Elmoraja3a = $data['Elmoraja3a'];
+        $row ->Elmtn = $data['Elmtn'];
+        $row ->el7ifd = $data['el7ifd'];
+        $row ->retard = $data['retard'];
+        $row ->absent = $data['absent'];
+        $row ->justificatif = $data['justificatif'];
+        $row ->observations = $data['observations'];
+        // and so on for your all columns 
+        $row->save();   //at last save into db
+      }
 
-    $histetudiante->save();
-    return response([$histhalaka,$histetudiante],201);
+
+      /*  
+foreach($request->ensEtudHlk_id as $id){
+
+ DB::insert('insert into histetudiante (
+HistHalaka_id,	
+ensEtudHlk_id,	
+hizb,	
+Elmoraja3a,	
+Elmtn,	
+el7ifd,	
+retard,	
+absent,	
+justificatif,	
+observations) values (?,?,?,?,?, ?, ?, ?,?,?)',
+ [$histhalaka->id,
+ $id,$request->hizb[$i],
+ $request->Elmoraja3a[$i],
+ $request->Elmtn[$i],
+ $request->el7ifd[$i],
+ $request->retard[$i],
+ $request->absent[$i],
+ $request->justificatif[$i],
+ $request->observations [$i]]);
+ $i++;
+    }*/
+    return response()->json(['message'=>'Histhalaka saved !',200]);
 
     }
 

@@ -75,7 +75,7 @@ try{
    
 
 public function show($id)
-    {
+{
         $enseigante=Enseigante::find($id);
 
         if(is_null($enseigante)){
@@ -86,8 +86,9 @@ public function show($id)
 
 $enseigante=DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->join('users as u','u.personne_id','=','e.personne_id')
     ->where('e.id','=',$id)
-    ->select('p.nom',
+    ->select('u.name as username','p.nom',
 'p.prenom','p.dateNaiss','p.adresse','p.telephone','p.email','p.job','p.fonction','p.niveauScolaire','p.statusSocial','p.lieuNaiss',
 'p.dateEntree','e.id','e.experienceTeaching','e.lieuKhatm','e.dateKhatm','e.ensKhatm','e.Remplace')
     ->first();
@@ -96,7 +97,8 @@ $data = Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
   ->join('groupe','groupe.id','=','halaka.id_groupe')
        ->where('ensetudhlk.id_ens','=',$id)
                 ->select('halaka.id','groupe.name as groupe','halaka.name as halaka','halaka.jour','halaka.tempsDebut','halaka.tempsFin', 'halaka.fiaMin','halaka.fiaMax')
-              ->distinct()  ->get();
+              ->distinct()
+              ->get();
 
 return response()->json([$enseigante,$data],200);
 
@@ -108,24 +110,26 @@ return response()->json([$enseigante,$data],200);
 
 public function update(Request $request,$id)  {
 
- $etudiante= Enseigante::find($id);
-        if(is_null($etudiante)){
+ $ens= Enseigante::find($id);
+        if(is_null($ens)){
 
            return response()->json(['message'=>'Enseignante not found',404]);
 }
 
 DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
     ->update($request->all());
-  $etudiante= Enseigante::find($id);
+  $ens= Enseigante::find($id);
 
 $personne=DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
-    ->where('e.id','=',$id)
-    ->get('p.*');
+    ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
+     ->where('e.id','=',$id)
+    ->get('p.*','u.name as username');
     
-          return response([$etudiante,$personne],201);
+          return response([$ens,$personne],201);
 
     }
  

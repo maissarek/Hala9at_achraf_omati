@@ -11,9 +11,6 @@ class PersonneController extends Controller
 public function index()
     {
 
-     /*   $enseigante = Personne::with('Ens_relat')->get();
-        $etu = Personne::with('Etu_relat')->get();
-        dd($enseigante,$etu);*/
         return response()->json(Personne::all(),200);
     }
 
@@ -26,7 +23,6 @@ public function store(Request $request)
       }
 
 
-//////////////////////////*** intrface 1 ***//////////////////////////////////////
 
  public function  save_pers_ens(Request $request){
 
@@ -39,30 +35,42 @@ public function store(Request $request)
            $ens->  ensKhatm= $request->ensKhatm;
            $ens->  Remplace= $request->Remplace;
         
-        // $ens = ::create($request->all());
-         $personne->Ens_relat()->save($ens);
-          return response([$personne,$ens],201);
+          $personne->Ens_relat()->save($ens);
+
+          $user= new User;
+       $user->name=$request->name;
+       $user->email=$request->email;
+       $user->password = Hash::make("achraf_omati_2021");
+      $personne->user_relat()->save($user);
+  
+         return response([$personne,$user,$ens],201);
 
        
  }
 
- //////////////////////////*** intrface 3 ***//////////////////////////////////////
 
 public function  save_pers_etu(Request $request){
 
              $personne= Personne::create($request->all()); 
-            $etu = new Etudiante;
+             $etu = new Etudiante;
 
-            $etu->niveauAhkam = $request->niveauAhkam;
-            $etu->lieuKhatm = $request->lieuKhatm;
-            $etu->dateKhatm = $request->dateKhatm;
-            $etu->ensKhatm = $request->ensKhatm;
-            $etu->teach = $request->teach;
-            $etu->teachPlace = $request->teachPlace;
-            $etu->hizb = $request->hizb;
-            $etu->khatima = $request->khatima;
+             $etu->niveauAhkam = $request->niveauAhkam;
+             $etu->lieuKhatm = $request->lieuKhatm;
+             $etu->dateKhatm = $request->dateKhatm;
+             $etu->ensKhatm = $request->ensKhatm;
+             $etu->teach = $request->teach;
+             $etu->teachPlace = $request->teachPlace;
+             $etu->hizb = $request->hizb;
+             $etu->khatima = $request->khatima;
              $personne->Etu_relat()->save($etu);
-             return response([$personne,$etu],201);
+
+ $user= new User;
+       $user->name=$request->name;
+       $user->email=$request->email;
+       $user->password = Hash::make("achraf_omati_2021");
+      $personne->user_relat()->save($user);
+      
+             return response([$personne,$user,$etu],201);
             
  }
 

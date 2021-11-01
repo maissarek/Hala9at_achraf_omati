@@ -35,9 +35,9 @@ Route::get('/personnes',[PersonneController::class,'index']);
 Route::post('/personne_save',[PersonneController::class,'store']);
 Route::get('/personne/{id}',[PersonneController::class,'show']);
 Route::put('/personne/{id}',[PersonneController::class,'update']);
-Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
 /////////////////////////////////////////////////////////////////////////////
+
 Route::get('/users/list', function () {return User::all();});
 Route::post('/user/login',[UserController::class,'login']);
 Route::post('/user/profil',[UserController::class,'show']);
@@ -79,6 +79,7 @@ Route::delete('/halaka/delete/{id}',[HalakaController::class,'destroy']);
 Route::delete('/histhalaka/delete/{id}',[HisthalakaController::class,'destroy']);
 Route::delete('/lieu/delete/{id}',[LieuController::class,'destroy']);
 Route::delete('/groupe/delete/{id}',[GroupeController::class,'destroy']);
+Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 /////////////////////////////////////////////////////////////////////////////
 
 Route::get('/Histetudiantes',[HistetudianteController::class,'index']);

@@ -92,10 +92,11 @@ public function show($id)
 $data=DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->leftJoin('personne','personne.id','=','etudiante.personne_id')
+          ->leftjoin('users as u','u.personne_id','=','etudiante.personne_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
          ->where('etudiante.id','=',$id)
-         ->select('etudiante.*','personne.*','halaka.name  as halaka','groupe.name as groupe')
+         ->select('u.name as username','etudiante.*','personne.*','halaka.name  as halaka','groupe.name as groupe')
         ->first();
 
            return response()->json($data,200);
@@ -115,14 +116,16 @@ public function update(Request $request,$id)
 
 DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
     ->update($request->all());
   $etudiante= Etudiante::find($id);
 
 $personne=DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
+     ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
-    ->get('p.*');
+    ->get('p.*','u.name as username');
     
           return response([$etudiante,$personne],201);
 

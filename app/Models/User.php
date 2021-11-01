@@ -59,8 +59,5 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-public function pers_relat()
-    {
-        return $this->hasOne(Personne::class);
-    }
+
 }

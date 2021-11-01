@@ -20,7 +20,8 @@ class UserController extends Controller
        $user= new User;
        $user->name=$request->name;
        $user->email=$request->email;
-       $user->password=Hash::make($request->password);
+       $user->password = Hash::make("achraf_omati_2021");
+       // $user->password = Hash::make($request->password);
        $user->save();
        return response($user,201);
 
@@ -28,6 +29,7 @@ class UserController extends Controller
 
        public function show($id)
     {
+
         $user=User::find($id);
         if(is_null($user)){
 
@@ -62,7 +64,9 @@ return response()->json(['message'=>'User deleted ! ',204]);
 
    function login(Request $request)
     {
-        $user= User::where('email', $request->email)->first();
+        $user= User::where('email', $request->email)
+        ->orWhere('name',$request->name)
+        ->first();
         // print_r($data);
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response([
