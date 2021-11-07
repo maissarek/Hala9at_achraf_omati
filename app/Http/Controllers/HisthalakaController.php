@@ -45,7 +45,7 @@ public function show($id)
         ->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
         ->leftjoin('personne','personne.id','=','enseigante.personne_id')
         ->join('groupe','groupe.id','=','h.id_groupe')
-        ->where('h.id','=',$id)
+        ->where('hh.id','=',$id)
         ->whereNull('hh.deleted_at')
         ->select('groupe.name as groupe','h.name as halaka','personne.nom as enseigante_firstname',
         'personne.prenom as enseigante_lastname','h.jour','h.fiaMin','h.fiaMax','hh.*')//,'he.*')

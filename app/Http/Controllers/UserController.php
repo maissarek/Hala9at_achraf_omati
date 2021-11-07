@@ -50,8 +50,14 @@ $user->update ($request->all());
 return response($user,201);
     }
 
-    public function destroy($id)
+
+
+
+
+    public function destroy($id,$personne_id)
     {
+  // $pers= Personne::destroy($personne_id);
+
         $user= User::find($id);
         if(is_null($user)){
 

@@ -3,10 +3,8 @@
     "",
     "\\app",
     "\\app\\Http",
-    "\\app\\Http\\Controllers",
-    "\\app\\Models",
-    "\\database"
+    "\\app\\Http\\Controllers"
   ],
-  "SelectedNode": "\\app\\Http\\Controllers\\HalakaController.php",
+  "SelectedNode": "\\app\\Http\\Controllers\\EtudianteController.php",
   "PreviewInSolutionExplorer": false
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Personne,Enseigante,Etudiante};
+use App\Models\{Personne,Enseigante,Etudiante,User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -113,14 +113,29 @@ return response($personne,201);
 
 public function destroy($id)
     {
-        $personne= Personne::find($id);
-        if(is_null($personne)){
 
-           return response()->json(['message'=>'Personne not found',404]);
+    $enseigante= Enseigante::where('personne_id','=',$id)->get('id');
+
+    if($enseigante->isEmpty()) {      $etudiante= Etudiante::where('personne_id','=',$id)->get('id');
+
+       if ($etudiante->isEmpty()) {    $user= User::where('personne_id','=',$id)->get('id');
+
+           if ($user->isEmpty()) {     $personne= Personne::find($id);
+
+                 if(is_null($personne)){ return response()->json(['message'=>'Personne not found',404]);
+                                         }else{
+                                        $personne->delete();
+                                        return response()->json(['message'=>'Personne deleted ! ',204]);
+                                                }
+            }else{return  response()->json(['message'=>'Can\'t delete personne is used in user! ',500]);}
+            }else{ return  response()->json(['message'=>'Can\'t delete personne is used in etudiante! ',500]);}
+            }else { return  response()->json(['message'=>'Can\'t delete personne is used in enseignante! ',500]);}
+
+
+
+
+
 }
-$personne->delete();
-return response()->json(['message'=>'Personne deleted ! ',204]);
-    }
 
 
     /**
