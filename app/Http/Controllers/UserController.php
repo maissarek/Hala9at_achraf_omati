@@ -54,22 +54,32 @@ return response($user,201);
 
 
 
-    public function destroy($id,$personne_id)
+    public function destroy(Request $id,$personne_id)
     {
-  // $pers= Personne::destroy($personne_id);
+          $pers= new PersonneController;
 
-        $user= User::find($id);
-        if(is_null($user)){
+          $pers->destroy($personne_id);
 
-           return response()->json(['message'=>'User not found',404]);
-}
-$user->delete();
-return response()->json(['message'=>'User deleted ! ',204]);
+          $user= User::find($id);
+
+            if(is_null($user)){
+
+            return response()->json(['message'=>'User not found',404]);
+            }
+
+
+            $user->delete();
+
+            return response()->json(['message'=>'User deleted ! ',204]);
 
     }
 
-   function login(Request $request)
-    {
+
+
+
+    public function login(Request $request) {
+
+
         $user= User::where('email', $request->email)
         ->orWhere('name',$request->name)
         ->first();

@@ -81,12 +81,12 @@ public function show($id)
         if(is_null($enseigante)){
 
          return response()->json(['message'=>'Enseigante not found',404]);
-}
+           }
 
 
-$enseigante=DB::table('enseigante as e')
-    ->join('personne as p', 'p.id', '=', 'e.personne_id')
-    ->join('users as u','u.personne_id','=','e.personne_id')
+        $enseigante=DB::table('enseigante as e')
+    ->leftjoin('personne as p', 'p.id', '=', 'e.personne_id')
+    ->leftjoin('users as u','u.personne_id','=','e.personne_id')
     ->where('e.id','=',$id)
     ->select('u.name as username','p.nom',
 'p.prenom','p.dateNaiss','p.adresse','p.telephone','p.email','p.job','p.fonction','p.niveauScolaire','p.statusSocial','p.lieuNaiss',

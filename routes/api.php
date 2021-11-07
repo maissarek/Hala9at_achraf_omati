@@ -40,10 +40,10 @@ Route::put('/personne/{id}',[PersonneController::class,'update']);
 
 Route::get('/users/list', function () {return User::all();});
 Route::post('/user/login',[UserController::class,'login']);
-Route::post('/user/profil',[UserController::class,'show']);
-Route::post('/user/profil/edit',[UserController::class,'update']);
+Route::get('/user/profil',[UserController::class,'show']);
+Route::put('/user/profil/edit',[UserController::class,'update']);
 Route::post('/user/register',[UserController::class,'store']);
-Route::post('/user/delete',[UserController::class,'destroy']);
+Route::delete('/user/delete/{id}',[UserController::class,'destroy']);
 
 Route::get('/enseignantes/list/names',[EnseiganteController::class,'all_enseignate_names']);
 Route::get('/etudiantes/list/names',[EtudianteController::class,'all_etudiante_names']);
