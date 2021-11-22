@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 use App\Models\{Personne,Enseigante,Etudiante,User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 class PersonneController extends Controller
 {
@@ -15,16 +17,20 @@ public function index()
     }
 
 
-
+/*
 public function store(Request $request)
     {
         $personne= Personne::create($request->all());
          return response($personne,201);      
       }
 
-
+*/
 
  public function  save_pers_ens(Request $request){
+
+ if ($request->user()->cannot('create',Enseigante::class)) {
+            abort(403);
+        }
 
          $personne= Personne::create($request->all());
           $ens = new Enseigante;
@@ -40,6 +46,7 @@ public function store(Request $request)
           $user= new User;
        $user->name=$request->name;
        $user->email=$request->email;
+       $user->role_id=2;
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
   
@@ -48,7 +55,21 @@ public function store(Request $request)
        
  }
 
+public function  save_pers_admin(Request $request){
 
+         $personne= Personne::create($request->all());
+         
+          $user= new User;
+       $user->name=$request->name;
+       $user->email=$request->email;
+       $user->role_id=1;
+       $user->password = Hash::make("achraf_omati_2021");
+      $personne->user_relat()->save($user);
+  
+         return response([$personne,$user],201);
+
+       
+ }
 public function  save_pers_etu(Request $request){
 
              $personne= Personne::create($request->all()); 
@@ -62,11 +83,13 @@ public function  save_pers_etu(Request $request){
              $etu->teachPlace = $request->teachPlace;
              $etu->hizb = $request->hizb;
              $etu->khatima = $request->khatima;
+             
              $personne->Etu_relat()->save($etu);
 
  $user= new User;
        $user->name=$request->name;
        $user->email=$request->email;
+       $user->role_id=3;
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
       
@@ -111,29 +134,67 @@ return response($personne,201);
 
 
 
-public function destroy($id)
+public function destroy($id,$come)
     {
 
     $enseigante= Enseigante::where('personne_id','=',$id)->get('id');
 
-    if($enseigante->isEmpty()) {      $etudiante= Etudiante::where('personne_id','=',$id)->get('id');
+    if($enseigante->isEmpty()) {
 
-       if ($etudiante->isEmpty()) {    $user= User::where('personne_id','=',$id)->get('id');
+    $etudiante= Etudiante::where('personne_id','=',$id)->get('id');
 
-           if ($user->isEmpty()) {     $personne= Personne::find($id);
+       if ($etudiante->isEmpty()) {
 
-                 if(is_null($personne)){ return response()->json(['message'=>'Personne not found',404]);
+       $user= User::where('personne_id','=',$id)->get('id');
+
+           if ($user->isEmpty()) {
+
+           $personne= Personne::find($id);
+
+                 if(is_null($personne)){
+                 return false;//response()->json(['message'=>'Personne not found',404]);
                                          }else{
                                         $personne->delete();
-                                        return response()->json(['message'=>'Personne deleted ! ',204]);
+                                        return true;//response()->json(['message'=>'Personne deleted ! ',204]);
                                                 }
-            }else{return  response()->json(['message'=>'Can\'t delete personne is used in user! ',500]);}
-            }else{ return  response()->json(['message'=>'Can\'t delete personne is used in etudiante! ',500]);}
-            }else { return  response()->json(['message'=>'Can\'t delete personne is used in enseignante! ',500]);}
+            }else{
+            if ($come==0) {
+	  $personne= Personne::find($id);
 
+                 if(is_null($personne)){
+                 return false;//response()->json(['message'=>'Personne not found',404]);
+                                         }else{
+                                        $personne->delete();
+                                        return true;//response()->json(['message'=>'Personne deleted ! ',204]);
+                                                }
+}
 
+       else     return false; }//response()->json(['message'=>'Can\'t delete personne is used in user! ',500]);}
+            }else{
+            if ($come==1) {
+	  $personne= Personne::find($id);
 
+                 if(is_null($personne)){
+                 return false;//response()->json(['message'=>'Personne not found',404]);
+                                         }else{
+                                        $personne->delete();
+                                        return true;//response()->json(['message'=>'Personne deleted ! ',204]);
+                                                }
+}
 
+              else      return false; }//response()->json(['message'=>'Can\'t delete personne is used in etudiante! ',500]);}
+            }else {
+            if ($come==2) {
+                    $personne= Personne::find($id);
+
+                    if(is_null($personne)){
+                    return false;//response()->json(['message'=>'Personne not found',404]);
+                    }else{
+                          $personne->delete();
+                          return true;//response()->json(['message'=>'Personne deleted ! ',204]);
+       }}
+
+       else     return false; }//response()->json(['message'=>'Can\'t delete personne is used in enseignante! ',500]);}
 
 }
 
@@ -150,6 +211,8 @@ public function destroy($id)
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function create()
     {
         //

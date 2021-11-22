@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\PersonneController; 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -58,9 +58,12 @@ return response($user,201);
     {
           $pers= new PersonneController;
 
-          $pers->destroy($personne_id);
+         $r= $pers->destroy($personne_id,2);
+        //  dd($r);
 
-          $user= User::find($id);
+        if ($r) {
+
+	        $user= User::find($id);
 
             if(is_null($user)){
 
@@ -68,10 +71,17 @@ return response($user,201);
             }
 
 
-            $user->delete();
+            $user->each->delete();
 
             return response()->json(['message'=>'User deleted ! ',204]);
 
+         }else {
+
+        return response()->json(['message'=>'We can\'t deleted ',500]);
+        }
+
+
+        
     }
 
 

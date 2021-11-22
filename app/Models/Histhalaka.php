@@ -17,7 +17,7 @@ protected $table="histhalaka";
 protected $fillable=[
 
 'id',
-'ensRemplacante',
+'ensRemplacante_id',
 'date',
 'moraja3a',
 'moton',

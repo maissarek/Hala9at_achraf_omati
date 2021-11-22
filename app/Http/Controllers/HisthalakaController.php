@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Histhalaka,Histetudiante};
+use App\Models\{Histhalaka,Histetudiante,Ensetuhlk,Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -107,48 +107,6 @@ public function store(Request $request)
  
     $histhalaka= Histhalaka::create($request->all());
 
-    /*
-    $data = [
-   ['something' => value1, 'somethingElse' => anotherValue1], // record 1
-   ['something' => value2, 'somethingElse' => anotherValue2], // record 2
-];
-
-Model::insert($data);
-       foreach($request->detailedHistory as $data) 
-      {
-        $row = new YourModel();
-        $row ->column_name1 = $data['DetailedHistoryItem']['date'];
-        $row ->column_name2 = $data['DetailedHistoryItem']['source'];
-        // and so on for your all columns 
-        $row->save();   //at last save into db
-      }
-    */
- /*DB::insert('insert into histetudiante (
-HistHalaka_id,	
-ensEtudHlk_id,	
-hizb,	
-Elmoraja3a,	
-Elmtn,	
-el7ifd,	
-retard,	
-absent,	
-justificatif,	
-observations) values (?,?,?,?,?, ?, ?, ?,?,?)',
- [
- $histhalaka->id,
- $data->ensEtudHlk_id,
- $data->hizb[$i],
- $data->Elmoraja3a[$i],
- $data->Elmtn[$i],
- $data->el7ifd[$i],
- $data->retard[$i],
- $data->absent[$i],
- $data->justificatif[$i],
- $data->observations [$i]]);
- $i++;
- 
-    }
-*/
  foreach($request->histEtud as $data) 
       {
         $row = new Histetudiante();
@@ -167,31 +125,6 @@ observations) values (?,?,?,?,?, ?, ?, ?,?,?)',
       }
 
 
-      /*  
-foreach($request->ensEtudHlk_id as $id){
-
- DB::insert('insert into histetudiante (
-HistHalaka_id,	
-ensEtudHlk_id,	
-hizb,	
-Elmoraja3a,	
-Elmtn,	
-el7ifd,	
-retard,	
-absent,	
-justificatif,	
-observations) values (?,?,?,?,?, ?, ?, ?,?,?)',
- [$histhalaka->id,
- $id,$request->hizb[$i],
- $request->Elmoraja3a[$i],
- $request->Elmtn[$i],
- $request->el7ifd[$i],
- $request->retard[$i],
- $request->absent[$i],
- $request->justificatif[$i],
- $request->observations [$i]]);
- $i++;
-    }*/
     return response()->json(['message'=>'Histhalaka saved !',200]);
 
     }
@@ -223,9 +156,16 @@ return response()->json(null,204);
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function list_etud($id)
     {
-        //
+        $data = Personne::join('Etudiante as e','e.personne_id','=','personne.id')
+        ->join('Ensetuhlk','Ensetuhlk.id_etud','=','e.id')
+       ->where('Ensetuhlk.id_hlk','=',$id)
+                ->select('personne.id','personne.nom','personne.prenom')
+                ->get();
+
+                return response()->json($data,200);
+
     }
 
     /**
