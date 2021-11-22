@@ -18,8 +18,8 @@ class CreateHistetudianteTable extends Migration
             $table->unsignedInteger('HistHalaka_id')->index('HistHalaka');
             $table->unsignedInteger('ensEtudHlk_id')->index('ensEtudHlk_id');
             $table->integer('hizb');
-            $table->string('el7ifd', 50);
-            $table->string('Elmoraja3a', 500);
+            $table->string('elhifd', 50);
+            $table->string('Elmorajaa', 500);
             $table->string('Elmtn', 500);
             $table->tinyInteger('retard')->nullable();
             $table->tinyInteger('absent');
