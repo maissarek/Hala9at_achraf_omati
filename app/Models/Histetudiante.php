@@ -17,7 +17,7 @@ class Histetudiante extends Model
 protected $fillable=[
 'id','HistHalaka',
 'ensEtudHlk_id','hizb',
-'el7ifd','Elmoraja3a','Elmtn',
+'elhifd','Elmorajaa','Elmtn',
 'retard','absent',
 'justificatif','observations']; 
 

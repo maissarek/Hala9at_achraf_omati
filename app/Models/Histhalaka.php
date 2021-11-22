@@ -19,7 +19,7 @@ protected $fillable=[
 'id',
 'ensRemplacante_id',
 'date',
-'moraja3a',
+'morajaa',
 'moton',
 'autres',
 'absence_Ens',

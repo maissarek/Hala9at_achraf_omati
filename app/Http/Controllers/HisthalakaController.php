@@ -113,9 +113,9 @@ public function store(Request $request)
         $row ->HistHalaka_id =$histhalaka->id;
         $row ->ensEtudHlk_id = $data['ensEtudHlk_id'];
         $row ->hizb = $data['hizb'];
-        $row ->Elmoraja3a = $data['Elmoraja3a'];
+        $row ->Elmorajaa = $data['Elmorajaa'];
         $row ->Elmtn = $data['Elmtn'];
-        $row ->el7ifd = $data['el7ifd'];
+        $row ->elhifd = $data['elhifd'];
         $row ->retard = $data['retard'];
         $row ->absent = $data['absent'];
         $row ->justificatif = $data['justificatif'];
