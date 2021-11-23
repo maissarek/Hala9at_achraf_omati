@@ -156,17 +156,7 @@ return response()->json(null,204);
      *
      * @return \Illuminate\Http\Response
      */
-    public function list_etud($id)
-    {
-        $data = Personne::join('Etudiante as e','e.personne_id','=','personne.id')
-        ->join('Ensetuhlk','Ensetuhlk.id_etud','=','e.id')
-       ->where('Ensetuhlk.id_hlk','=',$id)
-                ->select('personne.id','personne.nom','personne.prenom')
-                ->get();
 
-                return response()->json($data,200);
-
-    }
 
     /**
      * Store a newly created resource in storage.

@@ -124,7 +124,7 @@ $halaka=Halaka::leftjoin('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
 $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
   ->join('personne as p','p.id','=','etudiante.personne_id')
   ->where('ensetudhlk.id_hlk','=',$id)
-  ->select('etudiante.id','p.nom','p.prenom','p.dateNaiss','p.adresse','niveauAhkam','hizb','ensetudhlk.date_affectation')
+  ->select('ensetudhlk.id as ensetudhlk_id','etudiante.id','p.nom','p.prenom','p.dateNaiss','p.adresse','niveauAhkam','hizb','ensetudhlk.date_affectation')
   ->get();
 
   return response()->json([$halaka,$data],200);

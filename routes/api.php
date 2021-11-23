@@ -50,7 +50,6 @@ Route::get('/etudiantes/list/names',[EtudianteController::class,'all_etudiante_n
 Route::get('/lieu/list/names',[LieuController::class,'all_lieu_names']);
 
 Route::get('/enseignantes/list',[EnseiganteController::class,'all_enseignate']);
-Route::get('/halaka/{id}/etudiantes',[HistetudianteController::class,'list_etud']);
 Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);
 Route::get('/groupe/{id}/halakat',[HalakaController::class,'getHalakatbyGroupeId']);
 Route::get('/groupe/list',[GroupController::class,'index']);
