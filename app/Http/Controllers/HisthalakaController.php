@@ -41,23 +41,24 @@ public function show($id)
     $histhalaka = DB::table('histhalaka as hh')
         ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
         ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')
-        ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
         ->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
         ->leftjoin('personne','personne.id','=','enseigante.personne_id')
-        ->join('groupe','groupe.id','=','h.id_groupe')
+
         ->where('hh.id','=',$id)
         ->whereNull('hh.deleted_at')
-        ->select('groupe.name as groupe','h.name as halaka','personne.nom as enseigante_firstname',
-        'personne.prenom as enseigante_lastname','h.jour','h.fiaMin','h.fiaMax','hh.*')//,'he.*')
-        ->distinct()->get();
+        ->select('personne.prenom as enseigante_firstname',
+        'personne.nom as enseigante_lastname','hh.*')
+        ->distinct()->first();
 
  $he = DB::table('histhalaka as hh')
         ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
         ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')
-        ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
-        ->where('h.id','=',$id)
+        ->rightjoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+        ->leftjoin('personne','personne.id','=','etudiante.personne_id')
+        ->where('hh.id','=',$id)
         ->whereNull('hh.deleted_at')
-        ->select('he.*')
+        ->select('personne.prenom as etudiante_firstname','personne.nom as etudiante_lastname','he.*')
+        ->distinct()
         ->get();
 
         if(is_null($histhalaka)){
@@ -65,7 +66,7 @@ public function show($id)
            return response()->json(['message'=>'history of halaka not found',404]);
 }
         
-
+//  return response()->json([$halaka,$data],200);
            return response()->json([$histhalaka,$he],200);
     }
 
