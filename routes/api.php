@@ -37,9 +37,16 @@ Route::get('/personne/{id}',[PersonneController::class,'show']);
 Route::put('/personne/{id}',[PersonneController::class,'update']);
 
 /////////////////////////////////////////////////////////////////////////////
-
-Route::get('/users/list', function () {return User::all();});
 Route::post('/user/login',[UserController::class,'login']);
+
+Route::middleware('auth:sanctum')->group( function () {
+
+
+Route::get('/users/list', function () {
+$this->authorize('viewAny', User::class);
+return User::all();
+});
+
 Route::get('/user/profil',[UserController::class,'show']);
 Route::put('/user/profil/edit',[UserController::class,'update']);
 Route::post('/user/register',[UserController::class,'store']);
@@ -82,7 +89,7 @@ Route::delete('/lieu/delete/{id}',[LieuController::class,'destroy']);
 Route::delete('/groupe/delete/{id}',[GroupeController::class,'destroy']);
 Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 
-
+});
 /////////////////////////////////////////////////////////////////////////////
 
 Route::get('/Histetudiante/{id}',[HistetudianteController::class,'show']);

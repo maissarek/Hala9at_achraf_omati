@@ -18,7 +18,7 @@ class EtudiantePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -30,7 +30,7 @@ class EtudiantePolicy
      */
     public function view(User $user, Etudiante $etudiante)
     {
-        //
+       
     }
 
     /**

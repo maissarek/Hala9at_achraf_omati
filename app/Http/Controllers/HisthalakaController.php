@@ -14,6 +14,8 @@ class HisthalakaController extends Controller
 
 public function index($id){
 
+$this->authorize('viewAny', Histhalaka::class);
+
     $histhalaka = DB::table('histhalaka as hh')
     ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
     ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')  
@@ -74,10 +76,10 @@ public function show($id)
 
 
 
-public function update(Request $request,$idhh,$idhe)
+public function update(Request $request,$id)
     {
-        $histhalaka= Histhalaka::find($idhh);
-         $histetudiante=Histetudiante::find($idhe);
+        $histhalaka= Histhalaka::find($id);
+         $histetudiante=Histetudiante::find($request->idhe);
 
         if(is_null($histhalaka)){
 
@@ -104,7 +106,7 @@ return response([$histhalaka,$histetudiante],201);
 
 public function store(Request $request)
     {
-
+    $this->authorize('create', Histhalaka::class);
  
     $histhalaka= Histhalaka::create($request->all());
 

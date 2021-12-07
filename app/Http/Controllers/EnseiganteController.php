@@ -15,7 +15,7 @@ class EnseiganteController extends Controller
      */
 public function all_enseignate()
 {
-
+$this->authorize('viewAny', Enseigante::class);
 $data = DB::table('enseigante')
          ->join('personne','personne.id','=','enseigante.personne_id')
          ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone')

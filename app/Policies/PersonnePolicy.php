@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Personne;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PersonnePolicy
@@ -39,9 +40,16 @@ class PersonnePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+
+      public function create(User $user)
     {
-        //
+        return $user->role_id === 1 ;
+    }
+
+
+    public function save_pers_ens(User $user)
+    {
+        return (($user->role_id === 1) || ($user->role_id === 2)) ;
     }
 
     /**

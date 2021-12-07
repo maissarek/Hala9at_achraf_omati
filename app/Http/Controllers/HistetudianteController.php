@@ -18,7 +18,8 @@ return response()->json(Histetudiante::all(),200);
 
 public function store(Request $request)
     {
-        $histetudiante=Histetudiante::create($request->all());
+      $this->authorize('create', Histetudiante::class);
+      $histetudiante=Histetudiante::create($request->all());
         return response($histetudiante,201);
     }
 

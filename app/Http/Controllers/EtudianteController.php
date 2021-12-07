@@ -27,7 +27,7 @@ $data = DB::table('ensetudhlk')
 
 public function all_etudiante()
 {
-
+$this->authorize('viewAny', Etudiante::class);
 $data = DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->leftJoin('personne','personne.id','=','etudiante.personne_id')
@@ -119,6 +119,7 @@ DB::table('etudiante as e')
     ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
     ->update($request->all());
+
   $etudiante= Etudiante::find($id);
 
 $personne=DB::table('etudiante as e')

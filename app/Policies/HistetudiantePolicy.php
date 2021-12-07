@@ -18,7 +18,7 @@ class HistetudiantePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -41,7 +41,7 @@ class HistetudiantePolicy
      */
     public function create(User $user)
     {
-        //
+           return $user->role_id === 1;
     }
 
     /**

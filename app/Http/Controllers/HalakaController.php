@@ -40,7 +40,7 @@ public function getHalakatbyenseignanteId($id){
 
      public function index()
     {
-
+    $this->authorize('viewAny', Halaka::class);
     
 $data = DB::table('halaka as h')
 ->leftjoin('ensetudhlk','h.id','=','ensetudhlk.id_hlk')
@@ -70,7 +70,7 @@ $data = DB::table('halaka as h')
 public function store(Request $request)
     {
 
-
+    $this->authorize('create', Halaka::class);
  $halaka = Halaka::create($request->all());
 
  foreach($request->id_etud as $id){

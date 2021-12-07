@@ -28,9 +28,8 @@ public function store(Request $request)
 
  public function  save_pers_ens(Request $request){
 
- if ($request->user()->cannot('create',Enseigante::class)) {
-            abort(403);
-        }
+$this->authorize('save_pers_ens', Personne::class);
+
 
          $personne= Personne::create($request->all());
           $ens = new Enseigante;
@@ -44,8 +43,8 @@ public function store(Request $request)
           $personne->Ens_relat()->save($ens);
 
           $user= new User;
-       $user->name=$request->name;
-       $user->email=$request->email;
+       $user->name=$request->nom.'_'.$request->prenom;
+       $user->mail=$request->mail;
        $user->role_id=2;
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
@@ -56,12 +55,12 @@ public function store(Request $request)
  }
 
 public function  save_pers_admin(Request $request){
-
+$this->authorize('create', Personne::class);
          $personne= Personne::create($request->all());
          
           $user= new User;
-       $user->name=$request->name;
-       $user->email=$request->email;
+     $user->name=$request->nom.'_'.$request->prenom;
+       $user->mail=$request->mail;
        $user->role_id=1;
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
@@ -71,7 +70,7 @@ public function  save_pers_admin(Request $request){
        
  }
 public function  save_pers_etu(Request $request){
-
+$this->authorize('create', Personne::class);
              $personne= Personne::create($request->all()); 
              $etu = new Etudiante;
 
@@ -87,8 +86,8 @@ public function  save_pers_etu(Request $request){
              $personne->Etu_relat()->save($etu);
 
  $user= new User;
-       $user->name=$request->name;
-       $user->email=$request->email;
+     $user->name=$request->nom.'_'.$request->prenom;
+       $user->mail=$request->mail;
        $user->role_id=3;
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
@@ -126,7 +125,7 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'Personne not found',404]);
 }
-$personne->update ($request->all());
+$personne->update($request->all());
 return response($personne,201);
     }
 
@@ -215,7 +214,6 @@ public function destroy($id,$come)
 
     public function create()
     {
-        //
     }
 
     /**

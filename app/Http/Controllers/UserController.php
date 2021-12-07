@@ -17,9 +17,10 @@ class UserController extends Controller
 
      public function store(Request $request)
     {
+       $this->authorize('create', User::class);
        $user= new User;
        $user->name=$request->name;
-       $user->email=$request->email;
+       $user->mail=$request->mail;
        $user->password = Hash::make("achraf_omati_2021");
        // $user->password = Hash::make($request->password);
        $user->save();
@@ -90,7 +91,7 @@ return response($user,201);
     public function login(Request $request) {
 
 
-        $user= User::where('email', $request->email)
+        $user= User::where('mail', $request->mail)
         ->orWhere('name',$request->name)
         ->first();
         // print_r($data);
