@@ -39,6 +39,7 @@ Route::put('/personne/{id}',[PersonneController::class,'update']);
 /////////////////////////////////////////////////////////////////////////////
 Route::post('/user/login',[UserController::class,'login']);
 
+Route::post('/admin/add',[PersonneController::class,'save_pers_admin']);
 Route::middleware('auth:sanctum')->group( function () {
 
 
@@ -75,7 +76,6 @@ Route::put('/halaka/update/{id}',[HalakaController::class,'update']);
 Route::put('/histhalaka/update/{id}',[HisthalakaController::class,'update']);
 
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
-Route::post('/admin/add',[PersonneController::class,'save_pers_admin']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
 Route::post('/halaka/add',[HalakaController::class,'store']);
 Route::post('/histhalaka/add',[HisthalakaController::class,'store']);

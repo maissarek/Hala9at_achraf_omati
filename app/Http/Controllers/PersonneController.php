@@ -55,7 +55,7 @@ $this->authorize('save_pers_ens', Personne::class);
  }
 
 public function  save_pers_admin(Request $request){
-$this->authorize('create', Personne::class);
+//$this->authorize('create', Personne::class);
          $personne= Personne::create($request->all());
          
           $user= new User;
