@@ -58,12 +58,12 @@ public function  save_pers_admin(Request $request){
 //$this->authorize('create', Personne::class);
          $personne= Personne::create($request->all());
          
-          $user= new User;
-     $user->name=$request->nom.'_'.$request->prenom;
-       $user->mail=$request->mail;
-       $user->role_id=1;
-       $user->password = Hash::make("achraf_omati_2021");
-      $personne->user_relat()->save($user);
+         $user= new User;
+         $user->name=$request->nom.'_'.$request->prenom;
+         $user->mail=$request->mail;
+         $user->role_id=1;
+         $user->password = Hash::make("achraf_omati_2021");
+         $personne->user_relat()->save($user);
   
          return response([$personne,$user],201);
 
