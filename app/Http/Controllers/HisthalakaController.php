@@ -39,18 +39,52 @@ $this->authorize('viewAny', Histhalaka::class);
 
 public function show($id)
     {
-         
-    $histhalaka = DB::table('histhalaka as hh')
+    
+	 $histhalaka1 =Histhalaka::find($id);
+        if(is_null($histhalaka1)){
+
+           return response()->json(['message'=>'history of halaka not found',404]);
+}else{
+
+    $ens= DB::table('histhalaka')
+    ->where('id','=',$id)
+    ->whereNull('ensRemplacante_id')
+    ->get();
+    //dd($histhalaka1);
+
+    if($ens->isEmpty()){
+   //ensRemplacante
+
+
+ $histhalaka = DB::table('histhalaka as hh')
         ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
         ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')
-        ->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-        ->leftjoin('personne','personne.id','=','enseigante.personne_id')
 
+        ->leftjoin('enseigante','enseigante.id','=','hh.ensRemplacante_id')
+
+        ->leftjoin('personne','personne.id','=','enseigante.personne_id')
         ->where('hh.id','=',$id)
         ->whereNull('hh.deleted_at')
         ->select('personne.prenom as enseigante_firstname',
         'personne.nom as enseigante_lastname','hh.*')
         ->distinct()->first();
+
+
+}else {   //there is not ensRemplacante
+
+$histhalaka = DB::table('histhalaka as hh')
+        ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
+        ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')
+        ->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
+        ->leftjoin('personne','personne.id','=','enseigante.personne_id')
+        ->where('hh.id','=',$id)
+        ->whereNull('hh.deleted_at')
+        ->select('personne.prenom as enseigante_firstname',
+        'personne.nom as enseigante_lastname','hh.*')
+        ->distinct()->first();
+ 
+
+      }
 
  $he = DB::table('histhalaka as hh')
         ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
@@ -63,14 +97,11 @@ public function show($id)
         ->distinct()
         ->get();
 
-        if(is_null($histhalaka)){
 
-           return response()->json(['message'=>'history of halaka not found',404]);
-}
         
 //  return response()->json([$halaka,$data],200);
            return response()->json([$histhalaka,$he],200);
-    }
+  } }
 
 
 
@@ -79,21 +110,64 @@ public function show($id)
 public function update(Request $request,$id)
     {
         $histhalaka= Histhalaka::find($id);
-         $histetudiante=Histetudiante::find($request->idhe);
+         $histetudiante=Histetudiante::find($request->id);
 
         if(is_null($histhalaka)){
 
            return response()->json(['message'=>'Histhalaka not found',404]);
 
-}elseif(is_null($histetudiante)){
+        }elseif(is_null($histetudiante)){
 
- $histetudiante=Histetudiante::create($request->all());
+        $histetudiante=Histetudiante::create($request->all());
 
 }else{
 
-$histhalaka->update ($request->all());
-$histetudiante->update($request->all());
+            $histhalaka->update($request->all());
+     /*     
+foreach($request->histEtud as $data) {
 
+            Histetudiante::where('id',$data['id'])
+            ->update([
+
+           'Elmorajaa'=>$data['Elmorajaa'],
+            'hizb'=>$data['hizb'],
+            'elhifd'=>$data['elhifd'],
+            'Elmtn'=>$data['Elmtn'],
+            'retard'=>$data['retard'],
+            'absent'=>$data['absent'],
+            'justificatif'=>$data['justificatif'],
+            'observations'=>$data['observations']
+            ]);
+
+*/
+             for ($i=0; $i<count($request->histEtud); $i++) {
+
+        DB::table('histetudiante')
+            ->where('id',$request->id[$i])
+            ->update([
+            'Elmorajaa'=>$request->Elmorajaa[$i],
+            'hizb'=>$request->hizb[$i],
+           /* 'elhifd'=>$data['elhifd'],
+            'Elmtn'=>$data['Elmtn'],
+            'retard'=>$data['retard'],
+            'absent'=>$data['absent'],
+            'justificatif'=>$data['justificatif'],
+            'observations'=>$data['observations']
+ */
+        ]);
+}
+
+
+
+            /*foreach($request->histEtud as $data)  {
+
+Histetudiante::where('id', $data['id'])
+      ->update($request->all());
+      }
+           /* foreach($request->histEtud as $data) 
+                 {
+              $histetudiante  ->update($request->all());
+                    }*/
 
 }
 
