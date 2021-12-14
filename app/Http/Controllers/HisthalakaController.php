@@ -50,7 +50,7 @@ public function show($id)
     ->where('id','=',$id)
     ->whereNull('ensRemplacante_id')
     ->get();
-    //dd($histhalaka1);
+  
 
     if($ens->isEmpty()){
    //ensRemplacante
@@ -99,7 +99,7 @@ $histhalaka = DB::table('histhalaka as hh')
 
 
         
-//  return response()->json([$halaka,$data],200);
+
            return response()->json([$histhalaka,$he],200);
   } }
 
@@ -123,51 +123,22 @@ public function update(Request $request,$id)
 }else{
 
             $histhalaka->update($request->all());
-     /*     
+        
 foreach($request->histEtud as $data) {
 
             Histetudiante::where('id',$data['id'])
-            ->update([
-
-           'Elmorajaa'=>$data['Elmorajaa'],
+    ->update(
+         [
+            'Elmorajaa'=>$data['Elmorajaa'],
             'hizb'=>$data['hizb'],
-            'elhifd'=>$data['elhifd'],
+           'elhifd'=>$data['elhifd'],
             'Elmtn'=>$data['Elmtn'],
             'retard'=>$data['retard'],
             'absent'=>$data['absent'],
             'justificatif'=>$data['justificatif'],
             'observations'=>$data['observations']
-            ]);
-
-*/
-             for ($i=0; $i<count($request->histEtud); $i++) {
-
-        DB::table('histetudiante')
-            ->where('id',$request->id[$i])
-            ->update([
-            'Elmorajaa'=>$request->Elmorajaa[$i],
-            'hizb'=>$request->hizb[$i],
-           /* 'elhifd'=>$data['elhifd'],
-            'Elmtn'=>$data['Elmtn'],
-            'retard'=>$data['retard'],
-            'absent'=>$data['absent'],
-            'justificatif'=>$data['justificatif'],
-            'observations'=>$data['observations']
- */
-        ]);
-}
-
-
-
-            /*foreach($request->histEtud as $data)  {
-
-Histetudiante::where('id', $data['id'])
-      ->update($request->all());
-      }
-           /* foreach($request->histEtud as $data) 
-                 {
-              $histetudiante  ->update($request->all());
-                    }*/
+           ]);
+        }
 
 }
 
