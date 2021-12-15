@@ -110,23 +110,44 @@ $histhalaka = DB::table('histhalaka as hh')
 public function update(Request $request,$id)
     {
         $histhalaka= Histhalaka::find($id);
-         $histetudiante=Histetudiante::find($request->id);
+        
 
         if(is_null($histhalaka)){
 
            return response()->json(['message'=>'Histhalaka not found',404]);
 
-        }elseif(is_null($histetudiante)){
-
-        $histetudiante=Histetudiante::create($request->all());
+        
 
 }else{
 
             $histhalaka->update($request->all());
-        
-foreach($request->histEtud as $data) {
 
-            Histetudiante::where('id',$data['id'])
+ foreach($request->histEtud as $data) {
+
+ $histetudiante=Histetudiante::find($data['id']);
+
+      if(is_null($histetudiante)){
+
+        $row = new Histetudiante();
+        $row ->HistHalaka_id =$id;
+        $row ->ensEtudHlk_id = $data['ensEtudHlk_id'];
+        $row ->hizb = $data['hizb'];
+        $row ->Elmorajaa = $data['Elmorajaa'];
+        $row ->Elmtn = $data['Elmtn'];
+        $row ->elhifd = $data['elhifd'];
+        $row ->retard = $data['retard'];
+        $row ->absent = $data['absent'];
+        $row ->justificatif = $data['justificatif'];
+        $row ->observations = $data['observations'];
+        // and so on for your all columns 
+        $row->save();   //at last save into db
+
+
+        }else {
+
+       
+
+          Histetudiante::where('id',$data['id'])
     ->update(
          [
             'Elmorajaa'=>$data['Elmorajaa'],
@@ -138,7 +159,20 @@ foreach($request->histEtud as $data) {
             'justificatif'=>$data['justificatif'],
             'observations'=>$data['observations']
            ]);
-        }
+           
+   }
+}
+
+
+   
+$histetudiante= DB::table('histetudiante as e')
+     ->where('e.HistHalaka_id','=',$id)
+    ->get();
+    
+
+
+
+
 
 }
 

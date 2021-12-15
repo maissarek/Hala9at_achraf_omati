@@ -15,7 +15,8 @@ class Histetudiante extends Model
     public $timestamps=false;
  protected $table ='histetudiante';
 protected $fillable=[
-'id','HistHalaka',
+
+'id','HistHalaka_id',
 'ensEtudHlk_id','hizb',
 'elhifd','Elmorajaa','Elmtn',
 'retard','absent',
