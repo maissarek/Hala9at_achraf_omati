@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserController extends Controller
 {
     /**
@@ -71,8 +70,8 @@ return response($user,201);
             return response()->json(['message'=>'User not found',404]);
             }
 
-
-            $user->each->delete();
+      
+           $user->each->delete();
 
             return response()->json(['message'=>'User deleted ! ',204]);
 
@@ -111,5 +110,19 @@ return response($user,201);
              return response($response, 201);
     }
 
-  
+    public function logout(Request $request) {
+
+$request->user()->currentAccessToken()->delete();
+
+    return [
+        'message' => 'Logged out'
+    ];
+}
+
+     /*public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return redirect('login');
+    }*/
 }

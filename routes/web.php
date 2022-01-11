@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Log;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/user/login',[UserController::class,'login']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware('auth:sanctum')->group( function () {
+
+Route::post('/user/register',[UserController::class,'store']);
+   Route::post('/user/logout', [UserController::class,'logout']);
+});

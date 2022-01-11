@@ -40,6 +40,7 @@ Route::put('/personne/{id}',[PersonneController::class,'update']);
 Route::post('/user/login',[UserController::class,'login']);
 
 Route::post('/admin/add',[PersonneController::class,'save_pers_admin']);
+
 Route::middleware('auth:sanctum')->group( function () {
 
 
@@ -47,7 +48,7 @@ Route::get('/users/list', function () {
 $this->authorize('viewAny', User::class);
 return User::all();
 });
-
+Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/profil',[UserController::class,'show']);
 Route::put('/user/profil/edit',[UserController::class,'update']);
 Route::post('/user/register',[UserController::class,'store']);
