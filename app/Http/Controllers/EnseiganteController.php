@@ -118,21 +118,20 @@ public function update(Request $request,$id)  {
 
 DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
-    ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
-    ->where('e.id','=',$id)
+   ->where('e.id','=',$id)
     ->update($request->all());
   $ens= Enseigante::find($id);
 
 $personne=DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
-    ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
      ->where('e.id','=',$id)
-    ->get('p.*','u.name as username');
+    ->get('p.*');
     
           return response([$ens,$personne],201);
 
     }
  
+
 
 
 

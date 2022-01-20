@@ -108,6 +108,7 @@ $data=DB::table('ensetudhlk')
 
 public function update(Request $request,$id)
     {
+
         $etudiante= Etudiante::find($id);
         if(is_null($etudiante)){
 
@@ -116,19 +117,17 @@ public function update(Request $request,$id)
 
 DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
-    ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
     ->update($request->all());
 
   $etudiante= Etudiante::find($id);
 
-$personne=DB::table('etudiante as e')
+$personne = DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
-     ->join('users as u', 'u.personne_id', '=', 'e.personne_id')
-    ->where('e.id','=',$id)
-    ->get('p.*','u.name as username');
+   ->where('e.id','=',$id)
+    ->get('p.*');
     
-          return response([$etudiante,$personne],201);
+    return response([$etudiante,$personne],201);
 
     }
 

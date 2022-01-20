@@ -39,18 +39,15 @@ Route::put('/personne/{id}',[PersonneController::class,'update']);
 /////////////////////////////////////////////////////////////////////////////
 Route::post('/user/login',[UserController::class,'login']);
 
-Route::post('/admin/add',[PersonneController::class,'save_pers_admin']);
+Route::post('/user/add',[PersonneController::class,'save_pers_admin']);
 
 Route::middleware('auth:sanctum')->group( function () {
 
 
-Route::get('/users/list', function () {
-$this->authorize('viewAny', User::class);
-return User::all();
-});
+Route::get('/users/list',[UserController::class,'all_users']);
 Route::post('/user/logout', [UserController::class,'logout']);
-Route::get('/user/profil',[UserController::class,'show']);
-Route::put('/user/profil/edit',[UserController::class,'update']);
+Route::get('/user/{id}',[UserController::class,'show']);
+Route::put('/user/update/{id}',[UserController::class,'update']);
 Route::post('/user/register',[UserController::class,'store']);
 Route::delete('/user/delete/{id}',[UserController::class,'destroy']);
 
@@ -72,6 +69,7 @@ Route::get('/halaka/{id}',[HalakaController::class,'show']);
 Route::get('/histhalaka/{id}',[HisthalakaController::class,'show']);
 
 Route::put('/etudiante/update/{id}',[EtudianteController::class,'update']);
+Route::put('/user/update/{id}',[UserController::class,'update']);
 Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
 Route::put('/halaka/update/{id}',[HalakaController::class,'update']);
 Route::put('/histhalaka/update/{id}',[HisthalakaController::class,'update']);

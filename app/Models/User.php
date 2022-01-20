@@ -20,7 +20,7 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
-  /*  use SoftDeletes;
+  use SoftDeletes;
 
    protected $dates = ['deleted_at'];
 

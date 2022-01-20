@@ -5,6 +5,7 @@ use App\Http\Controllers\PersonneController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -13,6 +14,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+public function all_users()
+{
+$this->authorize('viewAny', Etudiante::class);
+$data = DB::table('users')
+         ->leftJoin('personne','personne.id','=','users.personne_id')
+        ->leftJoin('role','role.id','=','users.role_id')
+         ->select('users.id','users.name as username','users.mail','users.password','personne.nom','personne.prenom','role.libelle  as role')
+  //   ->latest()
+     ->get();
+               
+        return response($data, 200);
+}
 
      public function store(Request $request)
     {
@@ -46,7 +59,11 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'User not found',404]);
 }
-$user->update ($request->all());
+$affected = DB::table('users')
+->where('id',$id)
+->update(['name'=>$request->name,'mail'=>$request->mail,'password'=>Hash::make($request->password)]);
+$user= User::find($id);
+
 return response($user,201);
     }
 
