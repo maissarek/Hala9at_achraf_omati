@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 use App\Models\{Groupe,Halaka};
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class GroupeSeeder extends Seeder
 {
@@ -13,6 +14,14 @@ class GroupeSeeder extends Seeder
      */
     public function run()
     {
-       Groupe::factory()->times(3)->create();
+      DB::table('groupe')->insert([
+        'name'=>'مجموعة الخاتمات'
+             ]);
+              DB::table('groupe')->insert([
+        'name'=>'المجموعة العامة'
+             ]);
+              DB::table('groupe')->insert([
+        'name'=>'مجموعة الفتيات'
+             ]); 
     }
 }

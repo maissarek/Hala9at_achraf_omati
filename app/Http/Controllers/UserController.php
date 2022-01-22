@@ -20,7 +20,7 @@ $this->authorize('viewAny', Etudiante::class);
 $data = DB::table('users')
          ->leftJoin('personne','personne.id','=','users.personne_id')
         ->leftJoin('role','role.id','=','users.role_id')
-         ->select('users.id','users.name as username','users.mail','users.password','personne.nom','personne.prenom','role.libelle  as role')
+         ->select('users.id','users.name as username','users.mail','users.password','personne.nom','personne.prenom','personne.telephone','role.libelle  as role')
   //   ->latest()
      ->get();
                

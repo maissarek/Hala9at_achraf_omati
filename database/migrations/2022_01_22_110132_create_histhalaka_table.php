@@ -17,10 +17,10 @@ class CreateHisthalakaTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('ensRemplacante_id')->nullable()->index('ensRemplacante');
             $table->date('date');
-            $table->string('morajaa', 100);
-            $table->string('moton', 500);
+            $table->string('morajaa', 100)->nullable();
+            $table->string('moton', 500)->nullable();
             $table->string('autres', 5000)->nullable();
-            $table->tinyInteger('absence_Ens');
+            $table->tinyInteger('absence_Ens')->nullable();
             $table->string('justification_Ens', 500)->nullable();
             $table->softDeletes();
         });

@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

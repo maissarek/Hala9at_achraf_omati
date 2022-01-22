@@ -19,6 +19,11 @@ class DatabaseSeeder extends Seeder
       $this->call(EtudianteSeeder::class);
       $this->call(GroupeSeeder::class);
       $this->call(LieuSeeder::class);
-      
+       $this->call(HalakaSeeder::class);
+          $this->call(RoleSeeder::class);
+            $this->call(EnsetuhlkSeeder::class);
+             $this->call(UsersTableSeeder::class);
+             $this->call(HisthalakaSeeder::class);
+             $this->call(HistetudianteSeeder::class);
     }
 }

@@ -19,12 +19,12 @@ class CreateHistetudianteTable extends Migration
             $table->unsignedInteger('ensEtudHlk_id')->index('ensEtudHlk_id');
             $table->integer('hizb');
             $table->string('elhifd', 50);
-            $table->string('Elmorajaa', 500);
-            $table->string('Elmtn', 500);
+            $table->string('Elmorajaa', 500)->nullable();
+            $table->string('Elmtn', 500)->nullable();
             $table->tinyInteger('retard')->nullable();
-            $table->tinyInteger('absent');
-            $table->string('justificatif', 500);
-            $table->string('observations', 1000);
+            $table->tinyInteger('absent')->nullable();
+            $table->string('justificatif', 500)->nullable();
+            $table->string('observations', 1000)->nullable();
             $table->softDeletes();
         });
     }

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 use App\Models\{Lieu,Halaka};
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class LieuSeeder extends Seeder
 {
     /**
@@ -13,6 +13,16 @@ class LieuSeeder extends Seeder
      */
     public function run()
     {
-        Lieu::factory()->times(4)->create();
+         DB::table('lieu')->insert([
+            'name' => 'باب السيدة خديجة',
+             ]);
+
+     DB::table('lieu')->insert([
+            'name' => 'سدة النساء',
+             ]);
+
+              DB::table('lieu')->insert([
+            'name' => 'المدرسة القرآنية',
+             ]);
     }
 }

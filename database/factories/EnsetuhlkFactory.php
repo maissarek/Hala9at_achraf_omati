@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Enseigante;
+use App\Models\Ensetuhlk;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EnseiganteFactory extends Factory
+class EnsetuhlkFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Enseigante::class;
+    protected $model = Ensetuhlk::class;
 
     /**
      * Define the model's default state.
@@ -22,11 +22,7 @@ class EnseiganteFactory extends Factory
     public function definition()
     {
         return [
-
-   'experienceTeaching' => $this->faker->text('10'),
-   'lieuKhatm'=> $this->faker->text('10'),
-   'dateKhatm'=> $this->faker->date(),
-   'ensKhatm'=> $this->faker->name(),
+     //
         ];
     }
 }
