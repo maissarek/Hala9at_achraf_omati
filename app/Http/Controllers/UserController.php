@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\PersonneController; 
-use App\Models\User;
+use App\Models\{User,Role};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +20,7 @@ $this->authorize('viewAny', Etudiante::class);
 $data = DB::table('users')
          ->leftJoin('personne','personne.id','=','users.personne_id')
         ->leftJoin('role','role.id','=','users.role_id')
-         ->select('users.id','users.name as username','users.mail','users.password','personne.nom','personne.prenom','personne.telephone','role.libelle  as role')
+         ->select('users.id','users.name as username','users.mail','personne.nom','personne.prenom','personne.telephone','role.libelle  as role')
   //   ->latest()
      ->get();
                
@@ -48,7 +48,12 @@ $data = DB::table('users')
 
            return response()->json(['message'=>'User not found',404]);
 }
-           return response()->json($user::find($id),200);
+
+$user=DB::table('users')
+ ->leftJoin('personne','personne.id','=','users.personne_id')
+->where('users.id',$id)
+->first();
+           return response()->json($user,200);
     }
 
     
@@ -110,6 +115,7 @@ return response($user,201);
         $user= User::where('mail', $request->mail)
         ->orWhere('name',$request->name)
         ->first();
+      //  $role=
         // print_r($data);
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response([
@@ -121,7 +127,8 @@ return response($user,201);
         
             $response = [
                 'user' => $user,
-                'token' => $token
+                'token' => $token,
+                'role'=> Role::where('id', $user->role_id)->first('libelle')
             ];
         
              return response($response, 201);

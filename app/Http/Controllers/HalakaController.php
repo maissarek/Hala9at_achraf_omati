@@ -41,20 +41,21 @@ public function getHalakatbyenseignanteId($id){
      public function index()
     {
     $this->authorize('viewAny', Halaka::class);
-    
-$data = DB::table('halaka as h')
-->leftjoin('ensetudhlk','h.id','=','ensetudhlk.id_hlk')
-->leftjoin('enseigante as e','e.id','=','ensetudhlk.id_ens')
-->leftjoin('personne as p','p.id','=','e.personne_id')
-->leftjoin('lieu','lieu.id','=','h.id_lieu')
-->leftjoin('groupe','groupe.id','=','h.id_groupe')
-->select('h.id','groupe.name as groupe','h.name','h.jour','h.tempsDebut',
-'h.tempsFin','h.fiaMin','h.fiaMax','lieu.name as lieu','e.id as idEns',
-'p.nom as nomEns', 'p.prenom as prenomEns' )
-
-->distinct()
-->get();
-              
+  $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
+h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,e.id as idEns,
+p.nom as nomEns,p.prenom as prenomEns,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
+JOIN ensetudhlk 
+on h.id = ensetudhlk.id_hlk
+JOIN enseigante as e 
+ON e.id= ensetudhlk.id_ens
+JOIN personne as p
+ON e.personne_id = p.id
+JOIN lieu 
+ON lieu.id = h.id_lieu
+JOIN groupe 
+ON groupe.id = h.id_groupe
+group by  h.id');
+        
         return response()->json($data,200);
 
 

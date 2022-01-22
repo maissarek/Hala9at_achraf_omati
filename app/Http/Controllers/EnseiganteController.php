@@ -5,6 +5,7 @@ use App\Models\{Enseigante,Halaka,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class EnseiganteController extends Controller
 {
@@ -16,13 +17,22 @@ class EnseiganteController extends Controller
 public function all_enseignate()
 {
 $this->authorize('viewAny', Enseigante::class);
-$data = DB::table('enseigante')
+/*$data = DB::table('enseigante')
          ->join('personne','personne.id','=','enseigante.personne_id')
+         ->join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
          ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone')
-         ->WhereNull('enseigante.deleted_at')
+          ->WhereNull('enseigante.deleted_at')
          ->orderBy('enseigante.id', 'asc')
+         ->distinct()
          ->get();
-               
+*/
+$data = DB::select('SELECT enseigante.id, personne.nom,personne.prenom,personne.telephone,count(distinct ensetudhlk.id_hlk) as nbr_hlk FROM enseigante
+JOIN personne 
+ON enseigante.personne_id = personne.id
+JOIN ensetudhlk 
+on enseigante.id = ensetudhlk.id_ens 
+group by  enseigante.id');
+
      return response($data,200);
 
 }
