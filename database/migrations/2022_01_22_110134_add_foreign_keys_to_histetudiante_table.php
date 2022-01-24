@@ -15,7 +15,7 @@ class AddForeignKeysToHistetudianteTable extends Migration
     {
         Schema::table('histetudiante', function (Blueprint $table) {
             $table->foreign('ensEtudHlk_id', 'histetudiante_ibfk_1')->references('id')->on('ensetudhlk');
-            $table->foreign('HistHalaka_id', 'histetudiante_ibfk_2')->references('id')->on('histhalaka');
+            $table->foreign('HistHalaka_id', 'histetudiante_ibfk_2')->references('id')->on('histhalaka')->onDelete('cascade');
         });
     }
 
@@ -27,7 +27,7 @@ class AddForeignKeysToHistetudianteTable extends Migration
     public function down()
     {
         Schema::table('histetudiante', function (Blueprint $table) {
-            $table->dropForeign('histetudiante_ibfk_1');
+            $table->dropForeign('histetudiante_ibfk_1')->onDelete('cascade');
             $table->dropForeign('histetudiante_ibfk_2');
         });
     }

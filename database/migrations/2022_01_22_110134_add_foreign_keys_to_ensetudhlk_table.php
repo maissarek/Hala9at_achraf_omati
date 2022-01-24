@@ -14,9 +14,9 @@ class AddForeignKeysToEnsetudhlkTable extends Migration
     public function up()
     {
         Schema::table('ensetudhlk', function (Blueprint $table) {
-            $table->foreign('id_ens', 'ensetudhlk_ibfk_1')->references('id')->on('enseigante');
-            $table->foreign('id_etud', 'ensetudhlk_ibfk_2')->references('id')->on('etudiante');
-            $table->foreign('id_hlk', 'ensetudhlk_ibfk_3')->references('id')->on('halaka');
+            $table->foreign('id_ens', 'ensetudhlk_ibfk_1')->references('id')->on('enseigante')->onDelete('cascade');
+            $table->foreign('id_etud', 'ensetudhlk_ibfk_2')->references('id')->on('etudiante')->onDelete('cascade');
+            $table->foreign('id_hlk', 'ensetudhlk_ibfk_3')->references('id')->on('halaka')->onDelete('cascade');
         });
     }
 

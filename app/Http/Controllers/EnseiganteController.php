@@ -17,15 +17,7 @@ class EnseiganteController extends Controller
 public function all_enseignate()
 {
 $this->authorize('viewAny', Enseigante::class);
-/*$data = DB::table('enseigante')
-         ->join('personne','personne.id','=','enseigante.personne_id')
-         ->join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
-         ->select('enseigante.id','personne.nom','personne.prenom','personne.telephone')
-          ->WhereNull('enseigante.deleted_at')
-         ->orderBy('enseigante.id', 'asc')
-         ->distinct()
-         ->get();
-*/
+
 $data = DB::select('SELECT enseigante.id, personne.nom,personne.prenom,personne.telephone,count(distinct ensetudhlk.id_hlk) as nbr_hlk FROM enseigante
 JOIN personne 
 ON enseigante.personne_id = personne.id
@@ -149,7 +141,15 @@ $personne=DB::table('enseigante as e')
 
 public function destroy($id)
     {
-        $enseigante= Enseigante::find($id);
+
+
+     $user= Enseigante::find($id);
+        $pers= Personne::find($user->personne_id);
+
+         $r= $pers->destroy($user->personne_id);
+
+
+    /* $enseigante= Enseigante::find($id);
         if(is_null($enseigante)){
 
            return response()->json(['message'=>'Enseigante not found',404]);
@@ -160,7 +160,7 @@ public function destroy($id)
 
     return response()->json(null,204);
 
-    }
+  */  }
 
 
     

@@ -17,18 +17,16 @@ const CREATED_AT= ['date_affectation'];
 const UPDATED_AT= ['updated_at'];
 protected $table='ensetudhlk';
 protected $fillable =
-
 [
-
 'id',
 'id_ens',
 'id_etud',
 'id_hlk',
 'date_affectation',
 'updated_at'
-
 ];
-/*
+
+
 public function getetudiant(){
 
     return $this ->hasMany(Etudiante::class);
@@ -52,5 +50,5 @@ public function getgroupe(){
 
     return $this -> hasManyThrough(Groupe::class, Halaka::class);
     
-    }*/
+    }
 }

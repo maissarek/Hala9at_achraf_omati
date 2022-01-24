@@ -92,7 +92,7 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 /////////////////////////////////////////////////////////////////////////////
 
 Route::get('/Histetudiante/{id}',[HistetudianteController::class,'show']);
-Route::delete('/Histetudiante/{id}',[HistetudianteController::class,'destroy']);
+Route::delete('/histetudiante/delete/{id}',[HistetudianteController::class,'destroy']);
 
 
 

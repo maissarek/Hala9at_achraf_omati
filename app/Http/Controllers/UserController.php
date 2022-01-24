@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\PersonneController; 
-use App\Models\{User,Role};
+use App\Models\{User,Role,Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +51,7 @@ $data = DB::table('users')
 
 $user=DB::table('users')
  ->leftJoin('personne','personne.id','=','users.personne_id')
+  ->leftJoin('role','role.id','=','users.role_id')  
 ->where('users.id',$id)
 ->first();
            return response()->json($user,200);
@@ -76,16 +77,15 @@ return response($user,201);
 
 
 
-    public function destroy(Request $id,$personne_id)
+    public function destroy($id)
     {
-          $pers= new PersonneController;
+        $user= User::find($id);
+        $pers= Personne::find($user->personne_id);
 
-         $r= $pers->destroy($personne_id,2);
-        //  dd($r);
+         $r= $pers->destroy($user->personne_id);
+/*            if ($r) {
 
-        if ($r) {
-
-	        $user= User::find($id);
+	      
 
             if(is_null($user)){
 
@@ -93,7 +93,7 @@ return response($user,201);
             }
 
       
-           $user->each->delete();
+           $user->delete();
 
             return response()->json(['message'=>'User deleted ! ',204]);
 
@@ -102,7 +102,7 @@ return response($user,201);
         return response()->json(['message'=>'We can\'t deleted ',500]);
         }
 
-
+*/
         
     }
 

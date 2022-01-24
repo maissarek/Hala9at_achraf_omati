@@ -133,71 +133,41 @@ return response($personne,201);
 
 
 
-public function destroy($id,$come)
-    {
+public function destroy($id)
+{
+for ($i = 0; $i < 2; $i++){
 
     $enseigante= Enseigante::where('personne_id','=',$id)->get('id');
 
-    if($enseigante->isEmpty()) {
+    if($enseigante->isEmpty()) { 
 
-    $etudiante= Etudiante::where('personne_id','=',$id)->get('id');
+             $etudiante= Etudiante::where('personne_id','=',$id)->get('id');
 
-       if ($etudiante->isEmpty()) {
+             if ($etudiante->isEmpty()) {
 
-       $user= User::where('personne_id','=',$id)->get('id');
+                     $user= User::where('personne_id','=',$id)->get('id');
 
-           if ($user->isEmpty()) {
+                     if ($user->isEmpty()) {
 
-           $personne= Personne::find($id);
+                             $personne= Personne::find($id);
+                             if(is_null($personne)){
+                             return false;
+                             }else{
+                             $personne->delete();
+                             return true;
+                             }
 
-                 if(is_null($personne)){
-                 return false;//response()->json(['message'=>'Personne not found',404]);
-                                         }else{
-                                        $personne->delete();
-                                        return true;//response()->json(['message'=>'Personne deleted ! ',204]);
-                                                }
-            }else{
-            if ($come==0) {
-	  $personne= Personne::find($id);
-
-                 if(is_null($personne)){
-                 return false;//response()->json(['message'=>'Personne not found',404]);
-                                         }else{
-                                        $personne->delete();
-                                        return true;//response()->json(['message'=>'Personne deleted ! ',204]);
-                                                }
-}
-
-       else     return false; }//response()->json(['message'=>'Can\'t delete personne is used in user! ',500]);}
-            }else{
-            if ($come==1) {
-	  $personne= Personne::find($id);
-
-                 if(is_null($personne)){
-                 return false;//response()->json(['message'=>'Personne not found',404]);
-                                         }else{
-                                        $personne->delete();
-                                        return true;//response()->json(['message'=>'Personne deleted ! ',204]);
-                                                }
-}
-
-              else      return false; }//response()->json(['message'=>'Can\'t delete personne is used in etudiante! ',500]);}
-            }else {
-            if ($come==2) {
-                    $personne= Personne::find($id);
-
-                    if(is_null($personne)){
-                    return false;//response()->json(['message'=>'Personne not found',404]);
-                    }else{
-                          $personne->delete();
-                          return true;//response()->json(['message'=>'Personne deleted ! ',204]);
-       }}
-
-       else     return false; }//response()->json(['message'=>'Can\'t delete personne is used in enseignante! ',500]);}
-
-}
+                       }else{
+                             $user->delete();return true;
 
 
+                             }
+
+             }else{$etudiante->delete();return true;}
+
+            }else{$enseigante->delete();return true;}
+
+           } }
     /**
      * Display a listing of the resource.
      *

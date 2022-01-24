@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Carbon\Carbon;
-use App\Models\{Personne,Halaka,Etudiante,Ensetuhlk,Groupe};
+use App\Models\{Personne,Histetudiante,Halaka,Etudiante,Ensetuhlk,Groupe};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -137,21 +137,32 @@ $personne = DB::table('etudiante as e')
 
 public function destroy($id)
     {
-        $etudiante= Etudiante::find($id);
+
+      $etudiante= Etudiante::find($id);
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
-                                }
-DB::table('ensetudhlk')->where('id_etud','=',$id)->delete(); 
-        
+
+           }
+
+//      $ensEtudHlk_id =  DB::table('ensetudhlk')->where('id_etud','=',$id)->get('id');
+
+
+     /*  Histetudiante::whereIn('ensEtudHlk_id',$ensEtudHlk_id)->delete();*/
+
+   //  $hist_etu_id= DB::select('select id from histetudiante where ensEtudHlk_id in (select id from ensetudhlk where id_etud = ?)',[$id]);
+
+     Histetudiante::whereIn('ensEtudHlk_id',[Ensetuhlk::where('id_etud',$id)->get('id')])->delete();
+
+     
+         
+         DB::table('ensetudhlk')->where('id_etud','=',$id)->delete();
          $etudiante->delete();
 
-       
+      
+       return response()->json(['message'=>'Etudiante deleted !',204]);
 
-
-
-return response()->json(['message'=>'Etudiante deleted !',204]);
-    }
+}
 
 
 
