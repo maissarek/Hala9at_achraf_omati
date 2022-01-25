@@ -9,21 +9,7 @@ use Illuminate\Support\Facades\DB;
 class HalakaController extends Controller
 {
 
-/*
-public function getHalakatbyenseignanteId($id){
 
-
-  $data = Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
-  ->join('groupe','groupe.id','=','halaka.id_groupe')
-       ->where('ensetudhlk.id_ens','=',$id)
-                ->select('groupe.name as groupe','halaka.name as halaka')
-                ->get();
-
-                return response()->json($data,200);
-
-
-}
-*/
  public function getHalakatbyGroupeId($id){
 
         $data = Halaka::join('groupe','groupe.id','=','halaka.id_groupe')
@@ -62,7 +48,6 @@ group by  h.id');
 
 
 
-//return response()->json(,200);
         }
 
 

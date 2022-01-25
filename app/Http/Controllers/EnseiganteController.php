@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Enseigante,Halaka,Ensetuhlk,User,Histetudiante};
+use App\Models\{Enseigante,Halaka,Ensetuhlk,User,Histetudiante,Etudiante};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +14,50 @@ class EnseiganteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+public function halakat_one_ens($id){
+
+$this->authorize('viewAny', Enseigante::class);
+
+$data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
+h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
+JOIN ensetudhlk 
+on h.id = ensetudhlk.id_hlk
+JOIN enseigante as e 
+ON e.id= ensetudhlk.id_ens
+JOIN personne as p
+ON e.personne_id = p.id
+JOIN lieu 
+ON lieu.id = h.id_lieu
+JOIN groupe 
+ON groupe.id = h.id_groupe
+where ensetudhlk.id_ens=?
+group by  h.id',[$id]);
+
+                return response($data,200);
+}
+
+public function etudiantes_one_ens($id){
+
+$this->authorize('viewAny', Enseigante::class);
+
+
+                $this->authorize('viewAny', Enseigante::class);
+$data = DB::table('ensetudhlk')
+->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+         ->leftJoin('personne','personne.id','=','etudiante.personne_id')
+        ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
+        ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
+        ->select('etudiante.id','personne.nom','personne.prenom',
+        'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
+->where('ensetudhlk.id_ens','=',[$id])
+  ->WhereNull('etudiante.deleted_at')
+         ->orderBy('etudiante.id', 'asc')
+     ->get();
+return response($data,200);
+}
+
+
 public function all_enseignate()
 {
 $this->authorize('viewAny', Enseigante::class);

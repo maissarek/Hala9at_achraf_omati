@@ -42,7 +42,8 @@ Route::post('/user/login',[UserController::class,'login']);
 Route::post('/user/add',[PersonneController::class,'save_pers_admin']);
 
 Route::middleware('auth:sanctum')->group( function () {
-
+//
+//
 
 Route::get('/users/list',[UserController::class,'all_users']);
 Route::post('/user/logout', [UserController::class,'logout']);
@@ -50,6 +51,10 @@ Route::get('/user/{id}',[UserController::class,'show']);
 Route::put('/user/update/{id}',[UserController::class,'update']);
 Route::post('/user/register',[UserController::class,'store']);
 Route::delete('/user/delete/{id}',[UserController::class,'destroy']);
+
+
+Route::get('/enseignante/{id}/halakat',[EnseiganteController::class,'halakat_one_ens']);
+Route::get('/enseignante/{id}/etudiantes',[EnseiganteController::class,'etudiantes_one_ens']);
 
 Route::get('/enseignantes/list/names',[EnseiganteController::class,'all_enseignate_names']);
 Route::get('/etudiantes/list/names',[EtudianteController::class,'all_etudiante_names']);
@@ -92,7 +97,6 @@ Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
 /////////////////////////////////////////////////////////////////////////////
 
 Route::get('/Histetudiante/{id}',[HistetudianteController::class,'show']);
-Route::delete('/histetudiante/delete/{id}',[HistetudianteController::class,'destroy']);
 
 
 
