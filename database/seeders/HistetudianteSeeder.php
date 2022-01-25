@@ -23,6 +23,22 @@ class HistetudianteSeeder extends Seeder
 ]);
 
  DB::table('Histetudiante')->insert([
+'HistHalaka_id'=>'1',
+'ensEtudHlk_id'=>'2',
+'hizb'=>'60',
+'elhifd'=>'جيد',
+'Elmorajaa'=>'جيدة',
+'Elmtn'=>'55'
+]);
+DB::table('Histetudiante')->insert([
+'HistHalaka_id'=>'1',
+'ensEtudHlk_id'=>'6',
+'hizb'=>'60',
+'elhifd'=>'متوسطة',
+'Elmorajaa'=>'متوسطة',
+'Elmtn'=>'30'
+]);
+ DB::table('Histetudiante')->insert([
 'HistHalaka_id'=>'3',
 'ensEtudHlk_id'=>'4',
 'hizb'=>'20',

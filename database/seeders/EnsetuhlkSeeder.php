@@ -44,6 +44,10 @@ class EnsetuhlkSeeder extends Seeder
 'id_hlk'=>'1',
              ]);
 
-              
+        DB::table('ensetudhlk')->insert([
+          'id_ens'=>'4',
+'id_etud'=>'1',
+'id_hlk'=>'1',
+             ]);           
     }
 }

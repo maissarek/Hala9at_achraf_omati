@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\PersonneController; 
-use App\Models\{User,Role,Personne};
+use App\Models\{User,Role,Enseigante,Etudiante,Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +16,8 @@ class UserController extends Controller
      */
 public function all_users()
 {
-$this->authorize('viewAny', Etudiante::class);
+$this->authorize('viewAny', User::class);
+
 $data = DB::table('users')
          ->leftJoin('personne','personne.id','=','users.personne_id')
         ->leftJoin('role','role.id','=','users.role_id')
@@ -80,29 +81,30 @@ return response($user,201);
     public function destroy($id)
     {
         $user= User::find($id);
-        $pers= Personne::find($user->personne_id);
-
-         $r= $pers->destroy($user->personne_id);
-/*            if ($r) {
-
-	      
-
-            if(is_null($user)){
+        if(is_null($user)){
 
             return response()->json(['message'=>'User not found',404]);
             }
 
-      
-           $user->delete();
+      $ens_id =  Enseigante::select('id')->where('personne_id','=',$user->personne_id)->first();
+      $etu_id = Etudiante::select('id')->where('personne_id','=',$user->personne_id)->first();
+
+      if(is_null($ens_id) && is_null($etu_id)){
+
+ DB::table('personne as p')
+ ->where('p.id','=',$user->personne_id)
+ ->update(array('deleted_at'=>NOW()));
+
+ 
+}
+
+      $user->delete();
 
             return response()->json(['message'=>'User deleted ! ',204]);
 
-         }else {
+       
 
-        return response()->json(['message'=>'We can\'t deleted ',500]);
-        }
 
-*/
         
     }
 

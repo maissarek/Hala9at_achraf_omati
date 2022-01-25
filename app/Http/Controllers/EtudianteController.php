@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Carbon\Carbon;
-use App\Models\{Personne,Histetudiante,Halaka,Etudiante,Ensetuhlk,Groupe};
+use App\Models\{User,Personne,Histetudiante,Halaka,Etudiante,Ensetuhlk,Groupe};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -145,21 +145,33 @@ public function destroy($id)
 
            }
 
-//      $ensEtudHlk_id =  DB::table('ensetudhlk')->where('id_etud','=',$id)->get('id');
+
+$id_ensetuhlk=Ensetuhlk::where('id_etud','=',$id)->get('id');
+
+foreach ($id_ensetuhlk as $id1) {
+
+DB::table('ensetudhlk as e')
+ ->join('histetudiante','ensEtudHlk_id','=','e.id')
+    ->where('e.id','=',$id1->id)
+    ->update(array('e.deleted_at'=>NOW(),'histetudiante.deleted_at'=>NOW()));
 
 
-     /*  Histetudiante::whereIn('ensEtudHlk_id',$ensEtudHlk_id)->delete();*/
+}
+$user = User::select('id')->where('personne_id','=',$etudiante->personne_id)->first();
 
-   //  $hist_etu_id= DB::select('select id from histetudiante where ensEtudHlk_id in (select id from ensetudhlk where id_etud = ?)',[$id]);
+if(is_null($user)){
 
-     Histetudiante::whereIn('ensEtudHlk_id',[Ensetuhlk::where('id_etud',$id)->get('id')])->delete();
+ DB::table('personne as p')
+ ->where('p.id','=',$etudiante->personne_id)
+ ->update(array('deleted_at'=>NOW()));
 
-     
-         
-         DB::table('ensetudhlk')->where('id_etud','=',$id)->delete();
-         $etudiante->delete();
+ 
+}
 
-      
+
+$etudiante->delete();
+
+
        return response()->json(['message'=>'Etudiante deleted !',204]);
 
 }

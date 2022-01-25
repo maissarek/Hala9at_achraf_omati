@@ -26,21 +26,21 @@ protected $fillable =
 'updated_at'
 ];
 
-
-public function getetudiant(){
+/*
+public function etudiantes(){
 
     return $this ->hasMany(Etudiante::class);
 
     }
 
 
-public function getens(){
+public function enseignantes(){
 
     return $this -> hasMany(Enseigante::class);
 
     }
 
-public function gethalaka(){
+public function halakat(){
 
     return $this -> hasMany(Halaka::class);
 
@@ -50,5 +50,5 @@ public function getgroupe(){
 
     return $this -> hasManyThrough(Groupe::class, Halaka::class);
     
-    }
+    }*/
 }

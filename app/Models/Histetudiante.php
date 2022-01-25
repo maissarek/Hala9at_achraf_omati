@@ -22,4 +22,16 @@ protected $fillable=[
 'retard','absent',
 'justificatif','observations']; 
 
+
+public function ensetuhlkt(){
+
+    return $this ->hasMany(Ensetuhlk::class);
+
+    }
+
+    public function HistHalakat(){
+
+    return $this ->hasMany(HistHalaka::class);
+
+    }
 }

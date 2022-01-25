@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Enseigante,Halaka,Ensetuhlk};
+use App\Models\{Enseigante,Halaka,Ensetuhlk,User,Histetudiante};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -143,24 +143,43 @@ public function destroy($id)
     {
 
 
-     $user= Enseigante::find($id);
-        $pers= Personne::find($user->personne_id);
-
-         $r= $pers->destroy($user->personne_id);
-
-
-    /* $enseigante= Enseigante::find($id);
+        $enseigante= Enseigante::find($id);
         if(is_null($enseigante)){
 
-           return response()->json(['message'=>'Enseigante not found',404]);
+           return response()->json(['message'=>'Enseignante not found',404]);
+
+           }
+
+
+$id_ensetuhlk=Ensetuhlk::where('id_ens','=',$id)->get('id');
+
+foreach ($id_ensetuhlk as $id1) {
+
+DB::table('ensetudhlk as e')
+ ->join('histetudiante','ensEtudHlk_id','=','e.id')
+    ->where('e.id','=',$id1->id)
+    ->update(array('e.deleted_at'=>NOW(),'histetudiante.deleted_at'=>NOW()));
+
+
 }
 
- DB::table('ensetudhlk')->where('id_ens','=',$id)->delete(); //suppression_physique 
-            $enseigante->delete();
+$user = User::select('id')->where('personne_id','=',$enseigante->personne_id)->first();
 
-    return response()->json(null,204);
+if(is_null($user)){
 
-  */  }
+ DB::table('personne as p')
+ ->where('p.id','=',$enseigante->personne_id)
+ ->update(array('deleted_at'=>NOW()));
+
+ 
+}
+
+
+$enseigante->delete();
+
+ return response()->json(['message'=>'Enseignante deleted !',204]);
+
+  }
 
 
     
