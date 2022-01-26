@@ -5,6 +5,7 @@ use App\Models\{Halaka,Etudiante,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HalakaController extends Controller
 {
@@ -69,15 +70,6 @@ DB::insert('insert into ensetudhlk (date_affectation, id_ens, id_etud , id_hlk) 
  return  response()->json(['message'=>'Halaka saved !',200]);
 
 
- /*
-$ensetuhlk = new Ensetuhlk; 
-    $ensetuhlk-> id_ens = $request->id_ens;
-    $ensetuhlk->id_etud = $request->id_etud;            enregistre 1 row with exception
-    $ensetuhlk->id_hlk = $halaka->id;
-    $halaka->ensetuhlk()->save($ensetuhlk);
-    
-      return response([$halaka,$ensetuhlk],201);
-      */
       }
 
     
@@ -87,7 +79,10 @@ $ensetuhlk = new Ensetuhlk;
 
 public function show($id)
     {
+          $user = Auth::user();
         $halaka=Halaka::find($id);
+
+ if ($user->can('view', $halaka)) {
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
@@ -115,7 +110,11 @@ $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
   ->get();
 
   return response()->json([$halaka,$data],200);
+
+   } else {
+      echo 'Not Authorized.';
     }
+  }
 
 
 
@@ -123,7 +122,10 @@ $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
 
 public function update(Request $request,$id)
     {
-        $halaka= Halaka::find($id);
+        $user = Auth::user();
+        $halaka=Halaka::find($id);
+
+ if ($user->can('view', $halaka)) {
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
@@ -133,7 +135,11 @@ $halaka->update($request->all());
 
 
 return response($halaka,201);
+
+ } else {
+      echo 'Not Authorized.';
     }
+}
 
 
 
@@ -141,7 +147,10 @@ return response($halaka,201);
 
 public function destroy($id)
     {
-        $halaka= Halaka::find($id);
+        $user = Auth::user();
+        $halaka=Halaka::find($id);
+
+ if ($user->can('view', $halaka)) {
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
@@ -151,7 +160,10 @@ $halaka->delete();
 DB::table('ensetudhlk')->where('id_hlk','=',$id)->delete(); //suppression_physique 
  
 return response()->json(null,204);
+ } else {
+      echo 'Not Authorized.';
     }
+}
 
     /**
      * Display a listing of the resource.

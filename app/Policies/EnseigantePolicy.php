@@ -30,7 +30,7 @@ class EnseigantePolicy
      */
     public function view(User $user, Enseigante $enseigante)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -41,10 +41,7 @@ class EnseigantePolicy
      */
     public function create(User $user)
     {
-        return $user->role_id === 1
-                ? Response::allow()
-                : Response::deny('You are not admin.');
-
+       //
     }
 
     /**
@@ -56,7 +53,7 @@ class EnseigantePolicy
      */
     public function update(User $user, Enseigante $enseigante)
     {
-        //
+         return $user->role_id === 1;
     }
 
     /**
@@ -68,7 +65,7 @@ class EnseigantePolicy
      */
     public function delete(User $user, Enseigante $enseigante)
     {
-        //
+         return $user->role_id === 1;
     }
 
     /**

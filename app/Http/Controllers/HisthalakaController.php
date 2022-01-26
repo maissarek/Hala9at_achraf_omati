@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\{Histhalaka,Histetudiante,Ensetuhlk,Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HisthalakaController extends Controller
 {
@@ -40,7 +41,10 @@ $this->authorize('viewAny', Histhalaka::class);
 public function show($id)
     {
     
-	 $histhalaka1 =Histhalaka::find($id);
+        $user = Auth::user();
+        $histhalaka1=Histhalaka::find($id);
+
+ if ($user->can('view', $histhalaka1)) {
         if(is_null($histhalaka1)){
 
            return response()->json(['message'=>'history of halaka not found',404]);
@@ -101,7 +105,12 @@ $histhalaka = DB::table('histhalaka as hh')
         
 
            return response()->json([$histhalaka,$he],200);
-  } }
+  }
+
+   } else {
+      echo 'Not Authorized.';
+    }
+  }
 
 
 
@@ -109,7 +118,10 @@ $histhalaka = DB::table('histhalaka as hh')
 
 public function update(Request $request,$id)
     {
-        $histhalaka= Histhalaka::find($id);
+        $user = Auth::user();
+        $histhalaka=Histhalaka::find($id);
+
+ if ($user->can('update', $histhalaka)) {
         
 
         if(is_null($histhalaka)){
@@ -178,6 +190,9 @@ $histetudiante= DB::table('histetudiante as e')
 
 return response([$histhalaka,$histetudiante],201);
 
+ } else {
+      echo 'Not Authorized.';
+    }
     }
 
 
@@ -215,14 +230,21 @@ public function store(Request $request)
 
 public function destroy($id)
     {
-        $histhalaka= Histhalaka::find($id);
+     $user = Auth::user();
+        $histhalaka=Histhalaka::find($id);
+
+ if ($user->can('delete', $histhalaka)) {
         if(is_null($histhalaka)){
 
            return response()->json(['message'=>'Histhalaka not found',404]);
 }
 $histhalaka->delete();
 return response()->json(null,204);
+
+ } else {
+      echo 'Not Authorized.';
     }
+}
 
 
 

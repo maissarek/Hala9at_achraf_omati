@@ -119,7 +119,10 @@ $data=DB::table('ensetudhlk')
 public function update(Request $request,$id)
     {
 
-        $etudiante= Etudiante::find($id);
+        $user = Auth::user();
+        $etudiante=Etudiante::find($id);
+
+ if ($user->can('view', $etudiante)) {
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -138,7 +141,9 @@ $personne = DB::table('etudiante as e')
     ->get('p.*');
     
     return response([$etudiante,$personne],201);
-
+ } else {
+      echo 'Not Authorized.';
+    }
     }
 
 
@@ -148,7 +153,10 @@ $personne = DB::table('etudiante as e')
 public function destroy($id)
     {
 
-      $etudiante= Etudiante::find($id);
+ $user = Auth::user();
+        $etudiante=Etudiante::find($id);
+
+ if ($user->can('view', $etudiante)) {
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -183,7 +191,9 @@ $etudiante->delete();
 
 
        return response()->json(['message'=>'Etudiante deleted !',204]);
-
+  } else {
+      echo 'Not Authorized.';
+    }
 }
 
 

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Halaka;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\DB;
 
 class HalakaPolicy
 {
@@ -30,7 +31,12 @@ class HalakaPolicy
      */
     public function view(User $user, Halaka $halaka)
     {
-        //
+     $ens=DB::table('enseigante as e')
+    ->join('ensetudhlk','ensetudhlk.id_ens','=','e.id')
+    ->where('e.personne_id','=',$user->personne_id)
+    ->where('ensetudhlk.id_hlk','=',$halaka->id)
+    ->get('e.id');
+        return (($user->role_id === 1)||(!$ens->isEmpty()));
     }
 
     /**
@@ -53,7 +59,7 @@ class HalakaPolicy
      */
     public function update(User $user, Halaka $halaka)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -65,7 +71,7 @@ class HalakaPolicy
      */
     public function delete(User $user, Halaka $halaka)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**

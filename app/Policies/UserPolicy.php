@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->role_id === 1;
+        return (($user->role_id === 1) || ($user->personne_id === $model->personne_id));
     }
 
     /**
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->role_id === 1;
+        return (($user->role_id === 1) || ($user->role_id === 2)) ;
     }
 
     /**
@@ -52,7 +52,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->role_id === 1;
+        return (($user->role_id === 1) || ($user->personne_id === $model->personne_id));
     }
 
     /**
@@ -64,7 +64,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-       return $user->role_id === 1;
+       return (($user->role_id === 1) || ($user->personne_id === $model->personne_id));
     }
 
     /**

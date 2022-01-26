@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class EnseiganteController extends Controller
 {
@@ -157,7 +158,11 @@ return response()->json([$enseigante,$data],200);
 public function update(Request $request,$id)  {
 
  $ens= Enseigante::find($id);
-        if(is_null($ens)){
+  $user = Auth::user();
+
+ if ($user->can('update', $ens)) {
+
+ if(is_null($ens)){
 
            return response()->json(['message'=>'Enseignante not found',404]);
 }
@@ -175,6 +180,9 @@ $personne=DB::table('enseigante as e')
     
           return response([$ens,$personne],201);
 
+  } else {
+      echo 'Not Authorized.';
+    }
     }
  
 
@@ -186,9 +194,12 @@ $personne=DB::table('enseigante as e')
 public function destroy($id)
     {
 
+    
+ $ens= Enseigante::find($id);
+  $user = Auth::user();
 
-        $enseigante= Enseigante::find($id);
-        if(is_null($enseigante)){
+ if ($user->can('update', $ens)) {
+        if(is_null($ens)){
 
            return response()->json(['message'=>'Enseignante not found',404]);
 
@@ -207,23 +218,27 @@ DB::table('ensetudhlk as e')
 
 }
 
-$user = User::select('id')->where('personne_id','=',$enseigante->personne_id)->first();
+$user = User::select('id')->where('personne_id','=',$ens->personne_id)->first();
 
 if(is_null($user)){
 
  DB::table('personne as p')
- ->where('p.id','=',$enseigante->personne_id)
+ ->where('p.id','=',$ens->personne_id)
  ->update(array('deleted_at'=>NOW()));
 
  
 }
 
 
-$enseigante->delete();
+$ens->delete();
 
  return response()->json(['message'=>'Enseignante deleted !',204]);
 
-  }
+} else {
+      echo 'Not Authorized.';
+    }
+
+    }
 
 
     

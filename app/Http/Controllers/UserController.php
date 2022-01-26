@@ -6,6 +6,7 @@ use App\Models\{User,Role,Enseigante,Etudiante,Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -44,7 +45,11 @@ $data = DB::table('users')
        public function show($id)
     {
 
+       $user_auth = Auth::user();
         $user=User::find($id);
+
+ if ($user_auth->can('view', $user)) {
+
         if(is_null($user)){
 
            return response()->json(['message'=>'User not found',404]);
@@ -56,12 +61,18 @@ $user=DB::table('users')
 ->where('users.id',$id)
 ->first();
            return response()->json($user,200);
+ } else {
+      echo 'Not Authorized.';
+    }
     }
 
     
 public function update(Request $request,$id)
     {
-        $user= User::find($id);
+       $user_auth = Auth::user();
+        $user=User::find($id);
+
+ if ($user_auth->can('update', $user)) {
         if(is_null($user)){
 
            return response()->json(['message'=>'User not found',404]);
@@ -87,6 +98,10 @@ DB::table('users as u')
 $user= User::find($id);
 
 return response($user,201);
+
+} else {
+      echo 'Not Authorized.';
+    }
     }
 
 
@@ -95,7 +110,10 @@ return response($user,201);
 
     public function destroy($id)
     {
-        $user= User::find($id);
+         $user_auth = Auth::user();
+        $user=User::find($id);
+
+ if ($user_auth->can('delete', $user)) {
         if(is_null($user)){
 
             return response()->json(['message'=>'User not found',404]);
@@ -119,7 +137,9 @@ return response($user,201);
 
        
 
-
+ } else {
+      echo 'Not Authorized.';
+    }
         
     }
 

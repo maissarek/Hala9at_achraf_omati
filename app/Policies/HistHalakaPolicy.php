@@ -30,7 +30,7 @@ class HistHalakaPolicy
      */
     public function view(User $user, HistHalaka $histHalaka)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class HistHalakaPolicy
      */
     public function update(User $user, HistHalaka $histHalaka)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -65,7 +65,7 @@ class HistHalakaPolicy
      */
     public function delete(User $user, HistHalaka $histHalaka)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**

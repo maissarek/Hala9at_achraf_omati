@@ -49,7 +49,7 @@ class PersonnePolicy
 
     public function save_pers_ens(User $user)
     {
-        return (($user->role_id === 1) || ($user->role_id === 2)) ;
+        return ($user->role_id === 1) ;
     }
 
     /**

@@ -33,16 +33,13 @@ class EtudiantePolicy
     {
 
     $ens=DB::table('enseigante as e')
-    ->join('ensetudhlk','e.id ','=',' ensetudhlk.id_ens')
+    ->join('ensetudhlk','ensetudhlk.id_ens','=','e.id')
     ->where('e.personne_id','=',$user->personne_id)
-    ->andwhere('ensetudhlk.id_etud','=',$etudiante->id)
-    ->get('id');
+    ->where('ensetudhlk.id_etud','=',$etudiante->id)
+    ->get('e.id');
 
-    /*select('select  e.id from enseigante as e JOIN ensetudhlk on e.id = ensetudhlk.id_ens
-    where ((e.personne_id=?) and (ensetudhlk.id_etud=?))',[$user->personne_id,$etudiante->id]);
-    echo($user->role_id === 1);*/
-   echo(($ens));
-    return(($user->role_id === 1)||(is_null($ens)));
+    
+    return(($user->role_id === 1)||(!$ens->isEmpty()));
 
     }
 
@@ -54,7 +51,7 @@ class EtudiantePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -66,7 +63,7 @@ class EtudiantePolicy
      */
     public function update(User $user, Etudiante $etudiante)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
@@ -78,7 +75,7 @@ class EtudiantePolicy
      */
     public function delete(User $user, Etudiante $etudiante)
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**
