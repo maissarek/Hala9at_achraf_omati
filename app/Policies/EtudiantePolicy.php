@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Etudiante;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\DB;
 
 class EtudiantePolicy
 {
@@ -30,7 +31,19 @@ class EtudiantePolicy
      */
     public function view(User $user, Etudiante $etudiante)
     {
-       
+
+    $ens=DB::table('enseigante as e')
+    ->join('ensetudhlk','e.id ','=',' ensetudhlk.id_ens')
+    ->where('e.personne_id','=',$user->personne_id)
+    ->andwhere('ensetudhlk.id_etud','=',$etudiante->id)
+    ->get('id');
+
+    /*select('select  e.id from enseigante as e JOIN ensetudhlk on e.id = ensetudhlk.id_ens
+    where ((e.personne_id=?) and (ensetudhlk.id_etud=?))',[$user->personne_id,$etudiante->id]);
+    echo($user->role_id === 1);*/
+   echo(($ens));
+    return(($user->role_id === 1)||(is_null($ens)));
+
     }
 
     /**

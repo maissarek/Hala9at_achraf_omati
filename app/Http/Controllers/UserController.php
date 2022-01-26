@@ -22,7 +22,7 @@ $data = DB::table('users')
          ->leftJoin('personne','personne.id','=','users.personne_id')
         ->leftJoin('role','role.id','=','users.role_id')
          ->select('users.id','users.name as username','users.mail','personne.nom','personne.prenom','personne.telephone','role.libelle  as role')
-  //   ->latest()
+->WhereNull('users.deleted_at')
      ->get();
                
         return response($data, 200);
@@ -66,9 +66,24 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'User not found',404]);
 }
-$affected = DB::table('users')
-->where('id',$id)
-->update(['name'=>$request->name,'mail'=>$request->mail,'password'=>Hash::make($request->password)]);
+DB::table('users as u')
+->join('personne as p','p.id','=','u.personne_id')
+->where('u.id',$id)
+->update([
+'p.nom'=>$request->nom,
+'p.prenom'=>$request->prenom,
+'p.dateNaiss'=>$request->dateNaiss,
+'p.adresse'=>$request->adresse,
+'p.telephone'=>$request->telephone,
+'p.email'=>$request->email,
+'p.job'=>$request->job,
+'p.fonction'=>$request->fonction,
+'p.niveauScolaire'=>$request->niveauScolaire,
+'p.statusSocial'=>$request->statusSocial,
+'p.lieuNaiss'=>$request->lieuNaiss,
+'p.dateEntree'=>$request->dateEntree,
+'p.date_inscription'=>$request->date_inscription,
+'u.name'=>$request->name,'u.mail'=>$request->mail,'u.password'=>Hash::make($request->password)]);
 $user= User::find($id);
 
 return response($user,201);

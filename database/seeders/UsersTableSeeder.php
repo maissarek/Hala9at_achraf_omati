@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
-   
+  
     public function run()
     {
        DB::table('users')->insert([
@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'personne_id' => '1',
             'role_id' => '1',
+             'created_at'=>NOW()
         ]);
 
         DB::table('users')->insert([
@@ -26,6 +27,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'personne_id' => '2',
             'role_id' => '2',
+             'created_at'=>NOW()
         ]);
 
         DB::table('users')->insert([
@@ -34,6 +36,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('password'),
             'personne_id' => '3',
             'role_id' => '2',
+             'created_at'=>NOW()
         ]);
 DB::table('users')->insert([
             'name' => 'user_4',
@@ -41,6 +44,7 @@ DB::table('users')->insert([
             'password' => Hash::make('password'),
             'personne_id' => '4',
             'role_id' => '2',
+             'created_at'=>NOW()
         ]);
 
      DB::table('users')->insert([
@@ -49,6 +53,7 @@ DB::table('users')->insert([
             'password' => Hash::make('password'),
             'personne_id' => '5',
             'role_id' => '2',
+             'created_at'=>NOW()
         ]);
              DB::table('users')->insert([
             'name' => 'user_6',
@@ -56,6 +61,7 @@ DB::table('users')->insert([
             'password' => Hash::make('password'),
             'personne_id' => '6',
             'role_id' => '3',
+             'created_at'=>NOW()
         ]);
      DB::table('users')->insert([
             'name' => 'user_7',
@@ -63,6 +69,7 @@ DB::table('users')->insert([
             'password' => Hash::make('password'),
             'personne_id' => '7',
             'role_id' => '3',
+             'created_at'=>NOW()
         ]);
 }
 }

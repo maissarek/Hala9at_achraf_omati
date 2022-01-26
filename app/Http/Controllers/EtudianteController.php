@@ -6,6 +6,7 @@ use App\Models\{User,Personne,Histetudiante,Halaka,Etudiante,Ensetuhlk,Groupe};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class EtudianteController extends Controller
 {
@@ -35,7 +36,7 @@ $data = DB::table('ensetudhlk')
         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
         ->select('etudiante.id','personne.nom','personne.prenom',
         'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
-  //   ->latest()
+     ->distinct()
   ->WhereNull('etudiante.deleted_at')
          ->orderBy('etudiante.id', 'asc')
      ->get();
@@ -83,7 +84,11 @@ $data=DB::table('ensetudhlk')
 
 public function show($id)
     {
+        $user = Auth::user();
         $etudiante=Etudiante::find($id);
+
+ if ($user->can('view', $etudiante)) {
+
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -100,7 +105,12 @@ $data=DB::table('ensetudhlk')
         ->first();
 
            return response()->json($data,200);
+
+         } else {
+      echo 'Not Authorized.';
     }
+
+           }
 
 
 
