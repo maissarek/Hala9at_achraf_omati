@@ -40,6 +40,16 @@ Route::put('/personne/{id}',[PersonneController::class,'update']);
 Route::post('/user/login',[UserController::class,'login']);
 
 Route::post('/user/add',[PersonneController::class,'save_pers_admin']);
+/*
+Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
+
+    // with fortify auth middleware
+    Route::get('bar', function () {
+       return 'bar';
+    }) ->middleware(['auth']); // fortify auth middleware
+
+});
+*/
 
 Route::middleware('auth:sanctum')->group( function () {
 //
@@ -78,6 +88,7 @@ Route::put('/user/update/{id}',[UserController::class,'update']);
 Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
 Route::put('/halaka/update/{id}',[HalakaController::class,'update']);
 Route::put('/histhalaka/update/{id}',[HisthalakaController::class,'update']);
+Route::put('etudiante/{id}/quitté',[EtudianteController::class,'quitte']);
 
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
@@ -90,8 +101,7 @@ Route::delete('/enseignante/delete/{id}',[EnseiganteController::class,'destroy']
 Route::delete('/halaka/delete/{id}',[HalakaController::class,'destroy']);
 Route::delete('/histhalaka/delete/{id}',[HisthalakaController::class,'destroy']);
 Route::delete('/lieu/delete/{id}',[LieuController::class,'destroy']);
-Route::delete('/groupe/delete/{id}',[GroupeController::class,'destroy']);
-Route::delete('/personne/{id}',[PersonneController::class,'destroy']);
+Route::delete('/groupe/delete/{id}',[GroupController::class,'destroy']);
 
 });
 /////////////////////////////////////////////////////////////////////////////

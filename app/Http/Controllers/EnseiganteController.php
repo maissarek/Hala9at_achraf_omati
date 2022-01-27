@@ -181,7 +181,7 @@ $personne=DB::table('enseigante as e')
           return response([$ens,$personne],201);
 
   } else {
-      echo 'Not Authorized.';
+    return response()->json(['error' => 'Not authorized.'],403);
     }
     }
  
@@ -235,7 +235,7 @@ $ens->delete();
  return response()->json(['message'=>'Enseignante deleted !',204]);
 
 } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
 
     }

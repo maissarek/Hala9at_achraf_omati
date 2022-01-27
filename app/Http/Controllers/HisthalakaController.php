@@ -108,7 +108,7 @@ $histhalaka = DB::table('histhalaka as hh')
   }
 
    } else {
-      echo 'Not Authorized.';
+    return response()->json(['error' => 'Not authorized.'],403);
     }
   }
 
@@ -191,7 +191,7 @@ $histetudiante= DB::table('histetudiante as e')
 return response([$histhalaka,$histetudiante],201);
 
  } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
     }
 
@@ -230,7 +230,7 @@ public function store(Request $request)
 
 public function destroy($id)
     {
-     $user = Auth::user();
+         $user = Auth::user();
         $histhalaka=Histhalaka::find($id);
 
  if ($user->can('delete', $histhalaka)) {
@@ -238,11 +238,23 @@ public function destroy($id)
 
            return response()->json(['message'=>'Histhalaka not found',404]);
 }
+
+$id_histetudiante=Histetudiante::where('HistHalaka_id','=',$histhalaka->id)->get('id');
+echo $id_histetudiante;
+foreach ($id_histetudiante as $id1) {
+
+Histetudiante::where('id','=',$id1->id)
+    ->delete();//update(['histetudiante.deleted_at'=>NOW()]);
+
+
+}
+
 $histhalaka->delete();
-return response()->json(null,204);
+
+return response()->json(['message'=>'Histhalaka deleted',204]);
 
  } else {
-      echo 'Not Authorized.';
+      return response()->json(['error' => 'Not authorized.'],403);
     }
 }
 

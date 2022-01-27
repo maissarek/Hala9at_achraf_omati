@@ -11,6 +11,30 @@ use Illuminate\Support\Facades\Auth;
 class EtudianteController extends Controller
 {
 
+
+
+public function quitte($id,Request $request){
+
+   $user = Auth::user();
+        $etudiante=Etudiante::find($id);
+
+ if ($user->can('update', $etudiante)) {
+        if(is_null($etudiante)){
+
+           return response()->json(['message'=>'Etudiante not found',404]);
+}
+
+DB::table('etudiante as e')
+    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->where('e.id','=',$id)
+    ->update(['p.quittée'=>'1','p.date_quitté'=>$request->date_quitté]);
+
+    } else {
+ return response()->json(['error' => 'Not authorized.'],403);
+    }
+
+}
+
 public function all_etudiante_names()
 {
 
@@ -107,7 +131,7 @@ $data=DB::table('ensetudhlk')
            return response()->json($data,200);
 
          } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
 
            }
@@ -122,7 +146,7 @@ public function update(Request $request,$id)
         $user = Auth::user();
         $etudiante=Etudiante::find($id);
 
- if ($user->can('view', $etudiante)) {
+ if ($user->can('update', $etudiante)) {
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -142,7 +166,7 @@ $personne = DB::table('etudiante as e')
     
     return response([$etudiante,$personne],201);
  } else {
-      echo 'Not Authorized.';
+ return response()->json(['error' => 'Not authorized.'],403);
     }
     }
 
@@ -156,7 +180,7 @@ public function destroy($id)
  $user = Auth::user();
         $etudiante=Etudiante::find($id);
 
- if ($user->can('view', $etudiante)) {
+ if ($user->can('delete', $etudiante)) {
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -192,7 +216,7 @@ $etudiante->delete();
 
        return response()->json(['message'=>'Etudiante deleted !',204]);
   } else {
-      echo 'Not Authorized.';
+      return response()->json(['error' => 'Not authorized.'],403);
     }
 }
 

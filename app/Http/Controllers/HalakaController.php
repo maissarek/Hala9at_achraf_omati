@@ -112,7 +112,7 @@ $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
   return response()->json([$halaka,$data],200);
 
    } else {
-      echo 'Not Authorized.';
+      return response()->json(['error' => 'Not authorized.'],403);
     }
   }
 
@@ -137,7 +137,7 @@ $halaka->update($request->all());
 return response($halaka,201);
 
  } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
 }
 
@@ -161,7 +161,7 @@ DB::table('ensetudhlk')->where('id_hlk','=',$id)->delete(); //suppression_physiq
  
 return response()->json(null,204);
  } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
 }
 

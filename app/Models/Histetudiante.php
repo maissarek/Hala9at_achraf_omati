@@ -10,9 +10,9 @@ class Histetudiante extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
+       public $timestamps=false;
       protected $dates = ['deleted_at'];
-    public $timestamps=false;
+
  protected $table ='histetudiante';
 protected $fillable=[
 
@@ -22,16 +22,4 @@ protected $fillable=[
 'retard','absent',
 'justificatif','observations']; 
 
-
-public function ensetuhlkt(){
-
-    return $this ->hasMany(Ensetuhlk::class);
-
-    }
-
-    public function HistHalakat(){
-
-    return $this ->hasMany(HistHalaka::class);
-
-    }
 }

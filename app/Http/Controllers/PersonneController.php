@@ -135,7 +135,7 @@ return response($personne,201);
 
 
 public function destroy($id)
-{
+{/*
 for ($i = 0; $i < 2; $i++){
 
     $enseigante= Enseigante::where('personne_id','=',$id)->get('id');
@@ -168,7 +168,7 @@ for ($i = 0; $i < 2; $i++){
 
             }else{$enseigante->delete();return true;}
 
-           } }
+           }*/ }
     /**
      * Display a listing of the resource.
      *

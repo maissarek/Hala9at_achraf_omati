@@ -62,7 +62,7 @@ $user=DB::table('users')
 ->first();
            return response()->json($user,200);
  } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
     }
 
@@ -77,6 +77,7 @@ public function update(Request $request,$id)
 
            return response()->json(['message'=>'User not found',404]);
 }
+
 DB::table('users as u')
 ->join('personne as p','p.id','=','u.personne_id')
 ->where('u.id',$id)
@@ -100,7 +101,7 @@ $user= User::find($id);
 return response($user,201);
 
 } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
     }
 
@@ -138,7 +139,7 @@ return response($user,201);
        
 
  } else {
-      echo 'Not Authorized.';
+     return response()->json(['error' => 'Not authorized.'],403);
     }
         
     }
