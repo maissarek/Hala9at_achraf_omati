@@ -53,6 +53,7 @@ $data = DB::table('ensetudhlk')
         'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
 ->where('ensetudhlk.id_ens','=',[$id])
   ->WhereNull('etudiante.deleted_at')
+  ->where('personne.quittée','=','0')
          ->orderBy('etudiante.id', 'asc')
      ->get();
 return response($data,200);
@@ -67,7 +68,8 @@ $data = DB::select('SELECT enseigante.id, personne.nom,personne.prenom,personne.
 JOIN personne 
 ON enseigante.personne_id = personne.id
 JOIN ensetudhlk 
-on enseigante.id = ensetudhlk.id_ens 
+on enseigante.id = ensetudhlk.id_ens
+ where (personne.quittée=0)
 group by  enseigante.id');
 
      return response($data,200);
@@ -86,6 +88,7 @@ $data = DB::table('ensetudhlk')
          ->join('groupe','groupe.id','=','halaka.id_groupe')
          ->select('enseigante.id','personne.prenom','personne.nom')
          ->where('enseigante.Remplace','=',null)
+           ->where('personne.quittée','=','0')
          ->distinct()
      ->get();
                
@@ -96,28 +99,8 @@ $data = DB::table('ensetudhlk')
 
 
 
-public function index()
-    {
-    return response()->json(Enseigante::all(),200);
-
-        }
 
 
-
- 
-public function store(Request $request)
-    {
-   
-try{
-  
- $enseigante = Enseigante::create($request->all());
-
-      return response($enseigante,201);
-      }catch(Throwable $e){
-     report($e);
-     return false;
-      }
-    }
 
    
 
@@ -135,6 +118,7 @@ public function show($id)
     ->leftjoin('personne as p', 'p.id', '=', 'e.personne_id')
     ->leftjoin('users as u','u.personne_id','=','e.personne_id')
     ->where('e.id','=',$id)
+      ->where('p.quittée','=','0')
     ->select('u.name as username','p.nom',
 'p.prenom','p.dateNaiss','p.adresse','p.telephone','p.email','p.job','p.fonction','p.niveauScolaire','p.statusSocial','p.lieuNaiss',
 'p.dateEntree','e.id','e.experienceTeaching','e.lieuKhatm','e.dateKhatm','e.ensKhatm','e.Remplace')
@@ -169,6 +153,7 @@ public function update(Request $request,$id)  {
 
 DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
+      ->where('personne.quittée','=','0')
    ->where('e.id','=',$id)
     ->update($request->all());
   $ens= Enseigante::find($id);
@@ -176,6 +161,7 @@ DB::table('enseigante as e')
 $personne=DB::table('enseigante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
      ->where('e.id','=',$id)
+       ->where('personne.quittée','=','0')
     ->get('p.*');
     
           return response([$ens,$personne],201);
@@ -224,6 +210,7 @@ if(is_null($user)){
 
  DB::table('personne as p')
  ->where('p.id','=',$ens->personne_id)
+   ->where('personne.quittée','=','0')
  ->update(array('deleted_at'=>NOW()));
 
  

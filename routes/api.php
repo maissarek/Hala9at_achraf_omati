@@ -31,12 +31,6 @@ Route::get('/',function(){
 return view('welcome');
 });
 
-Route::get('/personnes',[PersonneController::class,'index']);
-Route::post('/personne_save',[PersonneController::class,'store']);
-Route::get('/personne/{id}',[PersonneController::class,'show']);
-Route::put('/personne/{id}',[PersonneController::class,'update']);
-
-/////////////////////////////////////////////////////////////////////////////
 Route::post('/user/login',[UserController::class,'login']);
 
 Route::post('/user/add',[PersonneController::class,'save_pers_admin']);
@@ -88,7 +82,7 @@ Route::put('/user/update/{id}',[UserController::class,'update']);
 Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
 Route::put('/halaka/update/{id}',[HalakaController::class,'update']);
 Route::put('/histhalaka/update/{id}',[HisthalakaController::class,'update']);
-Route::put('etudiante/{id}/quitté',[EtudianteController::class,'quitte']);
+Route::put('personne/{id}/quitté',[EtudianteController::class,'quitte']);
 
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
