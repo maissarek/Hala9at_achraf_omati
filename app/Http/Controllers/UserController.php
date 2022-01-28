@@ -24,6 +24,7 @@ $data = DB::table('users')
         ->leftJoin('role','role.id','=','users.role_id')
          ->select('users.id','users.name as username','users.mail','personne.nom','personne.prenom','personne.telephone','role.libelle  as role')
 ->WhereNull('users.deleted_at')
+  ->where('personne.quittée','=','0')
      ->get();
                
         return response($data, 200);
@@ -58,6 +59,7 @@ $data = DB::table('users')
 $user=DB::table('users')
  ->leftJoin('personne','personne.id','=','users.personne_id')
   ->leftJoin('role','role.id','=','users.role_id')  
+  ->where('personne.quittée','=','0')
 ->where('users.id',$id)
 ->first();
            return response()->json($user,200);
@@ -127,6 +129,7 @@ return response($user,201);
 
  DB::table('personne as p')
  ->where('p.id','=',$user->personne_id)
+  ->where('personne.quittée','=','0')
  ->update(array('deleted_at'=>NOW()));
 
  
