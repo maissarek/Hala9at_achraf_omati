@@ -27,7 +27,7 @@ public function quitte($id,Request $request){
 DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
-    ->update(['p.quittée'=>'1','p.date_quitté'=>$request->date_quitté]);
+    ->update(['p.quittee'=>'1','p.date_quitté'=>$request->date_quitté]);
 
     } else {
  return response()->json(['error' => 'Not authorized.'],403);
@@ -42,7 +42,7 @@ $data = DB::table('ensetudhlk')
 ->rightjoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
           ->join('personne','personne.id','=','etudiante.personne_id')
          ->select('etudiante.id','personne.prenom','personne.nom')
-            ->where('personne.quittée','=','0')
+            ->where('personne.quittee','=','0')
    ->distinct()
      ->get();
                
@@ -62,7 +62,7 @@ $data = DB::table('ensetudhlk')
         ->select('etudiante.id','personne.nom','personne.prenom',
         'personne.dateNaiss','etudiante.hizb','halaka.name  as halaka','groupe.name as groupe')
      ->distinct()
-        ->where('personne.quittée','=','0')
+        ->where('personne.quittee','=','0')
   ->WhereNull('etudiante.deleted_at')
          ->orderBy('etudiante.id', 'asc')
      ->get();
@@ -81,7 +81,7 @@ $data=DB::table('ensetudhlk')
          ->leftJoin('personne','personne.id','=','etudiante.personne_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->where('halaka.id','=',$id)
-            ->where('personne.quittée','=','0')
+            ->where('personne.quittee','=','0')
          ->select('ensetudhlk.id','personne.nom','personne.prenom')
         ->get();
 
@@ -110,7 +110,7 @@ $data=DB::table('ensetudhlk')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
          ->where('etudiante.id','=',$id)
-            ->where('personne.quittée','=','0')
+            ->where('personne.quittee','=','0')
          ->select('u.name as username','etudiante.*','personne.*','halaka.name  as halaka','groupe.name as groupe')
         ->first();
 
@@ -141,7 +141,7 @@ public function update(Request $request,$id)
 DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
-       ->where('personne.quittée','=','0')
+       ->where('personne.quittee','=','0')
     ->update($request->all());
 
   $etudiante= Etudiante::find($id);
@@ -149,7 +149,7 @@ DB::table('etudiante as e')
 $personne = DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
    ->where('e.id','=',$id)
-      ->where('personne.quittée','=','0')
+      ->where('p.quittee','=','0')
     ->get('p.*');
     
     return response([$etudiante,$personne],201);
@@ -193,7 +193,7 @@ if(is_null($user)){
 
  DB::table('personne as p')
  ->where('p.id','=',$etudiante->personne_id)
-    ->where('p.quittée','=','0')
+    ->where('p.quittee','=','0')
  ->update(array('deleted_at'=>NOW()));
 
  

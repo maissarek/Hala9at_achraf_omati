@@ -29,7 +29,7 @@ class PersonneSeeder extends Seeder
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2007-01-01',
 'dateInscription'=>'2007-01-01',
-'quittée'=>'0'
+'quittee'=>'0'
 ]);
 
 
@@ -47,7 +47,7 @@ DB::table('personne')->insert([
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2015-01-01',
 'dateInscription'=>'2015-01-01',
-'quittée'=>'0'
+'quittee'=>'0'
              ]);
 
              DB::table('personne')->insert([
@@ -64,7 +64,7 @@ DB::table('personne')->insert([
 'lieuNaiss'=> 'بوفاريك',
 'dateEntree'=> '2016-01-01',
 'dateInscription'=>'2016-01-01',
-'quittée'=>'0'
+'quittee'=>'0'
              ]);
 
 DB::table('personne')->insert([
@@ -81,7 +81,7 @@ DB::table('personne')->insert([
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2000-01-01',
 'dateInscription'=>'2000-01-01',
-'quittée'=>'0']);
+'quittee'=>'0']);
 
              DB::table('personne')->insert([
  'nom'=>'شنتير ',
@@ -97,7 +97,7 @@ DB::table('personne')->insert([
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2005-01-01',
 'dateInscription'=>'2005-01-01',
-'quittée'=>'0'
+'quittee'=>'0'
              ]);
 
               DB::table('personne')->insert([
@@ -114,7 +114,7 @@ DB::table('personne')->insert([
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2015-01-01',
 'dateInscription'=>'2015-01-01',
-'quittée'=>'0']);
+'quittee'=>'0']);
 
  DB::table('personne')->insert([
  'nom'=>' العريبي',
@@ -130,7 +130,7 @@ DB::table('personne')->insert([
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2019-01-01',
 'dateInscription'=>'2019-01-01',
-'quittée'=>'0'
+'quittee'=>'0'
              ]);
              }
 }

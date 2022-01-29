@@ -30,7 +30,7 @@ protected $fillable = [
 'lieuNaiss',
 'dateEntree',
 'dateInscription',
-'quittée',
+'quittee',
 'dateQuittée'
 ];
 

@@ -43,7 +43,7 @@ ON lieu.id = h.id_lieu
 JOIN groupe 
 ON groupe.id = h.id_groupe
 
-where(p.quittée = 0)
+where(p.quittee = 0)
 group by  h.id');
         
         return response()->json($data,200);
@@ -96,7 +96,7 @@ $halaka=Halaka::leftjoin('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
   ->leftjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
   ->leftjoin('personne','personne.id','=','enseigante.personne_id')
   ->where('halaka.id','=',$id)
-  ->where('personne.quittée','=','0')
+  ->where('personne.quittee','=','0')
   ->select('enseigante.id as id_ens','personne.nom as name_enseignante','personne.prenom as prenom_enseignante','halaka.id'
 ,'halaka.name',	
 'halaka.jour',	
@@ -109,7 +109,7 @@ $halaka=Halaka::leftjoin('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
 $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
   ->join('personne as p','p.id','=','etudiante.personne_id')
   ->where('ensetudhlk.id_hlk','=',$id)
-  ->where('personne.quittée','=','0')
+  ->where('personne.quittee','=','0')
   ->select('ensetudhlk.id as ensetudhlk_id','etudiante.id','p.nom','p.prenom','p.dateNaiss','p.adresse','niveauAhkam','hizb','ensetudhlk.date_affectation')
   ->get();
 

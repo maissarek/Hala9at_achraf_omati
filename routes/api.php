@@ -8,7 +8,7 @@ UserController,PersonneController,
 HistetudianteController,EnsetuhlkController,
 HisthalakaController,RoleController,DashboardController,GroupController,LieuController};
 use App\Models\User;
-
+use App\Actions\Fortify\UpdateUserPassword;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,7 +48,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
 Route::middleware('auth:sanctum')->group( function () {
 //
 //
-
+Route::post('/users/password-update/{user}',[UpdateUserPassword::class,'update']);
 Route::get('/users/list',[UserController::class,'all_users']);
 Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}',[UserController::class,'show']);
