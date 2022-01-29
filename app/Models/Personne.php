@@ -29,9 +29,9 @@ protected $fillable = [
 'statusSocial',
 'lieuNaiss',
 'dateEntree',
-'date_inscription',
+'dateInscription',
 'quittée',
-'date_quitté'
+'dateQuittée'
 ];
 
 public function Ens_relat()

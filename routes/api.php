@@ -6,7 +6,7 @@ use App\Http\Controllers\{EnseiganteController,
 EtudianteController,HalakaController,
 UserController,PersonneController,
 HistetudianteController,EnsetuhlkController,
-HisthalakaController,RoleController,GroupController,LieuController};
+HisthalakaController,RoleController,DashboardController,GroupController,LieuController};
 use App\Models\User;
 
 /*
@@ -63,6 +63,14 @@ Route::get('/enseignante/{id}/etudiantes',[EnseiganteController::class,'etudiant
 Route::get('/enseignantes/list/names',[EnseiganteController::class,'all_enseignate_names']);
 Route::get('/etudiantes/list/names',[EtudianteController::class,'all_etudiante_names']);
 Route::get('/lieu/list/names',[LieuController::class,'all_lieu_names']);
+
+Route::get('/dashboard/total',[DashboardController::class,'total']);
+Route::get('/dashboard/total/etudiante/halaka',[DashboardController::class,'TotaletuByHlk']);
+Route::get('/dashboard/total/enseignante/halaka',[DashboardController::class,'TotalhlkByens']);
+Route::get('/dashboard/total/halaka/groupe',[DashboardController::class,'TotalHlkByGroup']);
+Route::get('/dashboard/total/newetudiante/yy',[DashboardController::class,'totalNewStudentByYY']);
+Route::get('/dashboard/total/skipetudiante/yy',[DashboardController::class,'totalSkipStudentByYY']);
+Route::get('/dashboard/total/etudiantes/hizb',[DashboardController::class,'StudentByHizb']);
 
 Route::get('/enseignantes/list',[EnseiganteController::class,'all_enseignate']);
 Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);
