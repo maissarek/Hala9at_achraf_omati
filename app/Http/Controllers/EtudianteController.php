@@ -193,7 +193,7 @@ if(is_null($user)){
 
  DB::table('personne as p')
  ->where('p.id','=',$etudiante->personne_id)
-    ->where('personne.quittée','=','0')
+    ->where('p.quittée','=','0')
  ->update(array('deleted_at'=>NOW()));
 
  

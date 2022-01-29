@@ -28,7 +28,7 @@ $etu= DB::select('select count(etudiante.id) as total_etu from etudiante,personn
 $hlk= DB::select('select count(HAlaka.id)as total_hlk from HAlaka');
 $user= DB::select('select count(users.id)as total_user from users,personne where users.personne_id=personne.id and personne.quittée=0');
 
-return response([$ens,$etu,$user,$hlk],200);
+return response({$ens,$etu,$user,$hlk},200);
 }
 
 public function TotaletuByHlk(){
@@ -57,7 +57,13 @@ where personne.quittée=0
  group by(halaka.id)
 ');
 
-return response([$hlk,$etu],200);
+$collection = collect($hlk);
+$collection1 = collect($etu);
+$plucked = $collection->pluck('name');
+$plucked1 = $collection1->pluck('total_etu');
+
+
+return response([$plucked->all(),$plucked1->all()],200);
 }
 
 public function TotalhlkByens(){
@@ -83,12 +89,19 @@ join halaka on ensetudhlk.id_hlk=halaka.id
 where personne.quittée=0
  group by(ensetudhlk.id_ens)
 ');
-return response([$ens,$hlk],200);
+
+$collection = collect($ens);
+$collection1 = collect($hlk);
+$plucked0 = $collection->pluck('nom');
+$plucked = $collection->pluck('prenom');
+$plucked1 = $collection1->pluck('total_hlk');
+$names = $plucked0->concat($plucked);
+return response([$names,$plucked1->all()],200);
 }
 
 public function TotalHlkByGroup(){
 
-$gpe= DB::select('select groupe.name
+$gpe= DB::select('select groupe.name as name
 from groupe
 join halaka on halaka.id_groupe=groupe.id
 
@@ -102,7 +115,13 @@ join halaka on halaka.id_groupe=groupe.id
  group by(groupe.id)
 ');
 
-return response([$gpe,$hlk],200);
+$collection = collect($gpe);
+$collection1 = collect($hlk);
+$plucked = $collection->pluck('name');
+$plucked1 = $collection1->pluck('total_hlk');
+
+
+return response([$plucked->all(),$plucked1->all()],200);
 }
 
 public function totalSkipStudentByYY(){
@@ -116,7 +135,15 @@ $yy=DB::select('select EXTRACT(YEAR FROM personne.dateQuittée) as year
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittée=1
 group By (year)
 ');
-return response([$yy,$etu],200);}
+
+$collection = collect($etu);
+$collection1 = collect($yy);
+$plucked = $collection->pluck('year');
+$plucked1 = $collection1->pluck('total_etu');
+
+
+return response([$plucked->all(),$plucked1->all()],200);
+}
 
 
 public function totalNewStudentByYY(){
@@ -130,7 +157,13 @@ $yy=DB::select('select EXTRACT(YEAR FROM personne.dateEntree) as year
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittée=0
 group By (year)
 ');
-return response([$yy,$etu],200);
+$collection = collect($etu);
+$collection1 = collect($yy);
+$plucked = $collection->pluck('year');
+$plucked1 = $collection1->pluck('total_etu');
+
+
+return response([$plucked->all(),$plucked1->all()],200);
 }
 
 public function StudentByHizb(){
@@ -144,10 +177,16 @@ $hizb=DB::select('select etudiante.hizb
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittée=0
 group By (etudiante.hizb)
 ');
-return response([$hizb,$etu],200);
+$collection = collect($etu);
+$collection1 = collect($hizb);
+$plucked = $collection->pluck('hizb');
+$plucked1 = $collection1->pluck('total_etu');
+
+
+return response([$plucked->all(),$plucked1->all()],200);
 }
 
-public function StudentByHizb(){
+public function StudentBy(){
 //
 }
 }
