@@ -183,10 +183,13 @@ return response([$plucked1->all(),$plucked->all()],200);
 
 public function StudentByAge(){
 
+$etu=DB::select('SELECT count(etudiante.id) as nbr from etudiante,personne
+WHERE etudiante.personne_id=personne.id and personne.quittee=0
+group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25))');
 
-$etu=DB::select('
+$etu_rate=DB::select('
 SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as nbr
+from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as rate
 from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
 group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25))');
@@ -196,21 +199,25 @@ from personne,etudiante
 where etudiante.personne_id=personne.id and personne.quittee=0
 group By (Age)
 ');
-
-$collection = collect($etu);
+$collection0 = collect($etu);
+$collection = collect($etu_rate);
 $collection1 = collect($age);
-$plucked = $collection->pluck('nbr');
+$plucked0 = $collection0->pluck('nbr');
+$plucked = $collection->pluck('rate');
 $plucked1 = $collection1->pluck('Age');
 
 
-return response([$plucked1->all(),$plucked->all()],200);
+return response([$plucked1->all(),$plucked->all(),$plucked0->all()],200);
 }
 
 public function StudentByAhkam(){
 
+$etu=DB::select('SELECT count(etudiante.id) as nbr from etudiante,personne
+WHERE etudiante.personne_id=personne.id and personne.quittee=0
+group by(etudiante.niveauAhkam)');
 
-$etu=DB::select('SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as nbr
+$etu_rate=DB::select('SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
+from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as rate
 from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
 group by(etudiante.niveauAhkam)');
@@ -220,14 +227,15 @@ from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
 group by(etudiante.niveauAhkam)
 ');
-
-$collection = collect($etu);
+$collection0 = collect($etu);
+$collection = collect($etu_rate);
 $collection1 = collect($age);
-$plucked = $collection->pluck('nbr');
+$plucked0 = $collection0->pluck('nbr');
+$plucked = $collection->pluck('rate');
 $plucked1 = $collection1->pluck('niveauAhkam');
 
 
-return response([$plucked1->all(),$plucked->all()],200);
+return response([$plucked1->all(),$plucked->all(),$plucked0->all()],200);
 }
 
 /*
