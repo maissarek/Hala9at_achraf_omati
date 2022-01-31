@@ -65,12 +65,17 @@ Route::get('/etudiantes/list/names',[EtudianteController::class,'all_etudiante_n
 Route::get('/lieu/list/names',[LieuController::class,'all_lieu_names']);
 
 Route::get('/dashboard/total',[DashboardController::class,'total']);
-Route::get('/dashboard/total/etudiante/halaka',[DashboardController::class,'TotaletuByHlk']);
+Route::get('/dashboard/total/etudiante/halaka/{id}',[DashboardController::class,'TotaletuByHlk']);
 Route::get('/dashboard/total/enseignante/halaka',[DashboardController::class,'TotalhlkByens']);
 Route::get('/dashboard/total/halaka/groupe',[DashboardController::class,'TotalHlkByGroup']);
 Route::get('/dashboard/total/newetudiante/yy',[DashboardController::class,'totalNewStudentByYY']);
 Route::get('/dashboard/total/skipetudiante/yy',[DashboardController::class,'totalSkipStudentByYY']);
 Route::get('/dashboard/total/etudiantes/hizb',[DashboardController::class,'StudentByHizb']);
+//Route::post('/dashboard/ratelate/etudiantes',[DashboardController::class,'RateLateStudents']);
+Route::get('/dashboard/rate/etudiantes/age',[DashboardController::class,'StudentByAge']);
+Route::get('/dashboard/rate/etudiantes/ahkam',[DashboardController::class,'StudentByAhkam']);
+
+
 
 Route::get('/enseignantes/list',[EnseiganteController::class,'all_enseignate']);
 Route::get('/etudiantes/list',[EtudianteController::class,'all_etudiante']);

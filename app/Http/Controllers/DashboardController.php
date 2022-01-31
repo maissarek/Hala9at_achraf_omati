@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Flare\Math\Facades\Math;
 
 class DashboardController extends Controller
 {
@@ -20,7 +21,8 @@ $array=Arr::collapse([$ens,$etu,$hlk,$user]);
 return $array;
 }
 
-public function TotaletuByHlk(){
+public function TotaletuByHlk($idg){
+
 $hlk= DB::select('select halaka.name
 from halaka 
 join ensetudhlk
@@ -29,10 +31,9 @@ join etudiante
 on ensetudhlk.id_etud=etudiante.id
 join personne
 on etudiante.personne_id=personne.id
-
-where personne.quittee=0
+where(halaka.id_groupe=? and personne.quittee=0 )
  group by(halaka.id)
-');
+',[$idg]);
 $etu= DB::select('select count(ensetudhlk.id_etud) as total_etu
 from halaka 
 join ensetudhlk
@@ -42,9 +43,9 @@ on ensetudhlk.id_etud=etudiante.id
 join personne
 on etudiante.personne_id=personne.id
 
-where personne.quittee=0
+where (halaka.id_groupe=? and personne.quittee=0 )
  group by(halaka.id)
-');
+',[$idg]);
 
 $collection = collect($hlk);
 $collection1 = collect($etu);
@@ -53,6 +54,7 @@ $plucked1 = $collection1->pluck('total_etu');
 
 
 return response([$plucked->all(),$plucked1->all()],200);
+
 }
 
 public function TotalhlkByens(){
@@ -139,6 +141,8 @@ return response([$plucked->all(),$plucked1->all()],200);
 
 public function totalNewStudentByYY(){
 
+
+
 $etu=DB::select('select count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0
 group By (EXTRACT(YEAR FROM personne.dateEntree))
@@ -177,7 +181,132 @@ $plucked1 = $collection1->pluck('hizb');
 return response([$plucked1->all(),$plucked->all()],200);
 }
 
-public function StudentBy(){
-//
+public function StudentByAge(){
+
+
+$etu=DB::select('
+SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
+from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as nbr
+from etudiante,personne
+WHERE etudiante.personne_id=personne.id and personne.quittee=0
+group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25))');
+
+$age=DB::select('select floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25) AS Age
+from personne,etudiante
+where etudiante.personne_id=personne.id and personne.quittee=0
+group By (Age)
+');
+
+$collection = collect($etu);
+$collection1 = collect($age);
+$plucked = $collection->pluck('nbr');
+$plucked1 = $collection1->pluck('Age');
+
+
+return response([$plucked1->all(),$plucked->all()],200);
 }
+
+public function StudentByAhkam(){
+
+
+$etu=DB::select('SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
+from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as nbr
+from etudiante,personne
+WHERE etudiante.personne_id=personne.id and personne.quittee=0
+group by(etudiante.niveauAhkam)');
+
+$age=DB::select('SELECT etudiante.niveauAhkam
+from etudiante,personne
+WHERE etudiante.personne_id=personne.id and personne.quittee=0
+group by(etudiante.niveauAhkam)
+');
+
+$collection = collect($etu);
+$collection1 = collect($age);
+$plucked = $collection->pluck('nbr');
+$plucked1 = $collection1->pluck('niveauAhkam');
+
+
+return response([$plucked1->all(),$plucked->all()],200);
+}
+
+/*
+public function RateLateStudents(Request $req){
+
+
+$late = DB::select('
+select count(histetudiante.id)as nbr
+from histetudiante
+join histhalaka on histhalaka.id=histetudiante.HistHalaka_id
+where(( ? in( select YEAR(histhalaka.date) as year from histhalaka ) ) and (histetudiante.retard=1));
+',[$req->date_c]);
+//DATEDIFF(day, ?,?) AS DateDiff 
+
+$rate=devide($late,356)*100;
+//$collection = collect($rate);
+//$collection1 = collect();
+//$plucked = $collection->pluck('nbr');
+//$plucked1 = $collection1->pluck('');
+
+
+return response([$rate],200);
+
+}
+*//*
+public function RateLateTeachers(){
+
+
+
+$collection = collect();
+$collection1 = collect();
+$plucked = $collection->pluck('');
+$plucked1 = $collection1->pluck('');
+
+
+return response([$plucked1->all(),$plucked->all()],200);
+
+}
+
+public function StudentsAbsences($date){
+
+//((# of unexcused absences)/total period) x 100 = % of Absenteeism
+
+
+$collection = collect();
+$collection1 = collect();
+$plucked = $collection->pluck('');
+$plucked1 = $collection1->pluck('');
+
+
+return response([$plucked1->all(),$plucked->all()],200);
+
+}
+
+public function TeachersAbsences($date){
+
+
+
+$collection = collect();
+$collection1 = collect();
+$plucked = $collection->pluck('');
+$plucked1 = $collection1->pluck('');
+
+
+return response([$plucked1->all(),$plucked->all()],200);
+
+}
+
+public function AbsenteeismPercentage($date){
+
+
+
+$collection = collect();
+$collection1 = collect();
+$plucked = $collection->pluck('');
+$plucked1 = $collection1->pluck('');
+
+
+return response([$plucked1->all(),$plucked->all()],200);
+
+}*/
 }

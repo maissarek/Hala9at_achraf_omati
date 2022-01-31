@@ -19,7 +19,8 @@ class HistetudianteSeeder extends Seeder
 'hizb'=>'60',
 'elhifd'=>'/',
 'Elmorajaa'=>'جيدة',
-'Elmtn'=>'/'
+'Elmtn'=>'/',
+'absent'=>'0'
 ]);
 
  DB::table('Histetudiante')->insert([
@@ -28,7 +29,8 @@ class HistetudianteSeeder extends Seeder
 'hizb'=>'60',
 'elhifd'=>'جيد',
 'Elmorajaa'=>'جيدة',
-'Elmtn'=>'55'
+'Elmtn'=>'55',
+'absent'=>'0'
 ]);
 DB::table('Histetudiante')->insert([
 'HistHalaka_id'=>'1',
@@ -36,7 +38,8 @@ DB::table('Histetudiante')->insert([
 'hizb'=>'60',
 'elhifd'=>'متوسطة',
 'Elmorajaa'=>'متوسطة',
-'Elmtn'=>'30'
+'Elmtn'=>'30',
+'absent'=>'0'
 ]);
  DB::table('Histetudiante')->insert([
 'HistHalaka_id'=>'3',
@@ -46,7 +49,8 @@ DB::table('Histetudiante')->insert([
 'Elmorajaa'=>'متوسطة',
 'Elmtn'=>'5 أبيات من مخارج الحروف',
 'retard'=>'1',
-'justificatif'=>'عاملة' ]);
+'justificatif'=>'عاملة',
+'absent'=>'0' ]);
 
  DB::table('Histetudiante')->insert([
 'HistHalaka_id'=>'2',
@@ -54,7 +58,8 @@ DB::table('Histetudiante')->insert([
 'hizb'=>'10',
 'elhifd'=>'ث 5 ح 10 ',
 'Elmorajaa'=>'جيدة',
-'Elmtn'=>'لم تحفظ']);
+'Elmtn'=>'لم تحفظ',
+'absent'=>'0']);
 
  DB::table('Histetudiante')->insert([
 'HistHalaka_id'=>'1',
@@ -62,6 +67,7 @@ DB::table('Histetudiante')->insert([
 'hizb'=>'60',
 'elhifd'=>'/',
 'Elmorajaa'=>'متوسطة',
-'Elmtn'=>'/']);
+'Elmtn'=>'/',
+'absent'=>'0']);
 }
 }
