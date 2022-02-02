@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{EnseiganteController,
+use App\Http\Controllers\{PasswordController,EnseiganteController,
 EtudianteController,HalakaController,
 UserController,PersonneController,
 HistetudianteController,EnsetuhlkController,
@@ -47,7 +47,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
 Route::middleware('auth:sanctum')->group( function () {
 //
 //
-Route::put('/users/password-update/{id}',[UserController::class,'update_pw']);
+Route::put('/users/password-update/{id}',[PasswordController::class,'update']);
 Route::get('/users/list',[UserController::class,'all_users']);
 Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}',[UserController::class,'show']);

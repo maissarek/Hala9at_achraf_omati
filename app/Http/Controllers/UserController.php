@@ -19,27 +19,6 @@ class UserController extends Controller
      */
 
 
-public function update_pw($id,Request $req){
-    $user_auth = Auth::user();
-        $user=User::find($id);
-
- if ($user_auth->can('update', $user)) {
-        if(is_null($user)){
-
-           return response()->json(['message'=>'User not found',404]);
-}
-echo "1";
-
-$pw=new UpdateUserPassword;
-$pw->update($user,$req->all());
-/*$user= User::find($id);
-*/
-return response($user,201);
-
-} else {
-     return response()->json(['error' => 'Not authorized.'],403);
-    }
-}
 public function all_users()
 {
 $this->authorize('viewAny', User::class);
