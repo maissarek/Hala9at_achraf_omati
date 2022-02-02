@@ -21,7 +21,8 @@ class HisthalakaSeeder extends Seeder
 'moton'=>'/',
 'autres'=>'/',
 'absence_Ens'=>'1',
-'justification_Ens'=>'ظروف خاصة'
+'justification_Ens'=>'ظروف خاصة',
+'retard'=>'0'
              ]);
 
              DB::table('histhalaka')->insert([
@@ -30,7 +31,8 @@ class HisthalakaSeeder extends Seeder
 'morajaa'=>'الحزب 1+2+3',
 'moton'=>'المقدمة الجزرية',
 'autres'=>'أكملنا مقرر الحلقة',
-'absence_Ens'=>'0'
+'absence_Ens'=>'0',
+'retard'=>'0'
              ]);
 
              DB::table('histhalaka')->insert([
@@ -38,6 +40,7 @@ class HisthalakaSeeder extends Seeder
 'morajaa'=>'الحزب 5 + 6',
 'moton'=>'المقدمة الجزرية 4 أبواب',
 'autres'=>'/',
-'absence_Ens'=>'0' ]);
+'absence_Ens'=>'0',
+'retard'=>'0' ]);
     }
 }

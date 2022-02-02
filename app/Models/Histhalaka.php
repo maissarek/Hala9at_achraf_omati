@@ -23,7 +23,8 @@ protected $fillable=[
 'moton',
 'autres',
 'absence_Ens',
-'justification_Ens'
+'justification_Ens',
+'retard'
 
 ];
 

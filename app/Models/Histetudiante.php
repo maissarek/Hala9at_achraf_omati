@@ -19,7 +19,7 @@ protected $fillable=[
 'id','HistHalaka_id',
 'ensEtudHlk_id','hizb',
 'elhifd','Elmorajaa','Elmtn',
-'retard','absent',
+'retard'=>'0','absent',
 'justificatif','observations']; 
 
 }

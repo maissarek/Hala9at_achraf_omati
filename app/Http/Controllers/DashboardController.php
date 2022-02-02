@@ -185,19 +185,23 @@ public function StudentByAge(){
 
 $etu=DB::select('SELECT count(etudiante.id) as nbr from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
-group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25))');
+group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25)) 
+Order By (floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25)) ');
 
 $etu_rate=DB::select('
 SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as rate
 from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
-group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25))');
+group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25))
+Order By (floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25)) 
+');
 
 $age=DB::select('select floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25) AS Age
 from personne,etudiante
 where etudiante.personne_id=personne.id and personne.quittee=0
 group By (Age)
+Order By Age 
 ');
 $collection0 = collect($etu);
 $collection = collect($etu_rate);
@@ -238,44 +242,103 @@ $plucked1 = $collection1->pluck('niveauAhkam');
 return response([$plucked1->all(),$plucked->all(),$plucked0->all()],200);
 }
 
-/*
+
 public function RateLateStudents(Request $req){
 
 
-$late = DB::select('
-select count(histetudiante.id)as nbr
+$rate = DB::select('
+   SELECT floor((count(histetudiante.id)/(SELECT count(histetudiante.id)from histetudiante
+join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
+join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
+join etudiante on ensetudhlk.id_etud=etudiante.id
+join personne on etudiante.personne_id=personne.id
+WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)))*100)
+ 
+ 
+ 
+ as late_rate
 from histetudiante
-join histhalaka on histhalaka.id=histetudiante.HistHalaka_id
-where(( ? in( select YEAR(histhalaka.date) as year from histhalaka ) ) and (histetudiante.retard=1));
-',[$req->date_c]);
-//DATEDIFF(day, ?,?) AS DateDiff 
+join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
+join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
+join etudiante on ensetudhlk.id_etud=etudiante.id
+join personne on etudiante.personne_id=personne.id
+WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)
+     GROUP BY histetudiante.retard  ',[$req->date_b,$req->date_f,$req->date_b,$req->date_f]);
 
-$rate=devide($late,356)*100;
-//$collection = collect($rate);
-//$collection1 = collect();
-//$plucked = $collection->pluck('nbr');
-//$plucked1 = $collection1->pluck('');
+$late= DB::select('
+  SELECT histetudiante.retard as late
+from histetudiante
+join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
+join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
+join etudiante on ensetudhlk.id_etud=etudiante.id
+join personne on etudiante.personne_id=personne.id
+WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)
+     GROUP BY histetudiante.retard',[$req->date_b,$req->date_f]);
+
+$nbr= DB::select('
+  SELECT count(histetudiante.id) as nbr
+from histetudiante
+join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
+join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
+join etudiante on ensetudhlk.id_etud=etudiante.id
+join personne on etudiante.personne_id=personne.id
+WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)
+     GROUP BY histetudiante.retard',[$req->date_b,$req->date_f]);
+
+$collection = collect($rate);
+$collection1 = collect($late);
+$collection0 = collect($nbr);
+$plucked = $collection->pluck('late_rate');
+$plucked1 = $collection1->pluck('late');
+$plucked0 = $collection0->pluck('nbr');
 
 
-return response([$rate],200);
+return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
 
 }
-*//*
-public function RateLateTeachers(){
+
+public function RateLateTeachers(Request $req){
 
 
 
-$collection = collect();
-$collection1 = collect();
-$plucked = $collection->pluck('');
-$plucked1 = $collection1->pluck('');
+$rate = DB::select('
+   SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)from histhalaka
+WHERE (histhalaka.date between ? and ?)))*100)
+ 
+ 
+ 
+ as late_rate
+from histhalaka
+WHERE (histhalaka.date between ? and ?)
+     GROUP BY histhalaka.retard  ',[$req->date_b,$req->date_f,$req->date_b,$req->date_f]);
+
+$late= DB::select('
+SELECT histhalaka.retard
+from histhalaka
+WHERE (histhalaka.date between ? and ?) 
+     GROUP BY histhalaka.retard  ',[$req->date_b,$req->date_f]);
+
+$nbr= DB::select('
+SELECT count(histhalaka.id) as nbr
+from histhalaka
+WHERE (histhalaka.date between ? and ?) 
+     GROUP BY histhalaka.retard ',[$req->date_b,$req->date_f]);
+
+$collection = collect($rate);
+$collection1 = collect($late);
+$collection0 = collect($nbr);
+$plucked = $collection->pluck('late_rate');
+$plucked1 = $collection1->pluck('retard');
+$plucked0 = $collection0->pluck('nbr');
 
 
-return response([$plucked1->all(),$plucked->all()],200);
+return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
+
+
 
 }
 
-public function StudentsAbsences($date){
+/*public function StudentsAbsences($date){
 
 //((# of unexcused absences)/total period) x 100 = % of Absenteeism
 

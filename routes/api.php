@@ -8,7 +8,6 @@ UserController,PersonneController,
 HistetudianteController,EnsetuhlkController,
 HisthalakaController,RoleController,DashboardController,GroupController,LieuController};
 use App\Models\User;
-use App\Actions\Fortify\UpdateUserPassword;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,7 +47,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
 Route::middleware('auth:sanctum')->group( function () {
 //
 //
-Route::post('/users/password-update/{user}',[UpdateUserPassword::class,'update']);
+Route::put('/users/password-update/{id}',[UserController::class,'update_pw']);
 Route::get('/users/list',[UserController::class,'all_users']);
 Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}',[UserController::class,'show']);
@@ -71,7 +70,8 @@ Route::get('/dashboard/total/halaka/groupe',[DashboardController::class,'TotalHl
 Route::get('/dashboard/total/newetudiante/yy',[DashboardController::class,'totalNewStudentByYY']);
 Route::get('/dashboard/total/skipetudiante/yy',[DashboardController::class,'totalSkipStudentByYY']);
 Route::get('/dashboard/total/etudiantes/hizb',[DashboardController::class,'StudentByHizb']);
-//Route::post('/dashboard/ratelate/etudiantes',[DashboardController::class,'RateLateStudents']);
+Route::post('/dashboard/ratelate/enseignantes',[DashboardController::class,'RateLateTeachers']);
+Route::post('/dashboard/ratelate/etudiantes',[DashboardController::class,'RateLateStudents']);
 Route::get('/dashboard/rate/etudiantes/age',[DashboardController::class,'StudentByAge']);
 Route::get('/dashboard/rate/etudiantes/ahkam',[DashboardController::class,'StudentByAhkam']);
 
