@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Fortify\UpdateUserPassword;
+use Laravel\Fortify\Fortify;
 
 
 class UserController extends Controller
@@ -17,6 +18,21 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+public function update_pw($id,array $A)
+{
+    echo 1;  $user=User::find($id);
+
+
+        if(is_null($user)){
+
+           return response()->json(['message'=>'User not found',404]);
+}
+
+$p=new UpdateUserPassword;
+$p->update($user,$A);
+return true;
+}
 
 
 public function all_users()

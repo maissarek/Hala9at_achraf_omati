@@ -1,6 +1,11 @@
 <?php
 
+
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{PasswordController,EnseiganteController,
 EtudianteController,HalakaController,
@@ -33,25 +38,17 @@ return view('welcome');
 Route::post('/user/login',[UserController::class,'login']);
 
 Route::post('/user/add',[PersonneController::class,'save_pers_admin']);
-/*
-Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
 
-    // with fortify auth middleware
-    Route::get('bar', function () {
-       return 'bar';
-    }) ->middleware(['auth']); // fortify auth middleware
-
-});
-*/
 
 Route::middleware('auth:sanctum')->group( function () {
 //
 //
-Route::put('/users/password-update/{id}',[PasswordController::class,'update']);
+
 Route::get('/users/list',[UserController::class,'all_users']);
 Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}',[UserController::class,'show']);
 Route::put('/user/update/{id}',[UserController::class,'update']);
+Route::post('/user/change-password',[PasswordController::class,'update']);
 Route::post('/user/register',[UserController::class,'store']);
 Route::delete('/user/delete/{id}',[UserController::class,'destroy']);
 
