@@ -69,6 +69,8 @@ Route::get('/dashboard/total/skipetudiante/yy',[DashboardController::class,'tota
 Route::get('/dashboard/total/etudiantes/hizb',[DashboardController::class,'StudentByHizb']);
 Route::post('/dashboard/ratelate/enseignantes',[DashboardController::class,'RateLateTeachers']);
 Route::post('/dashboard/ratelate/etudiantes',[DashboardController::class,'RateLateStudents']);
+Route::post('/dashboard/rateabsence/enseignantes/{id}',[DashboardController::class,'TeachersAbsences']);
+Route::post('/dashboard/rateabsence/etudiantes/{id}',[DashboardController::class,'StudentsAbsences']);
 Route::get('/dashboard/rate/etudiantes/age',[DashboardController::class,'StudentByAge']);
 Route::get('/dashboard/rate/etudiantes/ahkam',[DashboardController::class,'StudentByAhkam']);
 
