@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Flare\Math\Facades\Math;
-
+use Illuminate\Auth\Access\Response;
 class DashboardController extends Controller
 {
 
+
+
 public function total(){
+
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
+  
 
 $ens= DB::select('select count(enseigante.id) as total_ens
 from enseigante,personne
@@ -19,10 +27,18 @@ $hlk= DB::select('select count(HAlaka.id)as total_hlk from HAlaka');
 $user= DB::select('select count(users.id)as total_user from users,personne where users.personne_id=personne.id and personne.quittee=0');
 $array=Arr::collapse([$ens,$etu,$hlk,$user]);
 return $array;
+
+} else {
+ 
+    return response()->json($response->message(),403);
+}
 }
 
 public function TotaletuByHlk($idg){
 
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
 $hlk= DB::select('select halaka.name
 from halaka 
 join ensetudhlk
@@ -54,11 +70,16 @@ $plucked1 = $collection1->pluck('total_etu');
 
 
 return response([$plucked->all(),$plucked1->all()],200);
-
+} else {
+     return response()->json($response->message(),403);
+}
 }
 
 public function TotalhlkByens(){
 
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
 $ens= DB::select('select  personne.nom as nom,personne.prenom
 from enseigante
 join personne
@@ -90,10 +111,14 @@ $plucked1 = $collection1->pluck('total_hlk');
 $names = $plucked0->concat($plucked);
 
 return response([$names,$plucked1->all()],200);
-}
+} else {
+     return response()->json($response->message(),403);
+}}
 
 public function TotalHlkByGroup(){
+$response = Gate::inspect('view_dashboard');
 
+if ($response->allowed()) {
 $gpe= DB::select('select groupe.name as name
 from groupe
 join halaka on halaka.id_groupe=groupe.id
@@ -115,10 +140,14 @@ $plucked1 = $collection1->pluck('total_hlk');
 
 
 return response([$plucked->all(),$plucked1->all()],200);
-}
+} else {
+     return response()->json($response->message(),403);
+}}
 
 public function totalSkipStudentByYY(){
+$response = Gate::inspect('view_dashboard');
 
+if ($response->allowed()) {
 $etu=DB::select('select count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=1
 group By (EXTRACT(YEAR FROM personne.dateQuittée))
@@ -136,12 +165,16 @@ $plucked1 = $collection1->pluck('year');
 
 
 return response([$plucked->all(),$plucked1->all()],200);
-}
+} else {
+     return response()->json($response->message(),403);
+}}
 
 
 public function totalNewStudentByYY(){
 
+$response = Gate::inspect('view_dashboard');
 
+if ($response->allowed()) {
 $etu=DB::select('select count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0
 group By (EXTRACT(YEAR FROM personne.dateEntree))
@@ -158,10 +191,15 @@ $plucked1 = $collection1->pluck('year');
 
 
 return response([$plucked1->all(),$plucked->all()],200);
-}
+} else {
+     return response()->json($response->message(),403);
+}}
 
 public function StudentByHizb(){
 
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
 $etu=DB::select('select count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0 
 group By (etudiante.hizb)
@@ -178,10 +216,15 @@ $plucked1 = $collection1->pluck('hizb');
 
 
 return response([$plucked1->all(),$plucked->all()],200);
-}
+} else {
+     return response()->json($response->message(),403);
+}}
 
 public function StudentByAge(){
 
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
 $etu=DB::select('SELECT count(etudiante.id) as nbr from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
 group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25)) 
@@ -211,10 +254,15 @@ $plucked1 = $collection1->pluck('Age');
 
 
 return response([$plucked1->all(),$plucked->all(),$plucked0->all()],200);
-}
+} else {
+     return response()->json($response->message(),403);
+}}
 
 public function StudentByAhkam(){
 
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
 $etu=DB::select('SELECT count(etudiante.id) as nbr from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
 group by(etudiante.niveauAhkam)');
@@ -239,12 +287,16 @@ $plucked1 = $collection1->pluck('niveauAhkam');
 
 
 return response([$plucked1->all(),$plucked->all(),$plucked0->all()],200);
-}
+} else {
+     return response()->json($response->message(),403);
+}}
 
 
 public function RateLateStudents(Request $req){
 
+$response = Gate::inspect('view_dashboard');
 
+if ($response->allowed()) {
 $rate = DB::select('
    SELECT floor((count(histetudiante.id)/(SELECT count(histetudiante.id)from histetudiante
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
@@ -293,12 +345,16 @@ $plucked0 = $collection0->pluck('nbr');
 
 
 return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
-
+} else {
+     return response()->json($response->message(),403);
+}
 }
 
 public function RateLateTeachers(Request $req){
 
+$response = Gate::inspect('view_dashboard');
 
+if ($response->allowed()) {
 
 $rate = DB::select('
    SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)from histhalaka
@@ -333,13 +389,17 @@ $plucked0 = $collection0->pluck('nbr');
 
 return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
 
-
+} else {
+     return response()->json($response->message(),403);
+}
 
 }
 
 public function TeachersAbsences($idh,Request $req){
 
+$response = Gate::inspect('view_dashboard');
 
+if ($response->allowed()) {
 $rate = DB::select('SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)
 from histhalaka 
 join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
@@ -396,11 +456,16 @@ $plucked0 = $collection0->pluck('nbr');
 $plucked2 = $collection2->pluck('name');
 
 return response([$plucked2->all(),$plucked1->all(),$plucked0->all(),$plucked->all()],200);
-
+} else {
+     return response()->json($response->message(),403);
+}
 }
 
 public function TeachersAbsencesGlobal(Request $req){
 
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
 $rate = DB::select('SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)
 from histhalaka 
 join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
@@ -442,13 +507,18 @@ $plucked0 = $collection0->pluck('nbr');
 
 
 return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
-
+} else {
+     return response()->json($response->message(),403);
+}
 }
 
 
 
 
 public function StudentsAbsencesGlobal(Request $req){
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
 
 
  $rate = DB::select('
@@ -498,15 +568,17 @@ $plucked0 = $collection0->pluck('nbr');
 
 return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
 
-
+} else {
+     return response()->json($response->message(),403);
+}
 }
 
 public function StudentsAbsences($idh,Request $req){
 
-/*select halaka.name
-from halaka 
-join ensetudhlk
-on ensetudhlk.id_hlk=halaka.id*/
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
+
 $rate = DB::select('
    SELECT floor((count(histetudiante.id)/(SELECT count(histetudiante.id)
    from histetudiante
@@ -572,6 +644,8 @@ $plucked0 = $collection0->pluck('nbr');
 $plucked2 = $collection2->pluck('name');
 
 return response([$plucked2->all(),$plucked1->all(),$plucked0->all(),$plucked->all()],200);
-
+} else {
+     return response()->json($response->message(),403);
+}
 }
 }
