@@ -142,7 +142,6 @@ return response([$plucked->all(),$plucked1->all()],200);
 public function totalNewStudentByYY(){
 
 
-
 $etu=DB::select('select count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0
 group By (EXTRACT(YEAR FROM personne.dateEntree))
@@ -340,8 +339,69 @@ return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
 
 public function TeachersAbsences($idh,Request $req){
 
-if ($idh==0) {
-	$rate = DB::select('SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)
+
+$rate = DB::select('SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)
+from histhalaka 
+join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
+JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
+Join halaka on halaka.id=ensetudhlk.id_hlk
+WHERE (halaka.id_groupe=?) and (histhalaka.date between ? and ?)))*100) as absences_rate
+from histhalaka 
+join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
+JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
+Join halaka on halaka.id=ensetudhlk.id_hlk
+WHERE (halaka.id_groupe=?) and( histhalaka.date between ? and ?)
+GROUP BY histhalaka.absence_Ens'
+,[$idh,$req->date_b,$req->date_f,$idh,$req->date_b,$req->date_f]);
+
+$name= DB::select('
+SELECT halaka.name
+from halaka
+JOIN ensetudhlk on ensetudhlk.id_hlk=halaka.id
+join histetudiante on histetudiante.ensEtudHlk_id=ensetudhlk.id
+Join histhalaka on histhalaka.id=histetudiante.HistHalaka_id
+  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?)
+GROUP BY histhalaka.absence_Ens'
+,[$idh,$req->date_b,$req->date_f]);
+
+$absence= DB::select('
+SELECT histhalaka.absence_Ens
+from histhalaka 
+join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
+JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
+Join halaka on halaka.id=ensetudhlk.id_hlk
+  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?)
+GROUP BY histhalaka.absence_Ens'
+,[$idh,$req->date_b,$req->date_f]);
+
+$nbr= DB::select('
+SELECT count(histhalaka.id) as nbr
+from histhalaka 
+join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
+JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
+Join halaka on halaka.id=ensetudhlk.id_hlk
+  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?)
+GROUP BY histhalaka.absence_Ens'
+,[$idh,$req->date_b,$req->date_f]);
+
+//((# of unexcused absences)/total period) x 100 = % of Absenteeism
+
+$collection = collect($rate);
+$collection1 = collect($absence);
+$collection2 = collect($name);
+$collection0 = collect($nbr);
+$plucked = $collection->pluck('absences_rate');
+$plucked1 = $collection1->pluck('absence_Ens');
+$plucked0 = $collection0->pluck('nbr');
+$plucked2 = $collection2->pluck('name');
+
+return response([$plucked2->all(),$plucked1->all(),$plucked0->all(),$plucked->all()],200);
+
+}
+
+public function TeachersAbsencesGlobal(Request $req){
+
+$rate = DB::select('SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)
 from histhalaka 
 join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
 JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
@@ -367,7 +427,7 @@ SELECT count(histhalaka.id) as nbr
 from histhalaka 
 join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
 JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
-                                    WHERE( histhalaka.date between ? and ?)
+                                    WHERE ( histhalaka.date between ? and ?)
 GROUP BY histhalaka.absence_Ens'
 ,[$req->date_b,$req->date_f]);
 
@@ -384,57 +444,13 @@ $plucked0 = $collection0->pluck('nbr');
 return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
 
 }
-else{
-$rate = DB::select('SELECT floor((count(histhalaka.id)/(SELECT count(histhalaka.id)
-from histhalaka 
-join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
-JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
-                                    WHERE(ensetudhlk.id_hlk=?)and (histhalaka.date between ? and ?)))*100) as absences_rate
-from histhalaka 
-join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
-JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
-                                    WHERE(ensetudhlk.id_hlk=?)and( histhalaka.date between ? and ?)
-GROUP BY histhalaka.absence_Ens'
-,[$idh,$req->date_b,$req->date_f,$idh,$req->date_b,$req->date_f]);
-
-$absence= DB::select('
-SELECT histhalaka.absence_Ens
-from histhalaka 
-join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
-JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
-                                    WHERE(ensetudhlk.id_hlk=?)and( histhalaka.date between ? and ?)
-GROUP BY histhalaka.absence_Ens'
-,[$idh,$req->date_b,$req->date_f]);
-
-$nbr= DB::select('
-SELECT count(histhalaka.id) as nbr
-from histhalaka 
-join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
-JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
-                                    WHERE(ensetudhlk.id_hlk=?)and( histhalaka.date between ? and ?)
-GROUP BY histhalaka.absence_Ens'
-,[$idh,$req->date_b,$req->date_f]);
-
-//((# of unexcused absences)/total period) x 100 = % of Absenteeism
-
-$collection = collect($rate);
-$collection1 = collect($absence);
-$collection0 = collect($nbr);
-$plucked = $collection->pluck('absences_rate');
-$plucked1 = $collection1->pluck('absence_Ens');
-$plucked0 = $collection0->pluck('nbr');
 
 
-return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
-
-}
 
 
-}
+public function StudentsAbsencesGlobal(Request $req){
 
-public function StudentsAbsences($idh,Request $req){
 
-if ($idh==0) {
  $rate = DB::select('
    SELECT floor((count(histetudiante.id)/(SELECT count(histetudiante.id)
    from histetudiante
@@ -443,10 +459,7 @@ join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
 join personne on etudiante.personne_id=personne.id
 WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)))*100)
- 
- 
- 
- as absence_rate
+as absence_rate
 from histetudiante
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
@@ -484,8 +497,16 @@ $plucked0 = $collection0->pluck('nbr');
 
 
 return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
+
+
 }
-else{
+
+public function StudentsAbsences($idh,Request $req){
+
+/*select halaka.name
+from halaka 
+join ensetudhlk
+on ensetudhlk.id_hlk=halaka.id*/
 $rate = DB::select('
    SELECT floor((count(histetudiante.id)/(SELECT count(histetudiante.id)
    from histetudiante
@@ -493,7 +514,8 @@ join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
 join personne on etudiante.personne_id=personne.id
-WHERE (ensetudhlk.id_hlk=?)and(histhalaka.date between ? and ?) and (personne.quittee=0)))*100)
+Join halaka on halaka.id=ensetudhlk.id_hlk
+  WHERE (halaka.id_groupe=?) and(histhalaka.date between ? and ?) and (personne.quittee=0)))*100)
  
  
  
@@ -503,7 +525,8 @@ join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
 join personne on etudiante.personne_id=personne.id
-WHERE (ensetudhlk.id_hlk=?)and(histhalaka.date between ? and ?) and (personne.quittee=0)
+Join halaka on halaka.id=ensetudhlk.id_hlk
+  WHERE (halaka.id_groupe=?) and(histhalaka.date between ? and ?) and (personne.quittee=0)
      GROUP BY histetudiante.absent  ',[$idh,$req->date_b,$req->date_f,$idh,$req->date_b,$req->date_f]);
 
 $absence= DB::select('
@@ -513,7 +536,19 @@ join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
 join personne on etudiante.personne_id=personne.id
-WHERE (ensetudhlk.id_hlk=?)and(histhalaka.date between ? and ?) and (personne.quittee=0)
+Join halaka on halaka.id=ensetudhlk.id_hlk
+  WHERE (halaka.id_groupe=?) and(histhalaka.date between ? and ?) and (personne.quittee=0)
+     GROUP BY histetudiante.absent',[$idh,$req->date_b,$req->date_f]);
+
+$name= DB::select('
+  SELECT distinct (halaka.name) 
+from histetudiante
+join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
+join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
+join etudiante on ensetudhlk.id_etud=etudiante.id
+join personne on etudiante.personne_id=personne.id
+Join halaka on halaka.id=ensetudhlk.id_hlk
+  WHERE (halaka.id_groupe=?) and(histhalaka.date between ? and ?) and (personne.quittee=0)
      GROUP BY histetudiante.absent',[$idh,$req->date_b,$req->date_f]);
 
 $nbr= DB::select('
@@ -523,18 +558,20 @@ join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
 join personne on etudiante.personne_id=personne.id
-WHERE (ensetudhlk.id_hlk=?)and(histhalaka.date between ? and ?) and (personne.quittee=0)
+Join halaka on halaka.id=ensetudhlk.id_hlk
+  WHERE (halaka.id_groupe=?) and(histhalaka.date between ? and ?) and (personne.quittee=0)
      GROUP BY histetudiante.absent',[$idh,$req->date_b,$req->date_f]);
 
 $collection = collect($rate);
 $collection1 = collect($absence);
+$collection2 = collect($name);
 $collection0 = collect($nbr);
 $plucked = $collection->pluck('absence_rate');
 $plucked1 = $collection1->pluck('absence');
 $plucked0 = $collection0->pluck('nbr');
+$plucked2 = $collection2->pluck('name');
 
+return response([$plucked2->all(),$plucked1->all(),$plucked0->all(),$plucked->all()],200);
 
-return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
-}
 }
 }
