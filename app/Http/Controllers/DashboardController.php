@@ -108,9 +108,9 @@ $plucked0 = $collection->pluck('nom');
 $plucked = $collection->pluck('prenom');
 $plucked1 = $collection1->pluck('total_hlk');
 //$names = Arr::crossJoin([$plucked0], [$plucked]);
-$names = $plucked0->concat($plucked);
+//$names = $plucked0->concat($plucked);
 
-return response([$names,$plucked1->all()],200);
+return response([$plucked->all(),$plucked0->all(),$plucked1->all()],200);
 } else {
      return response()->json($response->message(),403);
 }}
