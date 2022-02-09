@@ -14,7 +14,7 @@ class EtudianteSeeder extends Seeder
      */
     public function run()
     {
-    DB::table('etudiante')->insert([
+    DB::table('etudiante')->insert([//1
     'niveauAhkam'=> 'جيدة',
        'lieuKhatm'=> 'مسجد بن بولعيد',
        'dateKhatm'=> '2014-01-01',
@@ -26,7 +26,7 @@ class EtudianteSeeder extends Seeder
        'personne_id'=>'1'
              ]);
 
-   DB::table('etudiante')->insert([
+   DB::table('etudiante')->insert([//2
     'niveauAhkam'=> 'جيدة',
        'lieuKhatm'=> 'مسجد تشانشان ',
        'dateKhatm'=> '2015-01-01',
@@ -37,7 +37,7 @@ class EtudianteSeeder extends Seeder
        'hizb'=> '60',
        'personne_id'=>'2'
              ]);
-DB::table('etudiante')->insert([
+DB::table('etudiante')->insert([//3
     'niveauAhkam'=> 'متقنة',
        'lieuKhatm'=> 'مسجد بوفاريك',
        'dateKhatm'=> '2019-03-14',
@@ -51,12 +51,7 @@ DB::table('etudiante')->insert([
 
 
            
-
-              
-
-            
-
-              DB::table('etudiante')->insert([
+ DB::table('etudiante')->insert([//4
     'niveauAhkam'=> 'تحت المتوسط',
        'teach'=> '0',
        'khatima'=> '0',
@@ -64,7 +59,7 @@ DB::table('etudiante')->insert([
        'personne_id'=>'6'
              ]);
 
-              DB::table('etudiante')->insert([
+              DB::table('etudiante')->insert([//5
     'niveauAhkam'=> 'متوسطة',
       
        'teach'=> '0',
@@ -74,6 +69,34 @@ DB::table('etudiante')->insert([
        'personne_id'=>'7'
              ]);
 
+ DB::table('etudiante')->insert([//6
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '10',
+       'personne_id'=>'9'
+             ]);
 
+              DB::table('etudiante')->insert([//7
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '10',
+       'personne_id'=>'10'
+             ]);
+
+              DB::table('etudiante')->insert([//8
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '10',
+       'personne_id'=>'12'
+             ]);
     }
 }

@@ -13,13 +13,41 @@ class HistetudianteSeeder extends Seeder
      */
     public function run()
     {
+
+    DB::table('Histetudiante')->insert([
+'HistHalaka_id'=>'4',
+'ensEtudHlk_id'=>'7',
+'hizb'=>'60',
+'elhifd'=>'/',
+'Elmorajaa'=>'جيدة',
+'Elmtn'=>'/','retard'=>'0',
+'absent'=>'0'
+]);
+DB::table('Histetudiante')->insert([
+'HistHalaka_id'=>'5',
+'ensEtudHlk_id'=>'8',
+'hizb'=>'60',
+'elhifd'=>'/',
+'Elmorajaa'=>'جيدة',
+'Elmtn'=>'/','retard'=>'0',
+'absent'=>'0'
+]);
+DB::table('Histetudiante')->insert([
+'HistHalaka_id'=>'5',
+'ensEtudHlk_id'=>'9',
+'hizb'=>'60',
+'elhifd'=>'/',
+'Elmorajaa'=>'/',
+'Elmtn'=>'/','retard'=>'0',
+'absent'=>'1'
+]);
         DB::table('Histetudiante')->insert([
 'HistHalaka_id'=>'1',
 'ensEtudHlk_id'=>'2',
 'hizb'=>'60',
 'elhifd'=>'/',
 'Elmorajaa'=>'جيدة',
-'Elmtn'=>'/',
+'Elmtn'=>'/','retard'=>'0',
 'absent'=>'0'
 ]);
 

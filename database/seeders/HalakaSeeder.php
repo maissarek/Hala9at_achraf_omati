@@ -24,6 +24,28 @@ class HalakaSeeder extends Seeder
            'id_lieu'=>'2',
              ]);
 
+        DB::table('halaka')->insert([
+           'name'=> 'الحلقة 2',
+           'jour'=> 'السبت',
+           'tempsDebut'=> '08:00:00',
+           'tempsFin'=> '12:00:00',
+           'fiaMin' =>'60',
+           'fiaMax'=> '60',
+           'id_groupe'=>'1',
+           'id_lieu'=>'2',
+             ]);
+
+             DB::table('halaka')->insert([
+           'name'=> 'الحلقة 3',
+           'jour'=> 'السبت',
+           'tempsDebut'=> '08:00:00',
+           'tempsFin'=> '12:00:00',
+           'fiaMin' =>'60',
+           'fiaMax'=> '60',
+           'id_groupe'=>'1',
+           'id_lieu'=>'2',
+             ]);
+
              DB::table('halaka')->insert([
            'name'=> 'الحلقة 2',
            'jour'=> 'الثلاثاء',

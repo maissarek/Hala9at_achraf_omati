@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-Hala9at_achraf_omati",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}

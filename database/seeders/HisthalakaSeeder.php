@@ -14,7 +14,7 @@ class HisthalakaSeeder extends Seeder
      */
     public function run()
     {
-       DB::table('histhalaka')->insert([
+       DB::table('histhalaka')->insert([//1
     'ensRemplacante_id'=>'1',
 'date'=>'2022-01-22',
 'morajaa'=>'من فصلت إلى الجاثية',
@@ -25,7 +25,7 @@ class HisthalakaSeeder extends Seeder
 'retard'=>'0'
              ]);
 
-             DB::table('histhalaka')->insert([
+             DB::table('histhalaka')->insert([//2
    
 'date'=>'2022-01-11',
 'morajaa'=>'الحزب 1+2+3',
@@ -35,8 +35,24 @@ class HisthalakaSeeder extends Seeder
 'retard'=>'0'
              ]);
 
-             DB::table('histhalaka')->insert([
+             DB::table('histhalaka')->insert([//3
 'date'=>'2022-01-14',
+'morajaa'=>'الحزب 5 + 6',
+'moton'=>'المقدمة الجزرية 4 أبواب',
+'autres'=>'/',
+'absence_Ens'=>'0',
+'retard'=>'0' ]);
+
+DB::table('histhalaka')->insert([//4
+'date'=>'2022-02-09',
+'morajaa'=>'الحزب 5 + 6',
+'moton'=>'المقدمة الجزرية 4 أبواب',
+'autres'=>'/',
+'absence_Ens'=>'0',
+'retard'=>'1' ]);
+
+DB::table('histhalaka')->insert([//5
+'date'=>'2022-02-09',
 'morajaa'=>'الحزب 5 + 6',
 'moton'=>'المقدمة الجزرية 4 أبواب',
 'autres'=>'/',

@@ -15,6 +15,7 @@ class PersonneSeeder extends Seeder
      */
     public function run()
     {
+    //1
     DB::table('personne')->insert([
  'nom'=>' حسيني',
 'prenom'=> 'كنزة',
@@ -34,6 +35,7 @@ class PersonneSeeder extends Seeder
 
 
 DB::table('personne')->insert([
+//2
  'nom'=>' عمري',
 'prenom'=> 'ريم',
 'dateNaiss'=>'1997-01-01',
@@ -50,6 +52,7 @@ DB::table('personne')->insert([
              ]);
 
              DB::table('personne')->insert([
+             //3
  'nom'=>' قاسم',
 'prenom'=> 'إكرام',
 'dateNaiss'=>'2000-01-01',
@@ -66,6 +69,7 @@ DB::table('personne')->insert([
              ]);
 
 DB::table('personne')->insert([
+ //4
  'nom'=>'مكي ',
 'prenom'=> 'سعيدة',
 'dateNaiss'=>'1967-01-01',
@@ -81,6 +85,7 @@ DB::table('personne')->insert([
 'quittee'=>'0']);
 
              DB::table('personne')->insert([
+              //5
  'nom'=>'شنتير ',
 'prenom'=> 'كوثر',
 'dateNaiss'=>'1994-01-01',
@@ -96,7 +101,9 @@ DB::table('personne')->insert([
 'quittee'=>'0'
              ]);
 
+
               DB::table('personne')->insert([
+               //6
  'nom'=>' المغربي',
 'prenom'=> 'حسينة',
 'dateNaiss'=>'1970-01-01',
@@ -111,7 +118,7 @@ DB::table('personne')->insert([
 'dateEntree'=> '2015-01-01',
 'quittee'=>'0']);
 
- DB::table('personne')->insert([
+ DB::table('personne')->insert([//7
  'nom'=>' العريبي',
 'prenom'=> 'هدى',
 'dateNaiss'=>'2007-01-01',
@@ -124,6 +131,83 @@ DB::table('personne')->insert([
 'statusSocial'=> 'عازبة',
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2019-01-01',
+'quittee'=>'0'
+             ]);
+              DB::table('personne')->insert([
+               //8
+ 'nom'=>'ربيحة ',
+'prenom'=> 'سمية',
+'dateNaiss'=>'1989-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0771234540',
+'email'=> 'soumia_5@gmail.com',
+'job'=> '1',
+'fonction'=>'معلمة جامعية',
+'niveauScolaire'=>'جامعي',
+'statusSocial'=> 'عازبة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2005-01-01',
+'quittee'=>'0'
+             ]);
+ DB::table('personne')->insert([//9
+ 'nom'=>'  ركاب',
+'prenom'=> 'رميساء',
+'dateNaiss'=>'1997-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0543774541',
+'email'=> 'romaissa@gmail.com',
+'job'=> '0',
+'fonction'=>'',
+'niveauScolaire'=>'ثانوي',
+'statusSocial'=> 'عازبة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2008-01-01',
+'quittee'=>'0'
+             ]);
+
+              DB::table('personne')->insert([//10
+ 'nom'=>' طريدي',
+'prenom'=> 'ريان',
+'dateNaiss'=>'2000-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0543774541',
+'email'=> 'rayan@gmail.com',
+'job'=> '0',
+'fonction'=>'',
+'niveauScolaire'=>'جامعي',
+'statusSocial'=> 'عازبة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2010-01-01',
+'quittee'=>'0'
+             ]);
+ DB::table('personne')->insert([//11
+ 'nom'=>'لكحل  ',
+'prenom'=> 'عقيلة',
+'dateNaiss'=>'1973-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0543774541',
+'email'=> 'lekhal@gmail.com',
+'job'=> '1',
+'fonction'=>'طبيبة قلب',
+'niveauScolaire'=>'جامعي',
+'statusSocial'=> '/',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2008-01-01',
+'quittee'=>'0'
+             ]);
+       DB::table('personne')->insert([//12
+ 'nom'=>'ليلى  ',
+'prenom'=> 'زين',
+'dateNaiss'=>'1973-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0543774541',
+'email'=> 'z.leila@gmail.com',
+'job'=> '0',
+'fonction'=>'',
+'niveauScolaire'=>'ثانوي',
+'statusSocial'=> 'عازبة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2008-01-01',
 'quittee'=>'0'
              ]);
              }

@@ -63,6 +63,22 @@ DB::table('enseigante')->insert([
    'personne_id'=>'5'
              ]); 
 
+             DB::table('enseigante')->insert([
+           'experienceTeaching' => '20 سنوات',
+   'lieuKhatm'=>'مسجد بن بولعيد',
+   'dateKhatm'=>'2008-06-01',
+   'ensKhatm'=> 'الأستاذة سعيدة مكي',
+   'Remplace'=>'0',
+   'personne_id'=>'8'
+             ]);
 
+             DB::table('enseigante')->insert([
+           'experienceTeaching' => '20 سنوات',
+   'lieuKhatm'=>'مسجد بن بولعيد',
+   'dateKhatm'=>'2008-06-01',
+   'ensKhatm'=> 'الأستاذة سعيدة مكي',
+   'Remplace'=>'0',
+   'personne_id'=>'11'
+             ]); 
              }
 }
