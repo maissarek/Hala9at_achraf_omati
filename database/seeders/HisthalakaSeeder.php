@@ -58,5 +58,30 @@ DB::table('histhalaka')->insert([//5
 'autres'=>'/',
 'absence_Ens'=>'0',
 'retard'=>'0' ]);
+
+DB::table('histhalaka')->insert([//5
+'date'=>'2022-02-10',
+'morajaa'=>'الحزب 5 + 6',
+'moton'=>'المقدمة الجزرية 4 أبواب',
+'autres'=>'/',
+'absence_Ens'=>'0',
+'retard'=>'0' ]);
+
+DB::table('histhalaka')->insert([//5
+'date'=>'2022-02-13',
+'morajaa'=>'الحزب 5 + 6',
+'moton'=>'المقدمة الجزرية 4 أبواب',
+'autres'=>'/',
+'absence_Ens'=>'0',
+'retard'=>'0' ]);
+
+DB::table('histhalaka')->insert([//5
+'date'=>'2022-02-14',
+'morajaa'=>'الحزب 5 + 6',
+'moton'=>'المقدمة الجزرية 4 أبواب',
+'autres'=>'/',
+'absence_Ens'=>'0',
+'retard'=>'0' ]);
+
     }
 }

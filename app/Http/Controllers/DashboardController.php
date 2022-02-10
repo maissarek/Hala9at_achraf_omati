@@ -613,7 +613,7 @@ Join halaka on halaka.id=ensetudhlk.id_hlk
      GROUP BY histetudiante.absent',[$idh,$req->date_b,$req->date_f]);
 
 $name= DB::select('
-  SELECT distinct (halaka.name) 
+  SELECT halaka.name) 
 from histetudiante
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id

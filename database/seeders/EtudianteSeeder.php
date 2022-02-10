@@ -52,11 +52,11 @@ DB::table('etudiante')->insert([//3
 
            
  DB::table('etudiante')->insert([//4
-    'niveauAhkam'=> 'تحت المتوسط',
+    'niveauAhkam'=> 'متقنة',
        'teach'=> '0',
        'khatima'=> '0',
        'hizb'=> '20',
-       'personne_id'=>'6'
+       'personne_id'=>'5'
              ]);
 
               DB::table('etudiante')->insert([//5
@@ -66,7 +66,7 @@ DB::table('etudiante')->insert([//3
    
        'khatima'=> '0',
        'hizb'=> '10',
-       'personne_id'=>'7'
+       'personne_id'=>'6'
              ]);
 
  DB::table('etudiante')->insert([//6
@@ -76,7 +76,7 @@ DB::table('etudiante')->insert([//3
    
        'khatima'=> '0',
        'hizb'=> '10',
-       'personne_id'=>'9'
+       'personne_id'=>'7'
              ]);
 
               DB::table('etudiante')->insert([//7
@@ -86,10 +86,38 @@ DB::table('etudiante')->insert([//3
    
        'khatima'=> '0',
        'hizb'=> '10',
-       'personne_id'=>'10'
+       'personne_id'=>'8'
              ]);
 
               DB::table('etudiante')->insert([//8
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '10',
+       'personne_id'=>'9'
+             ]);
+             DB::table('etudiante')->insert([//8
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '10',
+       'personne_id'=>'10'
+             ]);
+             DB::table('etudiante')->insert([//8
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '10',
+       'personne_id'=>'11'
+
+             ]);
+             DB::table('etudiante')->insert([//8
     'niveauAhkam'=> 'متوسطة',
       
        'teach'=> '0',

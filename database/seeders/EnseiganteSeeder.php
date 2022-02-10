@@ -16,14 +16,42 @@ class EnseiganteSeeder extends Seeder
      */
     public function run()
     {
-       
+
+     DB::table('enseigante')->insert([
+           'experienceTeaching' => '30 سنوات',
+   'lieuKhatm'=>'مسجد الكوثر',
+   'dateKhatm'=>'2001-01-01',
+   'ensKhatm'=> 'الأستاذ بوشلوش',
+   'Remplace'=>'0',
+   'personne_id'=>'4'
+             ]);
+
+              DB::table('enseigante')->insert([
+           'experienceTeaching' => '20 سنوات',
+   'lieuKhatm'=>'مسجد بن بولعيد',
+   'dateKhatm'=>'2008-06-01',
+   'ensKhatm'=> 'الأستاذة سعيدة مكي',
+   'Remplace'=>'0',
+   'personne_id'=>'8'
+             ]);
+
+
+              DB::table('enseigante')->insert([
+           'experienceTeaching' => '20 سنوات',
+   'lieuKhatm'=>'مسجد بن بولعيد',
+   'dateKhatm'=>'2008-06-01',
+   'ensKhatm'=> 'الأستاذة سعيدة مكي',
+   'Remplace'=>'0',
+   'personne_id'=>'5'
+             ]);
+
 DB::table('enseigante')->insert([
            'experienceTeaching' => '5 سنوات',
    'lieuKhatm'=>'مسجد بن بولعيد',
    'dateKhatm'=>'2014-08-12',
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
    'Remplace'=>'0',
-   'personne_id'=>'1'
+   'personne_id'=>'10'
              ]);
 
 DB::table('enseigante')->insert([
@@ -32,7 +60,7 @@ DB::table('enseigante')->insert([
    'dateKhatm'=>'2016-08-12',
    'ensKhatm'=> 'الأستاذة سمية ربيحة',
    'Remplace'=>'0',
-   'personne_id'=>'2'
+   'personne_id'=>'1'
              ]);
 
              DB::table('enseigante')->insert([
@@ -45,40 +73,12 @@ DB::table('enseigante')->insert([
              ]);
 
              DB::table('enseigante')->insert([
-           'experienceTeaching' => '30 سنوات',
-   'lieuKhatm'=>'مسجد الكوثر',
-   'dateKhatm'=>'2001-01-01',
-   'ensKhatm'=> 'الأستاذ بوشلوش',
-   'Remplace'=>'0',
-   'personne_id'=>'4'
-             ]);
-
-
-             DB::table('enseigante')->insert([
-           'experienceTeaching' => '20 سنوات',
+           'experienceTeaching' => '1 سنوات',
    'lieuKhatm'=>'مسجد بن بولعيد',
    'dateKhatm'=>'2008-06-01',
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
    'Remplace'=>'1',
-   'personne_id'=>'5'
-             ]); 
-
-             DB::table('enseigante')->insert([
-           'experienceTeaching' => '20 سنوات',
-   'lieuKhatm'=>'مسجد بن بولعيد',
-   'dateKhatm'=>'2008-06-01',
-   'ensKhatm'=> 'الأستاذة سعيدة مكي',
-   'Remplace'=>'0',
-   'personne_id'=>'8'
-             ]);
-
-             DB::table('enseigante')->insert([
-           'experienceTeaching' => '20 سنوات',
-   'lieuKhatm'=>'مسجد بن بولعيد',
-   'dateKhatm'=>'2008-06-01',
-   'ensKhatm'=> 'الأستاذة سعيدة مكي',
-   'Remplace'=>'0',
-   'personne_id'=>'11'
+   'personne_id'=>'2'
              ]); 
              }
 }

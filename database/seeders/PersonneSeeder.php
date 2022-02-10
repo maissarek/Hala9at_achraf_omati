@@ -159,7 +159,7 @@ DB::table('personne')->insert([
 'job'=> '0',
 'fonction'=>'',
 'niveauScolaire'=>'ثانوي',
-'statusSocial'=> 'عازبة',
+'statusSocial'=> 'متزوجة',
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2008-01-01',
 'quittee'=>'0'

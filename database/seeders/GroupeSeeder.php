@@ -22,6 +22,10 @@ class GroupeSeeder extends Seeder
              ]);
               DB::table('groupe')->insert([
         'name'=>'مجموعة الفتيات'
+             ]);
+
+             DB::table('groupe')->insert([
+        'name'=>'مجموعة السلاسل الذهبية'
              ]); 
     }
 }
