@@ -580,28 +580,22 @@ $response = Gate::inspect('view_dashboard');
 if ($response->allowed()) {
 
 $halaka= DB::select('
-  SELECT distinct(halaka.name),halaka.id
-from histetudiante
-join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
-join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
-Join halaka on halaka.id=ensetudhlk.id_hlk
-  WHERE (halaka.id_groupe=?) and(histhalaka.date between ? and ?) 
+  SELECT halaka.name,COUNT(histetudiante.id) as nbr
+from halaka
+join ensetudhlk on ensetudhlk.id_hlk=halaka.id
+join histetudiante on ensetudhlk.id=histetudiante.ensEtudHlk_id
+join histhalaka on histhalaka.id=histetudiante.HistHalaka_id
+where halaka.id_groupe=? AND histetudiante.absent=1 and histhalaka.date BETWEEN ? AND ?
+group by halaka.name
+
      ',[$idh,$req->date_b,$req->date_f]);
    
      
 
-$nbr= DB::select('SELECT count(histetudiante.id) as nbr
-from histetudiante
-join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
-join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
-Join halaka on halaka.id=ensetudhlk.id_hlk
-  WHERE (halaka.id=?)  and(histhalaka.date between ? and ?) 
-    and (histetudiante.absent=1)',[$id->id,$req->date_b,$req->date_f]);
-
 
 
 $collection2 = collect($halaka);
-$collection0 = collect($nbr);
+$collection0 = collect($halaka);
 $plucked0 = $collection0->pluck('nbr');
 $plucked2 = $collection2->pluck('name');
 
