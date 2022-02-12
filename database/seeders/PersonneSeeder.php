@@ -98,7 +98,7 @@ DB::table('personne')->insert([
 'statusSocial'=> 'متزوجة',
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2005-01-01',
-'quittee'=>'0'
+'quittee'=>'1'
              ]);
 
 
