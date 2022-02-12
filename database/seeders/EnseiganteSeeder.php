@@ -51,7 +51,7 @@ DB::table('enseigante')->insert([
    'dateKhatm'=>'2014-08-12',
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
    'Remplace'=>'0',
-   'personne_id'=>'10'
+   'personne_id'=>'11'
              ]);
 
 DB::table('enseigante')->insert([

@@ -114,13 +114,3 @@ Route::delete('/groupe/delete/{id}',[GroupController::class,'destroy']);
 });
 /////////////////////////////////////////////////////////////////////////////
 
-Route::get('/Histetudiante/{id}',[HistetudianteController::class,'show']);
-
-
-
-
-Route::get('/Roles',[RoleController::class,'index']);
-Route::post('/Role',[RoleController::class,'store']);
-Route::get('/Role/{id}',[RoleController::class,'show']);
-Route::put('/Role/{id}',[RoleController::class,'update']);
-Route::delete('/Role/{id}',[RoleController::class,'destroy']);

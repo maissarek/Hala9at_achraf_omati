@@ -23,9 +23,9 @@ $this->authorize('viewAny', Histhalaka::class);
 ->leftjoin('enseigante','enseigante.id','=','hh.ensRemplacante_id')
 ->leftjoin('personne','personne.id','=','enseigante.personne_id')
     ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
-  ->where('personne.quittee','=','0')
     ->where('h.id','=',$id)
     ->whereNull('hh.deleted_at')
+    //->where('personne.quittee','=','0')
     ->select('hh.*','personne.nom as nomEnsRempl','personne.prenom as prenomEnsRempl')
     ->orderBy('date', 'desc')
     ->distinct()
@@ -46,7 +46,8 @@ public function show($id)
         $histhalaka1=Histhalaka::find($id);
 
  if ($user->can('view', $histhalaka1)) {
-        if(is_null($histhalaka1)){
+
+ if(is_null($histhalaka1)){
 
            return response()->json(['message'=>'history of halaka not found',404]);
 }else{
