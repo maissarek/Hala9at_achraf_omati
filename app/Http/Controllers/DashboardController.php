@@ -410,7 +410,7 @@ from histhalaka
 join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
 JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
 Join halaka on halaka.id=ensetudhlk.id_hlk
-WHERE (halaka.id_groupe=?) and( histhalaka.date between ? and ?)
+WHERE (halaka.id_groupe=?) and( histhalaka.date between ? and ?) and (histhalaka.absence_Ens=1)
 GROUP BY histhalaka.absence_Ens'
 ,[$idh,$req->date_b,$req->date_f,$idh,$req->date_b,$req->date_f]);
 
@@ -420,19 +420,11 @@ from halaka
 JOIN ensetudhlk on ensetudhlk.id_hlk=halaka.id
 join histetudiante on histetudiante.ensEtudHlk_id=ensetudhlk.id
 Join histhalaka on histhalaka.id=histetudiante.HistHalaka_id
-  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?)
+  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?) and (histhalaka.absence_Ens=1)
 GROUP BY histhalaka.absence_Ens'
 ,[$idh,$req->date_b,$req->date_f]);
 
-$absence= DB::select('
-SELECT histhalaka.absence_Ens
-from histhalaka 
-join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
-JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
-Join halaka on halaka.id=ensetudhlk.id_hlk
-  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?)
-GROUP BY histhalaka.absence_Ens'
-,[$idh,$req->date_b,$req->date_f]);
+
 
 $nbr= DB::select('
 SELECT count(histhalaka.id) as nbr
@@ -440,22 +432,20 @@ from histhalaka
 join histetudiante on histetudiante.HistHalaka_id=histhalaka.id
 JOIN ensetudhlk on ensetudhlk.id=histetudiante.ensEtudHlk_id
 Join halaka on halaka.id=ensetudhlk.id_hlk
-  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?)
+  WHERE (halaka.id_groupe=?) and ( histhalaka.date between ? and ?) and (histhalaka.absence_Ens=1)
 GROUP BY histhalaka.absence_Ens'
 ,[$idh,$req->date_b,$req->date_f]);
 
 //((# of unexcused absences)/total period) x 100 = % of Absenteeism
 
 $collection = collect($rate);
-$collection1 = collect($absence);
 $collection2 = collect($name);
 $collection0 = collect($nbr);
 $plucked = $collection->pluck('absences_rate');
-$plucked1 = $collection1->pluck('absence_Ens');
 $plucked0 = $collection0->pluck('nbr');
 $plucked2 = $collection2->pluck('name');
 
-return response([$plucked2->all(),$plucked1->all(),$plucked0->all(),$plucked->all()],200);
+return response([$plucked2->all(),$plucked0->all(),$plucked->all()],200);
 } else {
      return response()->json($response->message(),403);
 }
