@@ -241,22 +241,16 @@ from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
 group by(etudiante.niveauAhkam)');
 
-$etu_rate=DB::select('SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as rate
-from etudiante,personne
-WHERE etudiante.personne_id=personne.id and personne.quittee=0
-group by(etudiante.niveauAhkam)');
+
 
 
 $collection0 = collect($etu);
-$collection = collect($etu_rate);
 $collection1 = collect($etu);
 $plucked0 = $collection0->pluck('nbr');
-$plucked = $collection->pluck('rate');
 $plucked1 = $collection1->pluck('niveauAhkam');
 
 
-return response([$plucked1->all(),$plucked->all(),$plucked0->all()],200);
+return response([$plucked1->all(),$plucked0->all()],200);
 } else {
      return response()->json($response->message(),403);
 }}
