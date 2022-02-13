@@ -133,6 +133,7 @@ public function totalSkipStudentByYY(){
 $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
+
 $etu=DB::select('select EXTRACT(YEAR FROM personne.dateQuittee) as year,count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=1
 group By (EXTRACT(YEAR FROM personne.dateQuittee))
