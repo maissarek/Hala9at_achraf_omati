@@ -98,8 +98,8 @@ DB::table('personne')->insert([
 'statusSocial'=> 'متزوجة',
 'lieuNaiss'=> 'البليدة',
 'dateEntree'=> '2005-01-01',
-'quittee'=>'1'
-             ]);
+'quittee'=>'1',
+'dateQuittee'=> '2022-01-01'             ]);
 
 
               DB::table('personne')->insert([

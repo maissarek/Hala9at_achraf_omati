@@ -19,14 +19,25 @@ $response = Gate::inspect('view_dashboard');
 if ($response->allowed()) {
   
 
-$ens= DB::select('select count(enseigante.id) as total_ens
-from enseigante,personne
-where enseigante.personne_id=personne.id and personne.quittee=0');
-$etu= DB::select('select count(etudiante.id) as total_etu from etudiante,personne where etudiante.personne_id=personne.id and personne.quittee=0');
-$hlk= DB::select('select count(HAlaka.id)as total_hlk from HAlaka');
-$user= DB::select('select count(users.id)as total_user from users,personne where users.personne_id=personne.id and personne.quittee=0');
-$array=Arr::collapse([$ens,$etu,$hlk,$user]);
-return $array;
+$tot= DB::select('select
+(SELECT count(enseigante.id)  from enseigante,personne where enseigante.personne_id=personne.id and personne.quittee=0)as total_ens
+,(select count(etudiante.id)  from etudiante,personne where etudiante.personne_id=personne.id and personne.quittee=0)as total_etu
+,(select count(users.id) from users,personne where users.personne_id=personne.id and personne.quittee=0)as total_user
+,
+(select count(halaka.id) from halaka ) as total_halaka
+from  DUAL');
+
+$collection = collect($tot);
+$collection1 = collect($tot);
+$collection2 = collect($tot);
+$collection3 = collect($tot);
+$plucked = $collection->pluck('total_ens');
+$plucked1 = $collection1->pluck('total_etu');
+$plucked2 = $collection2->pluck('total_halaka');
+$plucked3 = $collection3->pluck('total_user');
+
+
+return response([$plucked->all(),$plucked1->all(),$plucked2->all(),$plucked3->all()],200);
 
 } else {
  
@@ -39,7 +50,8 @@ public function TotaletuByHlk($idg){
 $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
-$hlk= DB::select('select halaka.name
+
+$hlk= DB::select('select halaka.name,count(ensetudhlk.id_etud) as total_etu
 from halaka 
 join ensetudhlk
 on ensetudhlk.id_hlk=halaka.id
@@ -50,21 +62,9 @@ on etudiante.personne_id=personne.id
 where(halaka.id_groupe=? and personne.quittee=0 )
  group by(halaka.id)
 ',[$idg]);
-$etu= DB::select('select count(ensetudhlk.id_etud) as total_etu
-from halaka 
-join ensetudhlk
-on ensetudhlk.id_hlk=halaka.id
-join etudiante 
-on ensetudhlk.id_etud=etudiante.id
-join personne
-on etudiante.personne_id=personne.id
-
-where (halaka.id_groupe=? and personne.quittee=0 )
- group by(halaka.id)
-',[$idg]);
 
 $collection = collect($hlk);
-$collection1 = collect($etu);
+$collection1 = collect($hlk);
 $plucked = $collection->pluck('name');
 $plucked1 = $collection1->pluck('total_etu');
 
@@ -80,7 +80,7 @@ public function TotalhlkByens(){
 $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
-$ens= DB::select('select  personne.nom as nom,personne.prenom
+$ens= DB::select('select  personne.nom as nom,personne.prenom,count(DISTINCT halaka.id) as total_hlk
 from enseigante
 join personne
 on enseigante.personne_id=personne.id
@@ -91,19 +91,10 @@ where personne.quittee=0
  group by(ensetudhlk.id_ens)
 ');
 
-$hlk= DB::select('select count(DISTINCT halaka.id) as total_hlk
-from enseigante
-join personne
-on enseigante.personne_id=personne.id
-join ensetudhlk
-on ensetudhlk.id_ens=enseigante.id
-join halaka on ensetudhlk.id_hlk=halaka.id
-where personne.quittee=0
- group by(ensetudhlk.id_ens)
-');
+
 
 $collection = collect($ens);
-$collection1 = collect($hlk);
+$collection1 = collect($ens);
 $plucked0 = $collection->pluck('nom');
 $plucked = $collection->pluck('prenom');
 $plucked1 = $collection1->pluck('total_hlk');
@@ -119,22 +110,16 @@ public function TotalHlkByGroup(){
 $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
-$gpe= DB::select('select groupe.name as name
+$gpe= DB::select('select groupe.name as name,count(DISTINCT halaka.id) as total_hlk
 from groupe
 join halaka on halaka.id_groupe=groupe.id
 
  group by(groupe.id)
 ');
 
-$hlk= DB::select('select  count(DISTINCT halaka.id) as total_hlk
-from groupe
-join halaka on halaka.id_groupe=groupe.id
-
- group by(groupe.id)
-');
 
 $collection = collect($gpe);
-$collection1 = collect($hlk);
+$collection1 = collect($gpe);
 $plucked = $collection->pluck('name');
 $plucked1 = $collection1->pluck('total_hlk');
 
@@ -148,18 +133,15 @@ public function totalSkipStudentByYY(){
 $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
-$etu=DB::select('select count(etudiante.id) as total_etu
+$etu=DB::select('select EXTRACT(YEAR FROM personne.dateQuittee) as year,count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=1
-group By (EXTRACT(YEAR FROM personne.dateQuittée))
+group By (EXTRACT(YEAR FROM personne.dateQuittee))
 ');
 
-$yy=DB::select('select EXTRACT(YEAR FROM personne.dateQuittée) as year
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=1
-group By (year)
-');
+
 
 $collection = collect($etu);
-$collection1 = collect($yy);
+$collection1 = collect($etu);
 $plucked = $collection->pluck('total_etu');
 $plucked1 = $collection1->pluck('year');
 
@@ -175,17 +157,14 @@ public function totalNewStudentByYY(){
 $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
-$etu=DB::select('select count(etudiante.id) as total_etu
+$etu=DB::select('select EXTRACT(YEAR FROM personne.dateEntree) as year,count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0
 group By (EXTRACT(YEAR FROM personne.dateEntree))
 ');
 
-$yy=DB::select('select EXTRACT(YEAR FROM personne.dateEntree) as year
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0
-group By (year)
-');
+
 $collection = collect($etu);
-$collection1 = collect($yy);
+$collection1 = collect($etu);
 $plucked = $collection->pluck('total_etu');
 $plucked1 = $collection1->pluck('year');
 
@@ -200,17 +179,14 @@ public function StudentByHizb(){
 $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
-$etu=DB::select('select count(etudiante.id) as total_etu
+$etu=DB::select('select count(etudiante.id) as total_etu,etudiante.hizb
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0 
 group By (etudiante.hizb)
 ');
 
-$hizb=DB::select('select etudiante.hizb
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0
-group By (etudiante.hizb)
-');
+
 $collection = collect($etu);
-$collection1 = collect($hizb);
+$collection1 = collect($etu);
 $plucked = $collection->pluck('total_etu');
 $plucked1 = $collection1->pluck('hizb');
 
