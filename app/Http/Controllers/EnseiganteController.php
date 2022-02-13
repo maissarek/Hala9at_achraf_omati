@@ -87,8 +87,8 @@ $data = DB::table('ensetudhlk')
          ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->join('groupe','groupe.id','=','halaka.id_groupe')
          ->select('enseigante.id','personne.prenom','personne.nom')
-         ->where('enseigante.Remplace','=',null)
-           ->where('personne.quittee','=','0')
+         ->where('enseigante.Remplace','=','0')
+        ->where('personne.quittee','=','0')
          ->distinct()
      ->get();
                
