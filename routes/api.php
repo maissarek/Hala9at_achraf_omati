@@ -96,7 +96,7 @@ Route::put('/user/update/{id}',[UserController::class,'update']);
 Route::put('/enseignante/update/{id}',[EnseiganteController::class,'update']);
 Route::put('/halaka/update/{id}',[HalakaController::class,'update']);
 Route::put('/histhalaka/update/{id}',[HisthalakaController::class,'update']);
-Route::put('personne/{id}/quitté',[EtudianteController::class,'quitte']);
+Route::put('personne/{id}/quitte',[EtudianteController::class,'quitte']);
 
 Route::post('/enseignante/add',[PersonneController::class,'save_pers_ens']);
 Route::post('/etudiante/add',[PersonneController::class,'save_pers_etu']);
