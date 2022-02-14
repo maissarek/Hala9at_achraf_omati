@@ -65,7 +65,7 @@ DB::table('etudiante')->insert([//3
        'teach'=> '0',
    
        'khatima'=> '0',
-       'hizb'=> '10',
+       'hizb'=> '15',
        'personne_id'=>'6'
              ]);
 
@@ -104,7 +104,7 @@ DB::table('etudiante')->insert([//3
        'teach'=> '0',
    
        'khatima'=> '0',
-       'hizb'=> '10',
+       'hizb'=> '8',
        'personne_id'=>'10'
              ]);
              DB::table('etudiante')->insert([//8
@@ -113,7 +113,7 @@ DB::table('etudiante')->insert([//3
        'teach'=> '0',
    
        'khatima'=> '0',
-       'hizb'=> '10',
+       'hizb'=> '9',
        'personne_id'=>'11'
 
              ]);
