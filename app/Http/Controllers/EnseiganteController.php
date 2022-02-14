@@ -40,10 +40,12 @@ group by  h.id',[$id]);
 
 public function etudiantes_one_ens($id){
 
-$this->authorize('viewAny', Enseigante::class);
+$ens= Enseigante::find($id);
+  $user = Auth::user();
+
+ if ($user->can('viewAny', $ens)) {
 
 
-                $this->authorize('viewAny', Enseigante::class);
 $data = DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->leftJoin('personne','personne.id','=','etudiante.personne_id')
@@ -57,7 +59,11 @@ $data = DB::table('ensetudhlk')
          ->orderBy('etudiante.id', 'asc')
      ->get();
 return response($data,200);
+}else {
+    return response()->json(['error' => 'Not authorized.'],403);
+    }
 }
+
 
 
 public function all_enseignate()

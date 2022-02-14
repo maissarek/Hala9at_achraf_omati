@@ -18,7 +18,7 @@ class EnseigantePolicy
      */
     public function viewAny(User $user)
     {
-       return $user->role_id === 1;
+       return $user->role_id === 1 || $user->role_id === 2;
     }
 
     /**

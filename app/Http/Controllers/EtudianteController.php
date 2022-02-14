@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Carbon\Carbon;
-use App\Models\{User,Personne,Histetudiante,Halaka,Etudiante,Ensetuhlk,Groupe};
+use App\Models\{User,Personne,Histetudiante,Enseigante,Halaka,Etudiante,Ensetuhlk,Groupe};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class EtudianteController extends Controller
 {
-
 
 
 public function quitte($id,Request $request){
