@@ -210,5 +210,56 @@ DB::table('personne')->insert([
 'dateEntree'=> '2008-01-01',
 'quittee'=>'0'
              ]);
-             }
+
+ DB::table('personne')->insert([
+ 'nom'=>' بغلال',
+'prenom'=> 'ياسمين',
+'dateNaiss'=>'1994-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0770774541',
+'email'=> 'kanza_1@gmail.com',
+'job'=> '0',
+'fonction'=>'ماكثة بالبيت',
+'niveauScolaire'=>'جامعي',
+'statusSocial'=> 'متزوجة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2007-01-01',
+'dateQuittee'=> '2015-01-01'   ,
+'quittee'=>'1'
+]);
+
+DB::table('personne')->insert([
+ 'nom'=>'خميسي',
+'prenom'=> 'خديجة',
+'dateNaiss'=>'1960-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0770774541',
+'email'=> 'kanza_1@gmail.com',
+'job'=> '1',
+'fonction'=>'ماكثة بالبيت',
+'niveauScolaire'=>'جامعي',
+'statusSocial'=> 'متزوجة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2007-01-01',
+'dateQuittee'=> '2022-01-23'   ,
+'quittee'=>'1'
+]);
+
+DB::table('personne')->insert([
+ 'nom'=>'ديلمي',
+'prenom'=> 'حورية',
+'dateNaiss'=>'1997-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'0770774541',
+'email'=> 'kanza_1@gmail.com',
+'job'=> '1',
+'fonction'=>'/',
+'niveauScolaire'=>'جامعي',
+'statusSocial'=> 'متزوجة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2007-01-01',
+'dateQuittee'=> '2010-01-23'  , 
+'quittee'=>'1'
+]);
+}
 }

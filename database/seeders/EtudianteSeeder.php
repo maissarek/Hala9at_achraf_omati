@@ -126,5 +126,34 @@ DB::table('etudiante')->insert([//3
        'hizb'=> '10',
        'personne_id'=>'12'
              ]);
+
+              DB::table('etudiante')->insert([//8
+    'niveauAhkam'=> 'متقنة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '1',
+       'hizb'=> '60',
+       'personne_id'=>'13'
+             ]);
+
+             DB::table('etudiante')->insert([//8
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '25',
+       'personne_id'=>'14'
+             ]);
+             DB::table('etudiante')->insert([//8
+    'niveauAhkam'=> 'متوسطة',
+      
+       'teach'=> '0',
+   
+       'khatima'=> '0',
+       'hizb'=> '5',
+       'personne_id'=>'15'
+             ]);
     }
 }

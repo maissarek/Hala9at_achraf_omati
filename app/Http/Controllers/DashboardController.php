@@ -136,8 +136,7 @@ if ($response->allowed()) {
 
 $etu=DB::select('select EXTRACT(YEAR FROM personne.dateQuittee) as year,count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=1
-group By (EXTRACT(YEAR FROM personne.dateQuittee))
-');
+group By (EXTRACT(YEAR FROM personne.dateQuittee))');
 
 
 
@@ -147,7 +146,7 @@ $plucked = $collection->pluck('total_etu');
 $plucked1 = $collection1->pluck('year');
 
 
-return response([$plucked->all(),$plucked1->all()],200);
+return response([$plucked1->all(),$plucked->all()],200);
 } else {
      return response()->json($response->message(),403);
 }}
@@ -159,7 +158,7 @@ $response = Gate::inspect('view_dashboard');
 
 if ($response->allowed()) {
 $etu=DB::select('select EXTRACT(YEAR FROM personne.dateEntree) as year,count(etudiante.id) as total_etu
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0
+from personne,etudiante where etudiante.personne_id=personne.id 
 group By (EXTRACT(YEAR FROM personne.dateEntree))
 ');
 
