@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Flare\Math\Facades\Math;
 use Illuminate\Auth\Access\Response;
+
 class DashboardController extends Controller
 {
 
@@ -98,8 +97,6 @@ $collection1 = collect($ens);
 $plucked0 = $collection->pluck('nom');
 $plucked = $collection->pluck('prenom');
 $plucked1 = $collection1->pluck('total_hlk');
-//$names = Arr::crossJoin([$plucked0], [$plucked]);
-//$names = $plucked0->concat($plucked);
 
 return response([$plucked->all(),$plucked0->all(),$plucked1->all()],200);
 } else {
