@@ -205,21 +205,11 @@ WHERE etudiante.personne_id=personne.id and personne.quittee=0
 group by age 
 Order By age ');
 
-/*$etu_rate=DB::select('
-SELECT floor((count(etudiante.id)/(select count(etudiante.id) as total_etu
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0))*100) as rate
-from etudiante,personne
-WHERE etudiante.personne_id=personne.id and personne.quittee=0
-group by(floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25))
-Order By (floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25)) 
-');
-*/
+
 
 $collection0 = collect($etu);
-//$collection = collect($etu_rate);
 $collection1 = collect($etu);
 $plucked0 = $collection0->pluck('nbr');
-//$plucked = $collection->pluck('rate');,$plucked->all()
 $plucked1 = $collection1->pluck('Age');
 
 

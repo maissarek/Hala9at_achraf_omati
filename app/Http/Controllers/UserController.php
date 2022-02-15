@@ -170,8 +170,8 @@ return response($user,201);
             }
         
              $token = $user->createToken('my-app-token')->plainTextToken;
-
-   if ($user->role_id==2) {
+$work_id=0;
+if ($user->role_id==2) {
 
 	$work_id = Enseigante::where('personne_id',$user->personne_id)->first('id');
    

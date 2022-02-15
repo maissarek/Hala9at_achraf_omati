@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Policies;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\HistHalaka;
 use App\Models\User;
@@ -30,7 +31,16 @@ class HistHalakaPolicy
      */
     public function view(User $user, HistHalaka $histHalaka)
     {
-        return $user->role_id === 1;
+
+     $ens=DB::table('enseigante as e')
+    ->join('ensetudhlk','ensetudhlk.id_ens','=','e.id')
+    ->where('e.personne_id','=',$user->personne_id)
+    ->where('ensetudhlk.id_hlk','=',$histHalaka->id)
+    ->get('e.id');
+
+    
+    return(($user->role_id === 1)||(!$ens->isEmpty()));
+
     }
 
     /**
@@ -41,7 +51,7 @@ class HistHalakaPolicy
      */
     public function create(User $user)
     {
-           return $user->role_id === 1;
+           return $user->role_id === 1 || $user->role_id === 2;
     }
 
     /**
@@ -53,7 +63,15 @@ class HistHalakaPolicy
      */
     public function update(User $user, HistHalaka $histHalaka)
     {
-        return $user->role_id === 1;
+        $ens=DB::table('enseigante as e')
+    ->join('ensetudhlk','ensetudhlk.id_ens','=','e.id')
+    ->join('histetudiante','histetudiante.ensetudhlk_id','=','ensetudhlk.id')
+    ->join('HistHalaka','HistHalaka.id','=','histetudiante.HistHalaka_id')
+    ->where('e.personne_id','=',$user->personne_id)
+    ->where('HistHalaka.id','=',$histHalaka->id)
+    ->get('e.id');
+     return(($user->role_id === 1)||(!$ens->isEmpty()));
+
     }
 
     /**
@@ -65,7 +83,14 @@ class HistHalakaPolicy
      */
     public function delete(User $user, HistHalaka $histHalaka)
     {
-        return $user->role_id === 1;
+         $ens=DB::table('enseigante as e')
+    ->join('ensetudhlk','ensetudhlk.id_ens','=','e.id')
+    ->join('histetudiante','histetudiante.ensetudhlk_id','=','ensetudhlk.id')
+    ->join('HistHalaka','HistHalaka.id','=','histetudiante.HistHalaka_id')
+    ->where('e.personne_id','=',$user->personne_id)
+    ->where('HistHalaka.id','=',$histHalaka->id)
+    ->get('e.id');
+     return(($user->role_id === 1)||(!$ens->isEmpty()));
     }
 
     /**

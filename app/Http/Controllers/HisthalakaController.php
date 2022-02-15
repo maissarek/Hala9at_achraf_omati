@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Histhalaka,Histetudiante,Ensetuhlk,Personne};
+use App\Models\{Histhalaka,Halaka,Histetudiante,Ensetuhlk,Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -10,13 +10,19 @@ use Illuminate\Support\Facades\Auth;
 class HisthalakaController extends Controller
 {
 
-//route: halaka/{id}/etudiantes  input:id_hlk , output: list (id_ensetudhlk,nom,prenom etudiante) 
 
 
 public function index($id){
 
-$this->authorize('viewAny', Histhalaka::class);
+$user = Auth::user();
+$halaka=Halaka::find($id);
 
+if(is_null($halaka)){
+
+           return response()->json(['message'=>'Halaka not found',404]);
+}
+ if ($user->can('view', $halaka)) {
+ 
     $histhalaka = DB::table('histhalaka as hh')
     ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
     ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')  
@@ -25,15 +31,16 @@ $this->authorize('viewAny', Histhalaka::class);
     ->join('halaka as h','h.id','=','ensetudhlk.id_hlk')
     ->where('h.id','=',$id)
     ->whereNull('hh.deleted_at')
-    //->where('personne.quittee','=','0')
     ->select('hh.*','personne.nom as nomEnsRempl','personne.prenom as prenomEnsRempl')
     ->orderBy('date', 'desc')
     ->distinct()
     ->get();
 
+return response($histhalaka,200);
 
-
-    return response($histhalaka,200);
+} else {
+ return response()->json(['error' => 'Not authorized.'],403);
+    }
 }
 
 
