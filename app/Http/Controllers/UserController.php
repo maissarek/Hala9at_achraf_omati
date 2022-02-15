@@ -19,20 +19,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-public function update_pw($id,array $A)
-{
-    echo 1;  $user=User::find($id);
-
-
-        if(is_null($user)){
-
-           return response()->json(['message'=>'User not found',404]);
-}
-
-$p=new UpdateUserPassword;
-$p->update($user,$A);
-return true;
-}
 
 
 public function all_users()
@@ -176,19 +162,27 @@ return response($user,201);
         $user= User::where('mail', $request->mail)
         ->orWhere('name',$request->name)
         ->first();
-      //  $role=
-        // print_r($data);
-            if (!$user || !Hash::check($request->password, $user->password)) {
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
                 return response([
                     'message' => ['These credentials do not match our records.']
                 ], 404);
             }
         
              $token = $user->createToken('my-app-token')->plainTextToken;
-        
+
+   if ($user->role_id==2) {
+
+	$work_id = Enseigante::where('personne_id',$user->personne_id)->first('id');
+   
+}elseif ($user->role_id==3) {
+$work_id = Etudiante::where('personne_id',$user->personne_id)->first('id');
+}
+          
             $response = [
                 'user' => $user,
                 'token' => $token,
+                'personne_id'=>$work_id,
                 'role'=> Role::where('id', $user->role_id)->first('libelle')
             ];
         

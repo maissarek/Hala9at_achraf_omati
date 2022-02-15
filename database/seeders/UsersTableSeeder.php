@@ -71,5 +71,49 @@ DB::table('users')->insert([
             'role_id' => '3',
              'created_at'=>NOW()
         ]);
+
+         DB::table('users')->insert([
+            'name' => 'user_8',
+            'mail' =>'user_8@gmail.com',
+            'password' => Hash::make('password'),
+            'personne_id' => '8',
+            'role_id' => '2',
+             'created_at'=>NOW()
+        ]);
+         DB::table('users')->insert([
+            'name' => 'user_9',
+            'mail' =>'user_9@gmail.com',
+            'password' => Hash::make('password'),
+            'personne_id' => '9',
+            'role_id' => '3',
+             'created_at'=>NOW()
+        ]);
+         DB::table('users')->insert([
+            'name' => 'user_10',
+            'mail' =>'user_10@gmail.com',
+            'password' => Hash::make('password'),
+            'personne_id' => '10',
+            'role_id' => '3',
+             'created_at'=>NOW()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'user_11',
+            'mail' =>'user_11@gmail.com',
+            'password' => Hash::make('password'),
+            'personne_id' => '11',
+            'role_id' => '2',
+             'created_at'=>NOW()
+
+        ]);
+        DB::table('users')->insert([
+            'name' => 'user_12',
+            'mail' =>'user_12@gmail.com',
+            'password' => Hash::make('password'),
+            'personne_id' => '12',
+            'role_id' => '3',
+             'created_at'=>NOW()
+        ]);
+
 }
 }
