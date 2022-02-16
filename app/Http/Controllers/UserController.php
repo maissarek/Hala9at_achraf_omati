@@ -170,19 +170,32 @@ return response($user,201);
             }
         
              $token = $user->createToken('my-app-token')->plainTextToken;
-$work_id=0;
-if ($user->role_id==2) {
 
-	$work_id = Enseigante::where('personne_id',$user->personne_id)->first('id');
-   
+if ($user->role_id==1) {
+
+	$work_id= DB::select('SELECT id from personne where id=?',[$user->personne_id]);
+     $collection = collect($work_id);
+        $plucked0 = $collection->pluck('id');
+
+}
+elseif ($user->role_id==2) {
+
+	$work_id = DB::select('SELECT id from enseigante where personne_id=?',[$user->personne_id]);
+        $collection = collect($work_id);
+        $plucked0 = $collection->pluck('id');
+
 }elseif ($user->role_id==3) {
-$work_id = Etudiante::where('personne_id',$user->personne_id)->first('id');
+
+$work_id = DB::select('SELECT id from etudiante where personne_id=?',[$user->personne_id]);
+$collection = collect($work_id);
+$plucked0 = $collection->pluck('id');
+
 }
           
             $response = [
                 'user' => $user,
                 'token' => $token,
-                'personne_id'=>$work_id,
+                'personne_id'=>$plucked0->all(),
                 'role'=> Role::where('id', $user->role_id)->first('libelle')
             ];
         
