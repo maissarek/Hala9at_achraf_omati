@@ -13,8 +13,7 @@ use HasFactory;
 use SoftDeletes;
 
 protected $dates = ['deleted_at'];
-const CREATED_AT= ['created_at'];
-const UPDATED_AT= ['updated_at'];
+public $timestamps=false;
 protected $table="personne";
 protected $fillable = [
 'nom',

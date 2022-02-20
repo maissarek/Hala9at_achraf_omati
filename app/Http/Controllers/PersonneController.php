@@ -31,7 +31,7 @@ public function store(Request $request)
 $this->authorize('save_pers_ens', Personne::class);
 
 
-         $personne= Personne::create($request->all());
+        $personne= Personne::create($request->all());
           $ens = new Enseigante;
 
            $ens->experienceTeaching= $request->experienceTeaching;
