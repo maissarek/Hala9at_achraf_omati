@@ -70,10 +70,11 @@ public function all_enseignate()
 {
 $this->authorize('viewAny', Enseigante::class);
 
-$data = DB::select('SELECT enseigante.id, personne.nom,personne.prenom,personne.telephone,count(distinct ensetudhlk.id_hlk) as nbr_hlk FROM enseigante
-JOIN personne 
+$data = DB::select('SELECT enseigante.id, personne.nom,personne.prenom,personne.telephone,count(distinct ensetudhlk.id_hlk) as nbr_hlk
+FROM enseigante
+left JOIN personne 
 ON enseigante.personne_id = personne.id
-JOIN ensetudhlk 
+left JOIN ensetudhlk 
 on enseigante.id = ensetudhlk.id_ens
  where (personne.quittee=0)
 group by  enseigante.id');
@@ -87,11 +88,10 @@ group by  enseigante.id');
 public function all_enseignate_names()
 {
 
-$data = DB::table('ensetudhlk')
-->rightjoin('enseigante','enseigante.id','=','ensetudhlk.id_ens')
-          ->join('personne','personne.id','=','enseigante.personne_id')
-         ->join('halaka','halaka.id','=','ensetudhlk.id_hlk')
-         ->join('groupe','groupe.id','=','halaka.id_groupe')
+$data = DB::table('enseigante')
+->join('personne','personne.id','=','enseigante.personne_id')
+
+          
          ->select('enseigante.id','personne.prenom','personne.nom')
          ->where('enseigante.Remplace','=','0')
         ->where('personne.quittee','=','0')

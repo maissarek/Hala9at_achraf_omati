@@ -26,7 +26,7 @@ class CreatePersonneTable extends Migration
             $table->string('fonction', 500)->nullable();
             $table->string('niveauScolaire', 50);
             $table->string('statusSocial', 500)->nullable();
-            $table->tinyInteger('quittee')->nullable();
+            $table->tinyInteger('quittee')->default('0');
             $table->date('dateQuittee')->nullable();
             $table->date('dateEntree')->nullable();
             $table->softDeletes();

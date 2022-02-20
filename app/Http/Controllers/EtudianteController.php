@@ -37,8 +37,7 @@ DB::table('etudiante as e')
 public function all_etudiante_names()
 {
 
-$data = DB::table('ensetudhlk')
-->rightjoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
+$data = DB::table('etudiante')
           ->join('personne','personne.id','=','etudiante.personne_id')
          ->select('etudiante.id','personne.prenom','personne.nom')
             ->where('personne.quittee','=','0')
