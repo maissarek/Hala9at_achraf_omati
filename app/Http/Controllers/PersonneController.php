@@ -72,7 +72,7 @@ $this->authorize('create', User::class);
 public function  save_pers_etu(Request $request){
 $this->authorize('create', Personne::class);
 
-             $personne= Personne::create($request->all()); 
+             $personne= Personne::create($request->all());
              $etu = new Etudiante;
 
              $etu->niveauAhkam = $request->niveauAhkam;

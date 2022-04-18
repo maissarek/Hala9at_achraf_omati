@@ -42,8 +42,8 @@ $data = DB::table('users')
        $user= new User;
        $user->name=$request->name;
        $user->mail=$request->mail;
-       $user->password = Hash::make("achraf_omati_2021");
-       // $user->password = Hash::make($request->password);
+       //$user->password = Hash::make("achraf_omati_2021");
+       $user->password = Hash::make($request->password);
        $user->save();
        return response($user,201);
 
