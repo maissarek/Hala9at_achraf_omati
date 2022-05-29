@@ -23,7 +23,8 @@ class EnseiganteSeeder extends Seeder
    'dateKhatm'=>'2001-01-01',
    'ensKhatm'=> 'الأستاذ بوشلوش',
    'Remplace'=>'0',
-   'personne_id'=>'4'
+   'personne_id'=>'4',
+   'dateDebut'=>'2000-01-01'
              ]);
 
               DB::table('enseigante')->insert([
@@ -32,6 +33,7 @@ class EnseiganteSeeder extends Seeder
    'dateKhatm'=>'2008-06-01',
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
    'Remplace'=>'0',
+   'dateDebut'=>'2004-01-01',
    'personne_id'=>'8'
              ]);
 
@@ -40,6 +42,7 @@ class EnseiganteSeeder extends Seeder
            'experienceTeaching' => '20 سنوات',
    'lieuKhatm'=>'مسجد بن بولعيد',
    'dateKhatm'=>'2008-06-01',
+   'dateDebut'=>'2007-01-01',
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
    'Remplace'=>'0',
    'personne_id'=>'5'
@@ -51,6 +54,7 @@ DB::table('enseigante')->insert([
    'dateKhatm'=>'2014-08-12',
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
    'Remplace'=>'0',
+   'dateDebut'=>'2013-01-01',
    'personne_id'=>'11'
              ]);
 
@@ -60,6 +64,7 @@ DB::table('enseigante')->insert([
    'dateKhatm'=>'2016-08-12',
    'ensKhatm'=> 'الأستاذة سمية ربيحة',
    'Remplace'=>'0',
+   'dateDebut'=>'2015-01-01',
    'personne_id'=>'1'
              ]);
 
@@ -69,6 +74,7 @@ DB::table('enseigante')->insert([
    'dateKhatm'=>'2019-03-14',
    'ensKhatm'=> 'الأستاذة أمينة بن توتة',
    'Remplace'=>'1',
+   'dateDebut'=>'2018-01-01',
    'personne_id'=>'3'
              ]);
 
@@ -77,7 +83,7 @@ DB::table('enseigante')->insert([
    'lieuKhatm'=>'مسجد بن بولعيد',
    'dateKhatm'=>'2008-06-01',
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
-   'Remplace'=>'1',
+   'Remplace'=>'1','dateDebut'=>'2007-01-01',
    'personne_id'=>'2'
              ]); 
              }
