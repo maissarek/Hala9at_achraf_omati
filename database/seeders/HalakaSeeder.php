@@ -18,10 +18,10 @@ class HalakaSeeder extends Seeder
            'jour'=> 'السبت',
            'tempsDebut'=> '08:00:00',
            'tempsFin'=> '12:00:00',
-           'fiaMin' =>'60',
-           'fiaMax'=> '60',
+        
            'id_groupe'=>'1',
            'id_lieu'=>'2',
+           'khatimat' =>'1'
              ]);
 
         DB::table('halaka')->insert([
@@ -29,8 +29,8 @@ class HalakaSeeder extends Seeder
            'jour'=> 'السبت',
            'tempsDebut'=> '08:00:00',
            'tempsFin'=> '12:00:00',
-           'fiaMin' =>'60',
-           'fiaMax'=> '60',
+           
+           'khatimat' =>'1',
            'id_groupe'=>'1',
            'id_lieu'=>'2',
              ]);
@@ -40,8 +40,7 @@ class HalakaSeeder extends Seeder
            'jour'=> 'السبت',
            'tempsDebut'=> '08:00:00',
            'tempsFin'=> '12:00:00',
-           'fiaMin' =>'60',
-           'fiaMax'=> '60',
+             'khatimat' =>'1',
            'id_groupe'=>'1',
            'id_lieu'=>'2',
              ]);
@@ -53,6 +52,7 @@ class HalakaSeeder extends Seeder
            'tempsFin'=> '16:00:00',
            'fiaMin' =>'20',
            'fiaMax'=> '30',
+            'khatimat' =>'0',
            'id_groupe'=>'2',
            'id_lieu'=>'3',
              ]);
@@ -63,6 +63,7 @@ class HalakaSeeder extends Seeder
            'tempsFin'=> '12:00:00',
            'fiaMin' =>'01',
            'fiaMax'=> '10',
+            'khatimat' =>'0',
            'id_groupe'=>'3',
            'id_lieu'=>'2',
              ]);
@@ -75,6 +76,7 @@ class HalakaSeeder extends Seeder
            'tempsFin'=> '12:00:00',
            'fiaMin' =>'01',
            'fiaMax'=> '10',
+            'khatimat' =>'0',
            'id_groupe'=>'4',
            'id_lieu'=>'2',
              ]);DB::table('halaka')->insert([
@@ -84,6 +86,7 @@ class HalakaSeeder extends Seeder
            'tempsFin'=> '12:00:00',
            'fiaMin' =>'01',
            'fiaMax'=> '10',
+            'khatimat' =>'0',
            'id_groupe'=>'4',
            'id_lieu'=>'2',
              ]);
@@ -94,6 +97,7 @@ class HalakaSeeder extends Seeder
            'tempsFin'=> '12:00:00',
            'fiaMin' =>'01',
            'fiaMax'=> '10',
+            'khatimat' =>'0',
            'id_groupe'=>'4',
            'id_lieu'=>'2',
              ]);

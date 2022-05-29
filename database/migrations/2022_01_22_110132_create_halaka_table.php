@@ -19,8 +19,9 @@ class CreateHalakaTable extends Migration
             $table->string('jour', 100);
             $table->time('tempsDebut');
             $table->time('tempsFin');
-            $table->string('fiaMin', 100);
-            $table->string('fiaMax', 100);
+            $table->string('fiaMin', 100)->Nullable();
+            $table->string('fiaMax', 100)->Nullable();
+            $table->tinyInteger('khatimat')->default('0');
             $table->unsignedInteger('id_groupe')->index('id_groupe');
             $table->unsignedInteger('id_lieu')->index('id_lieu');
             $table->softDeletes();

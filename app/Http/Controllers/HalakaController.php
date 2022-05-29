@@ -30,7 +30,7 @@ class HalakaController extends Controller
     $this->authorize('viewAny', Halaka::class);
 
   $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
-h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,e.id as idEns,
+h.tempsFin,h.fiaMin,h.fiaMax,h.khatimat,lieu.name as lieu,e.id as idEns,
 p.nom as nomEns,p.prenom as prenomEns,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
 JOIN ensetudhlk 
 on h.id = ensetudhlk.id_hlk
