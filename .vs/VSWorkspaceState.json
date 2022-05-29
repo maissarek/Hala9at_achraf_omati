@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\config",
-    "\\database\\seeders"
+    "\\app",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
+    "\\database"
   ],
+  "SelectedNode": "\\database\\migrations",
   "PreviewInSolutionExplorer": false
 }
