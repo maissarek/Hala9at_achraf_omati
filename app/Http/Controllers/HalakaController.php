@@ -103,7 +103,7 @@ $halaka=Halaka::leftjoin('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
 'halaka.tempsDebut'	
 ,'halaka.tempsFin',	
 'halaka.fiaMin',	
-'halaka.fiaMax','lieu.name as lieu_name','groupe.name as groupe_name')
+'halaka.fiaMax','halaka.khatimat','lieu.name as lieu_name','groupe.name as groupe_name')
   ->first();
 
 $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
