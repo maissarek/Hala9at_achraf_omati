@@ -74,9 +74,9 @@ $data = DB::select('SELECT enseigante.id, personne.nom,personne.prenom,personne.
 FROM enseigante
 left JOIN personne 
 ON enseigante.personne_id = personne.id
-left JOIN ensetudhlk 
+LEFT JOIN ensetudhlk 
 on enseigante.id = ensetudhlk.id_ens
- where (personne.quittee=0)
+ where (personne.quittee=0 and enseigante.deleted_at is Null)
 group by  enseigante.id');
 
      return response($data,200);

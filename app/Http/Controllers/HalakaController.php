@@ -84,7 +84,7 @@ public function show($id)
           $user = Auth::user();
         $halaka=Halaka::find($id);
 
- if ($user->can('view', $halaka)) {
+//  if ($user->can('view', $halaka)) {
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
@@ -115,9 +115,9 @@ $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
 
   return response()->json([$halaka,$data],200);
 
-   } else {
+/*    } else {
       return response()->json(['error' => 'Not authorized.'],403);
-    }
+    } */
   }
 
 

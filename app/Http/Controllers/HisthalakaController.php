@@ -21,7 +21,7 @@ if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
 }
- if ($user->can('view', $halaka)) {
+//  if ($user->can('view', $halaka)) {
  
     $histhalaka = DB::table('histhalaka as hh')
     ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
@@ -38,9 +38,9 @@ if(is_null($halaka)){
 
 return response($histhalaka,200);
 
-} else {
+/* } else {
  return response()->json(['error' => 'Not authorized.'],403);
-    }
+    } */
 }
 
 
@@ -52,7 +52,7 @@ public function show($id)
         $user = Auth::user();
         $histhalaka1=Histhalaka::find($id);
 
- if ($user->can('view', $histhalaka1)) {
+//  if ($user->can('view', $histhalaka1)) {
 
  if(is_null($histhalaka1)){
 
@@ -119,10 +119,10 @@ $histhalaka = DB::table('histhalaka as hh')
            return response()->json([$histhalaka,$he],200);
   }
 
-   } else {
+/*    } else {
     return response()->json(['error' => 'Not authorized.'],403);
-    }
-  }
+    }*/
+  } 
 
 
 
