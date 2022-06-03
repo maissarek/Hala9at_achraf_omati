@@ -218,6 +218,83 @@ return response([$plucked1->all(),$plucked0->all()],200);
      return response()->json($response->message(),403);
 }}
 
+
+
+public function TeacherByAge(){
+//2
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
+$etu=DB::select('SELECT floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25) AS Age,count(etudiante.id) as nbr
+from ens,personne
+WHERE ens.personne_id=personne.id and personne.quittee=0
+group by age 
+Order By age ');
+
+
+
+$collection0 = collect($etu);
+$collection1 = collect($etu);
+$plucked0 = $collection0->pluck('nbr');
+$plucked1 = $collection1->pluck('Age');
+
+
+return response([$plucked1->all(),$plucked0->all()],200);
+} else {
+     return response()->json($response->message(),403);
+}}
+
+
+
+public function StudentByFonction(){
+//2
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
+$etu=DB::select('SELECT personne.job,count(etudiante.id) as nbr
+from etudiante,personne
+WHERE etudiante.personne_id=personne.id and personne.quittee=0
+group by personne.job 
+Order By personne.job ');
+
+
+
+$collection0 = collect($etu);
+$collection1 = collect($etu);
+$plucked0 = $collection0->pluck('nbr');
+$plucked1 = $collection1->pluck('job');
+
+
+return response([$plucked1->all(),$plucked0->all()],200);
+} else {
+     return response()->json($response->message(),403);
+}}
+
+public function TeacherByFonction(){
+//2
+$response = Gate::inspect('view_dashboard');
+
+if ($response->allowed()) {
+$etu=DB::select('SELECT personne.job,count(ens.id) as nbr
+from enseigante,personne
+WHERE enseigante.personne_id=personne.id and personne.quittee=0
+group by personne.job 
+Order By personne.job ');
+
+
+
+$collection0 = collect($etu);
+$collection1 = collect($etu);
+$plucked0 = $collection0->pluck('nbr');
+$plucked1 = $collection1->pluck('job');
+
+
+return response([$plucked1->all(),$plucked0->all()],200);
+} else {
+     return response()->json($response->message(),403);
+}}
+
+
 public function StudentByAhkam(){
 //2
 $response = Gate::inspect('view_dashboard');

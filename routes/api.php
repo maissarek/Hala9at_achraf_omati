@@ -74,6 +74,9 @@ Route::post('/dashboard/rateabsence/enseignantes',[DashboardController::class,'T
 Route::post('/dashboard/rateabsence/etudiantes',[DashboardController::class,'StudentsAbsencesGlobal']);
 Route::post('/dashboard/rateabsence/etudiantes/{id}',[DashboardController::class,'StudentsAbsences']);
 Route::get('/dashboard/rate/etudiantes/age',[DashboardController::class,'StudentByAge']);
+Route::get('/dashboard/rate/enseignante/age',[DashboardController::class,'TeacherByAge']);
+Route::get('/dashboard/rate/etudiantes/fonction',[DashboardController::class,'StudentByFonction']);
+Route::get('/dashboard/rate/enseignante/fonction',[DashboardController::class,'TeacherByFonction']);
 Route::get('/dashboard/rate/etudiantes/ahkam',[DashboardController::class,'StudentByAhkam']);
 
 
