@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'mail', 'password','role_id','personne_id'
+        'name', 'mail', 'password','personne_id'
     ];
 
     /**
@@ -63,5 +63,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
 }

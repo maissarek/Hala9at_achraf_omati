@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
             'mail' => 'user_1@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '1',
-            'role_id' => '1',
              'created_at'=>NOW()
         ]);
 
@@ -26,7 +25,6 @@ class UsersTableSeeder extends Seeder
             'mail' => 'user_2@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '2',
-            'role_id' => '2',
              'created_at'=>NOW()
         ]);
 
@@ -35,7 +33,6 @@ class UsersTableSeeder extends Seeder
             'mail' => 'user_3@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '3',
-            'role_id' => '2',
              'created_at'=>NOW()
         ]);
 DB::table('users')->insert([
@@ -43,7 +40,6 @@ DB::table('users')->insert([
             'mail' =>'user_4@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '4',
-            'role_id' => '2',
              'created_at'=>NOW()
         ]);
 
@@ -52,7 +48,6 @@ DB::table('users')->insert([
             'mail' =>'user_5@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '5',
-            'role_id' => '2',
              'created_at'=>NOW()
         ]);
              DB::table('users')->insert([
@@ -60,7 +55,6 @@ DB::table('users')->insert([
             'mail' =>'user_6@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '6',
-            'role_id' => '3',
              'created_at'=>NOW()
         ]);
      DB::table('users')->insert([
@@ -68,7 +62,6 @@ DB::table('users')->insert([
             'mail' =>'user_7@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '7',
-            'role_id' => '3',
              'created_at'=>NOW()
         ]);
 
@@ -77,7 +70,6 @@ DB::table('users')->insert([
             'mail' =>'user_8@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '8',
-            'role_id' => '2',
              'created_at'=>NOW()
         ]);
          DB::table('users')->insert([
@@ -85,7 +77,6 @@ DB::table('users')->insert([
             'mail' =>'user_9@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '9',
-            'role_id' => '3',
              'created_at'=>NOW()
         ]);
          DB::table('users')->insert([
@@ -93,7 +84,6 @@ DB::table('users')->insert([
             'mail' =>'user_10@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '10',
-            'role_id' => '3',
              'created_at'=>NOW()
         ]);
 
@@ -102,7 +92,6 @@ DB::table('users')->insert([
             'mail' =>'user_11@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '11',
-            'role_id' => '2',
              'created_at'=>NOW()
 
         ]);
@@ -111,7 +100,6 @@ DB::table('users')->insert([
             'mail' =>'user_12@gmail.com',
             'password' => Hash::make('password'),
             'personne_id' => '12',
-            'role_id' => '3',
              'created_at'=>NOW()
         ]);
 

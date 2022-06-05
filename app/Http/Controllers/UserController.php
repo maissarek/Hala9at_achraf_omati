@@ -187,7 +187,7 @@ class UserController extends Controller
             'user' => $user,
             'token' => $token,
             'personne_id' => $plucked0->all(),
-            'role' => Role::where('id', $user->role_id)->first('libelle')
+            'role' => Role::where('id', $user->role_id)->get('libelle')
         ];
 
         return response($response, 201);

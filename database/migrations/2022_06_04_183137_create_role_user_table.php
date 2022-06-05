@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToUsersTable extends Migration
+class CreateRoleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddForeignKeysToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('personne_id', 'users_ibfk_1')->references('id')->on('personne');
-            });
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->unsignedBigInteger('user_id')->index('user_id');
+            $table->unsignedInteger('role_id')->index('role_id');
+        });
     }
 
     /**
@@ -25,8 +27,6 @@ class AddForeignKeysToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_ibfk_1');
-            });
+        Schema::dropIfExists('role_user');
     }
 }
