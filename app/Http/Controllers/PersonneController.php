@@ -20,7 +20,6 @@ public function index()
 
  public function  save_pers_ens(Request $request){
 
-$this->authorize('save_pers_ens', Personne::class);
 
 
         $personne= Personne::create($request->all());
@@ -37,9 +36,9 @@ $this->authorize('save_pers_ens', Personne::class);
           $user= new User;
        $user->name=$request->nom.'_'.$request->prenom;
        $user->mail=$request->mail;
-       $user->role_id=2;
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
+       $user->roles()->attach(2);
   
          return response([$personne,$user,$ens],201);
 
@@ -47,22 +46,21 @@ $this->authorize('save_pers_ens', Personne::class);
  }
 
 public function  save_pers_admin(Request $request){
-$this->authorize('create', User::class);
+
          $personne= Personne::create($request->all());
          
          $user= new User;
          $user->name=$request->nom.'_'.$request->prenom;
          $user->mail=$request->mail;
-         $user->role_id=1;
+        
          $user->password = Hash::make("achraf_omati_2021");
          $personne->user_relat()->save($user);
-  
+  $user->roles()->attach(1);
          return response([$personne,$user],201);
 
        
  }
 public function  save_pers_etu(Request $request){
-$this->authorize('create', Personne::class);
 
              $personne= Personne::create($request->all());
              $etu = new Etudiante;
@@ -81,10 +79,11 @@ $this->authorize('create', Personne::class);
  $user= new User;
      $user->name=$request->nom.'_'.$request->prenom;
        $user->mail=$request->mail;
-       $user->role_id=3;
+    
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
-      
+     $user->roles()->attach(3);
+
              return response([$personne,$user,$etu],201);
             
  }
