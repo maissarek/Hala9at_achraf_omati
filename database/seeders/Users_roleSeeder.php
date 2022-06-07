@@ -25,9 +25,26 @@ $user->roles()->sync([2]);
 $user->roles()->sync([1,2]);
    $user= User::find(5);
 $user->roles()->sync([2]);
+   $user= User::find(6);
+$user->roles()->sync([3]);
+   $user= User::find(7);
+$user->roles()->sync([3]);
    $user= User::find(8);
 $user->roles()->sync([1,2]);
-  
+ $user= User::find(9);
+$user->roles()->sync([3]);
+ $user= User::find(10);
+$user->roles()->sync([3]);
+   $user= User::find(11);
+$user->roles()->sync([2,3]);
+ $user= User::find(12);
+$user->roles()->sync([3]);
+ /*$user= User::find(13);
+$user->roles()->sync([3]);
+ $user= User::find(14);
+$user->roles()->sync([3]);
+ $user= User::find(15);
+$user->roles()->sync([3]);*/
 
 }
    }

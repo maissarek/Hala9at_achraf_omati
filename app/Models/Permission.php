@@ -12,8 +12,7 @@ class Permission extends Model
     
 use SoftDeletes;
  protected $dates = ['deleted_at'];
- public $timestamps=false;
-
+ protected $guarded = [];
 protected $table="permission";
 protected $fillable=['id','name'];
 }

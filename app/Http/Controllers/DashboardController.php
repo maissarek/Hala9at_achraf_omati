@@ -13,11 +13,10 @@ class DashboardController extends Controller
 
 public function total(){
 
-$response = Gate::inspect('view_dashboard');
+$user = Auth::user();
 
-if ($response->allowed()) {
+if (hasPermission('Dashboard_total')) {
   
-
 $tot= DB::select('select
 (SELECT count(enseigante.id)  from enseigante,personne where enseigante.personne_id=personne.id and personne.quittee=0)as total_ens
 ,(select count(etudiante.id)  from etudiante,personne where etudiante.personne_id=personne.id and personne.quittee=0)as total_etu

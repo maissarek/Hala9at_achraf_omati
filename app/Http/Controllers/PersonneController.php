@@ -17,14 +17,6 @@ public function index()
     }
 
 
-/*
-public function store(Request $request)
-    {
-        $personne= Personne::create($request->all());
-         return response($personne,201);      
-      }
-
-*/
 
  public function  save_pers_ens(Request $request){
 

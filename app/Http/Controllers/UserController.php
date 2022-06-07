@@ -6,7 +6,7 @@ use App\Http\Controllers\PersonneController;
 use App\Models\{User, Role, Enseigante, Etudiante, Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Fortify\UpdateUserPassword;
 use Laravel\Fortify\Fortify;
@@ -148,46 +148,52 @@ class UserController extends Controller
     }
 
 
+public function hasPermissions(){
+ $user_auth = Auth::user();
+    return    $user->user_permissions()->get();
 
+       }
 
     public function login(Request $request)
     {
-
-
+    
         $user = User::where('mail', $request->mail)
             ->orWhere('name', $request->name)
             ->first();
 
+       
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
                 'message' => ['These credentials do not match our records.']
             ], 404);
         }
-
         $token = $user->createToken('my-app-token')->plainTextToken;
+        $roles=$user->roles()->get();
+        $work_id1=-1;$work_id2=-1;$work_id3=-1;
 
-        if ($user->role_id == 1) {
-
-            $work_id = DB::select('SELECT id from personne where id=?', [$user->personne_id]);
-            $collection = collect($work_id);
-            $plucked0 = $collection->pluck('id');
-        } elseif ($user->role_id == 2) {
-
-            $work_id = DB::select('SELECT id from enseigante where personne_id=?', [$user->personne_id]);
-            $collection = collect($work_id);
-            $plucked0 = $collection->pluck('id');
-        } elseif ($user->role_id == 3) {
-
-            $work_id = DB::select('SELECT id from etudiante where personne_id=?', [$user->personne_id]);
-            $collection = collect($work_id);
-            $plucked0 = $collection->pluck('id');
+        foreach($roles as $role){
+        if ($role['id'] == 1) {
+        
+            $work_id1 = DB::select('SELECT id from personne where id=?', [$user->personne_id]);
+      var_dump($work_id1);   
+            
+        } if ($role['id'] == 2) {
+        
+            $work_id2 = DB::select('SELECT id from enseigante where personne_id=?', [$user->personne_id]);
+       var_dump($work_id2); 
+        } if ($role['id'] == 3) {
+        
+            $work_id3 = DB::select('SELECT id from etudiante where personne_id=?', [$user->personne_id]);
+           var_dump($work_id3); 
         }
-
+        $collection = Arr::collapse($work_id1,$work_id2,$work_id3);
+        //$plucked0 = $collection->pluck('id');
+        }
         $response = [
             'user' => $user,
             'token' => $token,
-            'personne_id' => $plucked0->all(),
-            'role' => Role::where('id', $user->role_id)->get('libelle')
+            'personne_id' =>$collection,// $plucked0->all(),
+            'role' => $user->roles->get('role.libelle')
         ];
 
         return response($response, 201);
