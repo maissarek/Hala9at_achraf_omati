@@ -185,15 +185,15 @@ class UserController extends Controller
          
         }
          $properties = array('id1' =>$work_id1,'id2' => $work_id2,'id3' => $work_id3);
-       // $collection = Arr::collapse($work_id1,$work_id2,$work_id3);
-        //$plucked0 = $collection->pluck('id');
+      
         }
+
+$perm= Role::with('permissions:name,id')->get();
         $response = [
             'user' => $user,
             'token' => $token,
             'personne_id' => $properties,
-           // 'personne_id' =>$collection,// $plucked0->all(),
-            'role' => $user->roles->get('role.libelle')
+            'role' => $user->roles()->with('permissions:name,id')->get()
         ];
 
         return response($response, 201);
