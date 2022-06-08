@@ -11,7 +11,7 @@ class PersonneController extends Controller
 {
  public function hasPermissions(Request $req){
  
-    dd($this->roles()->permissions()->where('name',$name)->exists())
+    dd($this->roles()->permissions()->where('name',$name)->exists());
 
        }
 
