@@ -60,7 +60,8 @@ public function  save_pers_admin(Request $request){
         
          $user->password = Hash::make("achraf_omati_2021");
          $personne->user_relat()->save($user);
-  $user->roles()->attach(1);
+         $user->roles()->attach($request->role_id);
+
          return response([$personne,$user],201);
 
        

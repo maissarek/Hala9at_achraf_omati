@@ -34,128 +34,128 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('', function ($user) {
+        return $user->hasPermission('');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('Dashboard_TeachersAbsencesGlobal', function ($user) {
+        return $user->hasPermission('Dashboard_TeachersAbsencesGlobal');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('Dashboard_StudentsAbsencesGlobal', function ($user) {
+        return $user->hasPermission('Dashboard_StudentsAbsencesGlobal');
     });
- Gate::define('do-one-thing', function ($user) {
-        return $user->hasPermission('do-one-thing');
+ Gate::define('Dashboard_StudentsAbsences', function ($user) {
+        return $user->hasPermission('Dashboard_StudentsAbsences');
     });
  Gate::define('Dashboard_TeacherByFonction', function ($user) {
         return $user->hasPermission('Dashboard_TeacherByFonction');
