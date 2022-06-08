@@ -23,7 +23,7 @@ protected  $fillable=[
 'tempsFin',
 'fiaMin',
 'fiaMax',
-'id_groupe'];
+'id_groupe','khatimat'];
 
 public function groupe(){
 

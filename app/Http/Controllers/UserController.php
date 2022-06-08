@@ -20,7 +20,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
+    
 
     public function all_users()
     {
@@ -148,11 +148,7 @@ class UserController extends Controller
     }
 
 
-public function hasPermissions(){
- $user_auth = Auth::user();
-    return    $user->user_permissions()->get();
 
-       }
 
     public function login(Request $request)
     {
@@ -169,30 +165,34 @@ public function hasPermissions(){
         }
         $token = $user->createToken('my-app-token')->plainTextToken;
         $roles=$user->roles()->get();
-        $work_id1=-1;$work_id2=-1;$work_id3=-1;
+        //getRelatedIds()
+
+
+    $work_id1=-1;$work_id2=-1;$work_id3=-1;
 
         foreach($roles as $role){
+
         if ($role['id'] == 1) {
-        
-            $work_id1 = DB::select('SELECT id from personne where id=?', [$user->personne_id]);
-      var_dump($work_id1);   
-            
-        } if ($role['id'] == 2) {
+        $work_id1=$user->personne_id; 
+        }
+        if ($role['id'] == 2) {
         
             $work_id2 = DB::select('SELECT id from enseigante where personne_id=?', [$user->personne_id]);
-       var_dump($work_id2); 
+
         } if ($role['id'] == 3) {
         
             $work_id3 = DB::select('SELECT id from etudiante where personne_id=?', [$user->personne_id]);
-           var_dump($work_id3); 
+         
         }
-        $collection = Arr::collapse($work_id1,$work_id2,$work_id3);
+         $properties = array('id1' =>$work_id1,'id2' => $work_id2,'id3' => $work_id3);
+       // $collection = Arr::collapse($work_id1,$work_id2,$work_id3);
         //$plucked0 = $collection->pluck('id');
         }
         $response = [
             'user' => $user,
             'token' => $token,
-            'personne_id' =>$collection,// $plucked0->all(),
+            'personne_id' => $properties,
+           // 'personne_id' =>$collection,// $plucked0->all(),
             'role' => $user->roles->get('role.libelle')
         ];
 

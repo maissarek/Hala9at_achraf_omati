@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
+ /*if (Auth::user()->can('do-everything')) {
+    // the user can do everything
+}
 
+if (Auth::user()->can('do-one-thing')) {
+    // the user can just do one thing
+}
+*/
 
 
 public function index()
@@ -22,7 +29,7 @@ return response()->json(Role::all('id','libelle'),200);
 public function index2()
     {
     
-return response()->json(Role::with('permissions:id,name')->get(),200);
+return response()->json(Role::with('permissions:id,name')->get(['role.id','libelle']),200);
         }
 
 

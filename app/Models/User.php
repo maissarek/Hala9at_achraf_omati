@@ -11,6 +11,9 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\Role;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable
 {
@@ -66,12 +69,21 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
-
-    public function user_permissions(){
-      return $this->roles->permissions();
+    public function person(){
+        return $this->belongsTo(Personne::class);
     }
+   
+   public function hasPermissions(Request $req){
+   if ($this->roles = 1) {
+	return 1;
+}
 
-    public function hasPermission($name){
-        return $this->permissions()->where('name',$name)->exists();
-    }
+        $hp= Role::join('permission_role','permission_role.role_id','role.id')
+        ->join('permission','permission.id','permission_role.permission_id')
+        ->where('permission.name','=',$req->name)
+        ->select('permission.name')
+        ->count();
+     return $hp;
+     } 
+    
 }

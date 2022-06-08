@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class PersonneController extends Controller
 {
+ public function hasPermissions(Request $req){
+ 
+    dd($this->roles()->permissions()->where('name',$name)->exists())
+
+       }
 
 public function index()
     {

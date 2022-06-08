@@ -14,6 +14,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
+ 
    DB::table('Permission')->insert([
    'name' =>'user_create',
 'created_at'=>NOW(),'updated_at'=>NOW()

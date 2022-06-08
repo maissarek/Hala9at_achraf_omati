@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
-use App\Models\{Team,Enseigante,Etudiante,Halaka,Histetudiante,HistHalaka,Personne,Role,User};
-use App\Policies\{TeamPolicy,EnseigantePolicy,EtudiantePolicy,HalakaPolicy,HistetudiantePolicy,HistHalakaPolicy,PersonnePolicy,RolePolicy,UserPolicy};
+use App\Models\{Enseigante,Etudiante,Halaka,Histetudiante,HistHalaka,Personne,Role,User};
+use App\Policies\{EnseigantePolicy,EtudiantePolicy,HalakaPolicy,HistetudiantePolicy,HistHalakaPolicy,PersonnePolicy,RolePolicy,UserPolicy};
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -34,11 +34,136 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('do-one-thing', function ($user) {
+        return $user->hasPermission('do-one-thing');
+    });
+ Gate::define('Dashboard_TeacherByFonction', function ($user) {
+        return $user->hasPermission('Dashboard_TeacherByFonction');
+    });
+ Gate::define('Dashboard_StudentByFonction', function ($user) {
+        return $user->hasPermission('Dashboard_StudentByFonction');
+    });
 
-       Gate::define('view_dashboard', function (User $user) {
-    return $user->role_id===1
-                ? Response::allow()
-                : Response::deny('You must be an administrator.');
-});
-    }
+   
+}
 }

@@ -28,9 +28,28 @@ class HalakaController extends Controller
      public function index()
     {
     $this->authorize('viewAny', Halaka::class);
+if (Halaka::find($id)->where('khatimat',1)) {
+
+$data1 = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
+h.tempsFin,lieu.name as lieu,e.id as idEns,
+p.nom as nomEns,p.prenom as prenomEns,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
+JOIN ensetudhlk 
+on h.id = ensetudhlk.id_hlk
+JOIN enseigante as e 
+ON e.id= ensetudhlk.id_ens
+JOIN personne as p
+ON e.personne_id = p.id
+JOIN lieu 
+ON lieu.id = h.id_lieu
+JOIN groupe 
+ON groupe.id = h.id_groupe
+
+where(p.quittee = 0)
+group by  h.id');
+}
 
   $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
-h.tempsFin,h.fiaMin,h.fiaMax,h.khatimat,lieu.name as lieu,e.id as idEns,
+h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,e.id as idEns,
 p.nom as nomEns,p.prenom as prenomEns,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
 JOIN ensetudhlk 
 on h.id = ensetudhlk.id_hlk
@@ -60,9 +79,8 @@ group by  h.id');
 public function store(Request $request)
     {
 
-    $this->authorize('create', Halaka::class);
  $halaka = Halaka::create($request->all());
-
+ 
  foreach($request->id_etud as $id){
 
 DB::insert('insert into ensetudhlk (date_affectation, id_ens, id_etud , id_hlk) values (?, ?, ?, ?)', [NOW(),$request->id_ens, $id, $halaka->id]);
