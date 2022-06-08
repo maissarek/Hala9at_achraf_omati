@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\PersonneController;
-use App\Models\{User, Role, Enseigante, Etudiante, Personne};
+use App\Models\{User,permission, Role, Enseigante, Etudiante, Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;use Illuminate\Support\Arr;
@@ -185,15 +185,22 @@ class UserController extends Controller
          
         }
          $properties = array('id1' =>$work_id1,'id2' => $work_id2,'id3' => $work_id3);
-      
-        }
+      }
+     $perm= permission::get('name');
+     $collection = collect($perm);
+$plucked = $collection->pluck('name');
 
-$perm= Role::with('permissions:name,id')->get();
+$perm1= Role::get('libelle');
+     $collection1 = collect($perm1);
+$plucked1 = $collection1->pluck('libelle');
+        
+
         $response = [
             'user' => $user,
             'token' => $token,
             'personne_id' => $properties,
-            'role' => $user->roles()->with('permissions:name,id')->get()
+            'role' => $user->roles->get('libelle')
+          ,'permissions'=> $plucked->all(),'roles'=> $plucked1->all()
         ];
 
         return response($response, 201);
