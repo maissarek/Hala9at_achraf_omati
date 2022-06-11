@@ -165,42 +165,51 @@ class UserController extends Controller
         }
         $token = $user->createToken('my-app-token')->plainTextToken;
         $roles=$user->roles()->get();
-        //getRelatedIds()
+       // dd($roles);
 
 
     $work_id1=-1;$work_id2=-1;$work_id3=-1;
 
         foreach($roles as $role){
 
-        if ($role['id'] == 1) {
-        $work_id1=$user->personne_id; 
-        }
+        
         if ($role['id'] == 2) {
         
             $work_id2 = DB::select('SELECT id from enseigante where personne_id=?', [$user->personne_id]);
 
-        } if ($role['id'] == 3) {
+        }elseif ($role['id'] == 3) {
         
             $work_id3 = DB::select('SELECT id from etudiante where personne_id=?', [$user->personne_id]);
          
-        }
-         $properties = array('id1' =>$work_id1,'id2' => $work_id2,'id3' => $work_id3);
-      }
-     $perm= permission::get('name');
-     $collection = collect($perm);
-$plucked = $collection->pluck('name');
-
-$perm1= Role::get('libelle');
-     $collection1 = collect($perm1);
-$plucked1 = $collection1->pluck('libelle');
+        }else  {
+        $work_id1=$user->personne_id;
         
+        }
+	
+}
 
-        $response = [
+         $properties = array('id1' =>$work_id1,'id2' => $work_id2,'id3' => $work_id3);
+      
+     
+
+$role = DB::select('select role.libelle from role,role_user as ru where role.id=ru.role_id and ru.user_id=?',[$user->id]);
+ $collection = collect($role);
+$plucked = $collection->pluck('libelle');
+$perm=array('');
+foreach($roles as $role){
+
+$perm =$perm +DB::select('select permission.name from permission,permission_role as pr where permission.id=pr.permission_id and pr.role_id =? ', [$role['id']]);
+     $collection1 = collect($perm);
+}
+$perm1=$collection1->slice(1);
+$plucked1 = $perm1->pluck('name');
+
+$response = [
             'user' => $user,
             'token' => $token,
             'personne_id' => $properties,
-            'role' => $user->roles->get('libelle')
-          ,'permissions'=> $plucked->all(),'roles'=> $plucked1->all()
+            'role' => $plucked->all(),
+          'permissions'=> $plucked1->all()
         ];
 
         return response($response, 201);
