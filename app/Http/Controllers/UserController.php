@@ -201,7 +201,7 @@ foreach($roles as $role){
 $perm =$perm +DB::select('select permission.name from permission,permission_role as pr where permission.id=pr.permission_id and pr.role_id =? ', [$role['id']]);
      $collection1 = collect($perm);
 }
-$perm1=$collection1->slice(1);
+$perm1=$collection1->unique()->slice(1);
 $plucked1 = $perm1->pluck('name');
 
 $response = [
