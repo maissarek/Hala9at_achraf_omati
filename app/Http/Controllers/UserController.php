@@ -24,15 +24,13 @@ class UserController extends Controller
 
     public function all_users()
     {
-        $this->authorize('viewAny', User::class);
+     //   $this->authorize('viewAny', User::class);
+ 
+     
+    $data = DB::select('select users.id,users.name as username,users.mail,personne.nom, personne.prenom,personne.telephone,GROUP_CONCAT(role.libelle) as role from users join personne on users.personne_id=personne.id join role_user on role_user.user_id=users.id JOIN role on role.id=role_user.role_id group by users.id');
 
-        $data = DB::table('users')
-            ->leftJoin('personne', 'personne.id', '=', 'users.personne_id')
-            ->leftJoin('role', 'role.id', '=', 'users.role_id')
-            ->select('users.id', 'users.name as username', 'users.mail', 'personne.nom', 'personne.prenom', 'personne.telephone', 'role.libelle  as role')
-            ->WhereNull('users.deleted_at')
-            ->where('personne.quittee', '=', '0')
-            ->get();
+                
+
 
         return response($data, 200);
     }
@@ -52,26 +50,29 @@ class UserController extends Controller
     public function show($id)
     {
 
-        $user_auth = Auth::user();
+        //$user_auth = Auth::user();
         $user = User::find($id);
 
-        if ($user_auth->can('view', $user)) {
+       // if ($user_auth->can('view', $user)) {
 
             if (is_null($user)) {
 
                 return response()->json(['message' => 'User not found', 404]);
             }
 
-            $user = DB::table('users')
-                ->leftJoin('personne', 'personne.id', '=', 'users.personne_id')
-                ->leftJoin('role', 'role.id', '=', 'users.role_id')
-                ->where('personne.quittee', '=', '0')
-                ->where('users.id', $id)
-                ->first();
+            $user = DB::select('select users.*,personne.*,GROUP_CONCAT(role.libelle) as role
+ from users
+ 
+LEFT JOIN personne on users.personne_id=personne.id
+ LEFT JOIN role_user on role_user.user_id=users.id
+ LEFT JOIN role on role.id=role_user.role_id
+ where users.id=?',[$id]);
+
+
             return response()->json($user, 200);
-        } else {
+       /* } else {
             return response()->json(['error' => 'Not authorized.'], 403);
-        }
+        }*/
     }
 
 
