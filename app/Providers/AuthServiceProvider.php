@@ -102,51 +102,51 @@ class AuthServiceProvider extends ServiceProvider
     });
  Gate::define('', function ($user) {
         return $user->hasPermission('');
+    });  
+ Gate::define('Dashboard_total', function ($user) {
+        return $user->hasPermission('Dashboard_total');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_TotaletuByHlk', function ($user) {
+        return $user->hasPermission('Dashboard_TotaletuByHlk');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_TotalhlkByens', function ($user) {
+        return $user->hasPermission('Dashboard_TotalhlkByens');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_TotalHlkByGroup', function ($user) {
+        return $user->hasPermission('Dashboard_TotalHlkByGroup');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_totalSkipStudentByYY', function ($user) {
+        return $user->hasPermission('Dashboard_totalSkipStudentByYY');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_totalNewStudentByYY', function ($user) {
+        return $user->hasPermission('Dashboard_totalNewStudentByYY');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_StudentByHizb', function ($user) {
+        return $user->hasPermission('Dashboard_StudentByHizb');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_StudentByAge', function ($user) {
+        return $user->hasPermission('Dashboard_StudentByAge');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_TeacherByAge', function ($user) {
+        return $user->hasPermission('Dashboard_TeacherByAge');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_StudentByFonction', function ($user) {
+        return $user->hasPermission('Dashboard_StudentByFonction');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_TeacherByFonction', function ($user) {
+        return $user->hasPermission('Dashboard_TeacherByFonction');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_StudentByAhkam', function ($user) {
+        return $user->hasPermission('Dashboard_StudentByAhkam');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_RateLateStudents', function ($user) {
+        return $user->hasPermission('Dashboard_RateLateStudents');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_RateLateTeachers', function ($user) {
+        return $user->hasPermission('Dashboard_RateLateTeachers');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
-    });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_TeachersAbsences', function ($user) {
+        return $user->hasPermission('Dashboard_TeachersAbsences');
     });
  Gate::define('Dashboard_TeachersAbsencesGlobal', function ($user) {
         return $user->hasPermission('Dashboard_TeachersAbsencesGlobal');

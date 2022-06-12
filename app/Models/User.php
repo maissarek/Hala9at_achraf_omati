@@ -73,15 +73,16 @@ class User extends Authenticatable
         return $this->belongsTo(Personne::class);
     }
    
-   public function hasPermissions(Request $req){
-   if ($this->roles = 1) {
-	return 1;
-}
+   public function hasPermissions($name){
+  
 
         $hp= Role::join('permission_role','permission_role.role_id','role.id')
-        ->join('permission','permission.id','permission_role.permission_id')
-        ->where('permission.name','=',$req->name)
-        ->select('permission.name')
+        ->leftjoin('permission','permission.id','permission_role.permission_id')
+        ->leftjoin('role_user','role_user.role_id','role.id')
+         ->leftjoin('users','users.id','role_user.user_id')
+        ->where('permission.name','=',$name)
+        ->where('users.id','=',$this->id)
+        ->select('permission.id')
         ->count();
      return $hp;
      } 

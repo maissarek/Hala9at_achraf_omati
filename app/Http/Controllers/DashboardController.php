@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -14,8 +15,7 @@ class DashboardController extends Controller
 public function total(){
 
 $user = Auth::user();
-
-if (hasPermission('Dashboard_total')) {
+if ($user->hasPermissions('Dashboard_total')) {
   
 $tot= DB::select('select
 (SELECT count(enseigante.id)  from enseigante,personne where enseigante.personne_id=personne.id and personne.quittee=0)as total_ens
@@ -38,16 +38,15 @@ $plucked3 = $collection3->pluck('total_user');
 return response([$plucked->all(),$plucked1->all(),$plucked2->all(),$plucked3->all()],200);
 
 } else {
- 
-    return response()->json($response->message(),403);
+   return response()->json('You must be admin',403);
 }
 }
 
 public function TotaletuByHlk($idg){
 
-$response = Gate::inspect('view_dashboard');
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_TotaletuByHlk')) {
 
-if ($response->allowed()) {
 
 $hlk= DB::select('select halaka.name,count(ensetudhlk.id_etud) as total_etu
 from halaka 
@@ -69,15 +68,15 @@ $plucked1 = $collection1->pluck('total_etu');
 
 return response([$plucked->all(),$plucked1->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }
 }
 
 public function TotalhlkByens(){
 
-$response = Gate::inspect('view_dashboard');
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_TotalhlkByens')) {
 
-if ($response->allowed()) {
 $ens= DB::select('select  personne.nom as nom,personne.prenom,count(DISTINCT halaka.id) as total_hlk
 from enseigante
 join personne
@@ -99,13 +98,13 @@ $plucked1 = $collection1->pluck('total_hlk');
 
 return response([$plucked->all(),$plucked0->all(),$plucked1->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 public function TotalHlkByGroup(){
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_TotalHlkByGroup')) {
 $gpe= DB::select('select groupe.name as name,count(DISTINCT halaka.id) as total_hlk
 from groupe
 join halaka on halaka.id_groupe=groupe.id
@@ -122,13 +121,13 @@ $plucked1 = $collection1->pluck('total_hlk');
 
 return response([$plucked->all(),$plucked1->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 public function totalSkipStudentByYY(){
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_totalSkipStudentByYY')) {
 
 $etu=DB::select('select EXTRACT(YEAR FROM personne.dateQuittee) as year,count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=1
@@ -144,15 +143,15 @@ $plucked1 = $collection1->pluck('year');
 
 return response([$plucked1->all(),$plucked->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 
 public function totalNewStudentByYY(){
 
-$response = Gate::inspect('view_dashboard');
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_totalNewStudentByYY')) {
 
-if ($response->allowed()) {
 $etu=DB::select('select EXTRACT(YEAR FROM personne.dateEntree) as year,count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.personne_id=personne.id 
 group By (EXTRACT(YEAR FROM personne.dateEntree))
@@ -167,14 +166,14 @@ $plucked1 = $collection1->pluck('year');
 
 return response([$plucked1->all(),$plucked->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 public function StudentByHizb(){
-//2
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_StudentByHizb')) {
+
 $etu=DB::select('select count(etudiante.id) as total_etu,etudiante.hizb
 from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0 
 group By (etudiante.hizb)
@@ -190,14 +189,13 @@ $plucked1 = $collection1->pluck('hizb');
 
 return response([$plucked1->all(),$plucked->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 public function StudentByAge(){
-//2
-$response = Gate::inspect('view_dashboard');
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_StudentByAge')) {
 
-if ($response->allowed()) {
 $etu=DB::select('SELECT floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25) AS Age,count(etudiante.id) as nbr
 from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
@@ -214,16 +212,17 @@ $plucked1 = $collection1->pluck('Age');
 
 return response([$plucked1->all(),$plucked0->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 
 
 public function TeacherByAge(){
-//2
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_TeacherByAge')) {
+
 $etu=DB::select('SELECT floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25) AS Age,count(etudiante.id) as nbr
 from ens,personne
 WHERE ens.personne_id=personne.id and personne.quittee=0
@@ -240,16 +239,15 @@ $plucked1 = $collection1->pluck('Age');
 
 return response([$plucked1->all(),$plucked0->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 
 
 public function StudentByFonction(){
-//2
-$response = Gate::inspect('view_dashboard');
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_StudentByFonction')) {
 
-if ($response->allowed()) {
 $etu=DB::select('SELECT personne.job,count(etudiante.id) as nbr
 from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
@@ -266,14 +264,15 @@ $plucked1 = $collection1->pluck('job');
 
 return response([$plucked1->all(),$plucked0->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 public function TeacherByFonction(){
-//2
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_TeacherByFonction')) {
+
 $etu=DB::select('SELECT personne.job,count(ens.id) as nbr
 from enseigante,personne
 WHERE enseigante.personne_id=personne.id and personne.quittee=0
@@ -290,15 +289,15 @@ $plucked1 = $collection1->pluck('job');
 
 return response([$plucked1->all(),$plucked0->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 
 public function StudentByAhkam(){
-//2
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_StudentByAhkam')) {
+
 $etu=DB::select('SELECT count(etudiante.id) as nbr,etudiante.niveauAhkam
 from etudiante,personne
 WHERE etudiante.personne_id=personne.id and personne.quittee=0
@@ -315,15 +314,15 @@ $plucked1 = $collection1->pluck('niveauAhkam');
 
 return response([$plucked1->all(),$plucked0->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }}
 
 
 public function RateLateStudents(Request $req){
-//2
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_RateLateStudents')) {
+
 $rate = DB::select('
    SELECT floor((count(histetudiante.id)/(SELECT count(histetudiante.id)from histetudiante
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
@@ -364,16 +363,14 @@ $plucked0 = $collection0->pluck('nbr');
 
 return response([$plucked1->all(),$plucked0->all(),$plucked->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }
 }
 
 public function RateLateTeachers(Request $req){
-//2
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
-
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_RateLateTeachers')) {
 
 $late= DB::select('
 SELECT histhalaka.retard,count(histhalaka.id) as nbr
@@ -391,17 +388,15 @@ $plucked0 = $collection0->pluck('nbr');
 return response([$plucked1->all(),$plucked0->all()],200);
 
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }
 
 }
 
 public function TeachersAbsences($idh,Request $req){
-//2
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
-
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_TeachersAbsences')) {
 
 $nbr= DB::select('  SELECT halaka.name,COUNT(distinct histhalaka.id) as nbr
 from halaka
@@ -419,15 +414,15 @@ $plucked2 = $collection2->pluck('name');
 
 return response([$plucked2->all(),$plucked0->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }
 }
 
 public function TeachersAbsencesGlobal(Request $req){
 
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_TeachersAbsencesGlobal')) {
 
 $absence= DB::select('
 SELECT histhalaka.absence_Ens,count(histhalaka.id) as nbr
@@ -446,7 +441,7 @@ $plucked0 = $collection0->pluck('nbr');
 
 return response([$plucked1->all(),$plucked0->all()],200);
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }
 }
 
@@ -454,10 +449,10 @@ return response([$plucked1->all(),$plucked0->all()],200);
 
 
 public function StudentsAbsencesGlobal(Request $req){
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
 
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_StudentsAbsencesGlobal')) {
 
  
 $absence= DB::select('
@@ -480,15 +475,15 @@ $plucked0 = $collection0->pluck('nbr');
 return response([$plucked1->all(),$plucked0->all()],200);
 
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }
 }
 
 public function StudentsAbsences($idh,Request $req){
 
-$response = Gate::inspect('view_dashboard');
 
-if ($response->allowed()) {
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_StudentsAbsences')) {
 
 $halaka= DB::select('
   SELECT halaka.name,COUNT(histetudiante.id) as nbr
@@ -514,7 +509,7 @@ return response([$plucked2->all(),$plucked0->all()],200);
 
 
 } else {
-     return response()->json($response->message(),403);
+     return response()->json('You must be admin',403);
 }
 }
 }

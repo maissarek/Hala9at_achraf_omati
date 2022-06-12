@@ -24,38 +24,28 @@ class UserController extends Controller
 
     public function all_users()
     {
-     //   $this->authorize('viewAny', User::class);
- 
+     $user = Auth::user();
+if ($user->hasPermissions('user_list')) {
+
      
     $data = DB::select('select users.id,users.name as username,users.mail,personne.nom, personne.prenom,personne.telephone,GROUP_CONCAT(role.libelle) as role from users join personne on users.personne_id=personne.id join role_user on role_user.user_id=users.id JOIN role on role.id=role_user.role_id group by users.id');
 
-                
-
-
-        return response($data, 200);
+    return response($data, 200);
+    }else {
+   return response()->json('You must be admin',403);
+}
     }
 
-    public function store(Request $request)
-    {
-        $this->authorize('create', User::class);
-        $user = new User;
-        $user->name = $request->name;
-        $user->mail = $request->mail;
-        //$user->password = Hash::make("achraf_omati_2021");
-        $user->password = Hash::make($request->password);
-        $user->save();
-        return response($user, 201);
-    }
+   
 
     public function show($id)
     {
 
-        //$user_auth = Auth::user();
-        $user = User::find($id);
+      $user_auth = Auth::user();
+       $user = User::find($id);
+if ($user_auth->hasPermissions('user_show')&& $user->id==$user_auth->id) {
 
-       // if ($user_auth->can('view', $user)) {
-
-            if (is_null($user)) {
+      if (is_null($user)) {
 
                 return response()->json(['message' => 'User not found', 404]);
             }
@@ -70,19 +60,19 @@ LEFT JOIN personne on users.personne_id=personne.id
 
 
             return response()->json($user, 200);
-       /* } else {
-            return response()->json(['error' => 'Not authorized.'], 403);
-        }*/
+        }else {
+   return response()->json('You must be admin',403);
+}
     }
 
 
     public function update(Request $request, $id)
     {
         $user_auth = Auth::user();
-        $user = User::find($id);
+       $user = User::find($id);
+if ($user_auth->hasPermissions('user_update')&& $user->id==$user_auth->id) {
 
-        if ($user_auth->can('update', $user)) {
-            if (is_null($user)) {
+              if (is_null($user)) {
 
                 return response()->json(['message' => 'User not found', 404]);
             }
@@ -103,15 +93,14 @@ LEFT JOIN personne on users.personne_id=personne.id
                     'p.statusSocial' => $request->statusSocial,
                     'p.lieuNaiss' => $request->lieuNaiss,
                     'p.dateEntree' => $request->dateEntree,
-                    'p.date_inscription' => $request->date_inscription,
                     'u.name' => $request->name, 'u.mail' => $request->mail, 'u.password' => Hash::make($request->password)
                 ]);
             $user = User::find($id);
 
             return response($user, 201);
-        } else {
-            return response()->json(['error' => 'Not authorized.'], 403);
-        }
+        }else {
+   return response()->json('You must be admin',403);
+}
     }
 
 
@@ -120,10 +109,10 @@ LEFT JOIN personne on users.personne_id=personne.id
 
     public function destroy($id)
     {
-        $user_auth = Auth::user();
         $user = User::find($id);
-
-        if ($user_auth->can('delete', $user)) {
+        
+     $user_auth = Auth::user();
+if ($user_auth->hasPermissions('user_delete')) {
             if (is_null($user)) {
 
                 return response()->json(['message' => 'User not found', 404]);
@@ -132,20 +121,34 @@ LEFT JOIN personne on users.personne_id=personne.id
             $ens_id =  Enseigante::select('id')->where('personne_id', '=', $user->personne_id)->first();
             $etu_id = Etudiante::select('id')->where('personne_id', '=', $user->personne_id)->first();
 
+              if (!is_null($ens_id)) {
+	DB::table('enseigante as p')
+                    ->where('p.id', '=', $ens_id)
+                     ->update(array('deleted_at' => NOW()));
+                     $ens_id=null;
+}
+if (!is_null($etu_id)) {
+	DB::table('Etudiante as p')
+                    ->where('p.id', '=', $etu_id)
+                   ->update(array('deleted_at' => NOW()));
+                    $etu_id=null;
+}
             if (is_null($ens_id) && is_null($etu_id)) {
 
                 DB::table('personne as p')
                     ->where('p.id', '=', $user->personne_id)
-                    ->where('personne.quittee', '=', '0')
+                    ->where('p.quittee', '=', '0')
                     ->update(array('deleted_at' => NOW()));
             }
+          
+
 
             $user->delete();
 
             return response()->json(['message' => 'User deleted ! ', 204]);
-        } else {
-            return response()->json(['error' => 'Not authorized.'], 403);
-        }
+        }else {
+   return response()->json('You must be admin',403);
+}
     }
 
 

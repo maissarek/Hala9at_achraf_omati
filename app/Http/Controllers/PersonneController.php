@@ -51,7 +51,8 @@ public function index()
  }
 
 public function  save_pers_admin(Request $request){
-
+ $user = Auth::user();
+if ($user->hasPermissions('user_list')) {
          $personne= Personne::create($request->all());
          
          $user= new User;
@@ -63,7 +64,9 @@ public function  save_pers_admin(Request $request){
          $user->roles()->attach($request->role_id);
 
          return response([$personne,$user],201);
-
+else {
+   return response()->json('You must be admin',403);
+}
        
  }
 public function  save_pers_etu(Request $request){
