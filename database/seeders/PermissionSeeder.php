@@ -18,57 +18,57 @@ class PermissionSeeder extends Seeder
    DB::table('Permission')->insert([
    'name' =>'user_create',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'user_update',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'user_delete',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'user_show',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'user_list',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
 DB::table('Permission')->insert([
    'name' =>'ens_create',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'ens_update',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'ens_delete',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'ens_show',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'ens_list',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'etu_create',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
    DB::table('Permission')->insert([
    'name' =>'etu_update',
@@ -143,7 +143,7 @@ DB::table('Permission')->insert([
  DB::table('Permission')->insert([
    'name' =>'Dashboard_total',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//
 
 
 

@@ -40,10 +40,16 @@ if ($user->hasPermissions('user_list')) {
 
     public function show($id)
     {
+     $user_auth = Auth::user();
+  
+     
 
-      $user_auth = Auth::user();
        $user = User::find($id);
-if ($user_auth->hasPermissions('user_show')&& $user->id==$user_auth->id) {
+  $exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('user_show')&& $user->id==$user_auth->id)){
 
       if (is_null($user)) {
 
@@ -70,7 +76,11 @@ LEFT JOIN personne on users.personne_id=personne.id
     {
         $user_auth = Auth::user();
        $user = User::find($id);
-if ($user_auth->hasPermissions('user_update')&& $user->id==$user_auth->id) {
+       $exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('user_update')&& $user->id==$user_auth->id)){
 
               if (is_null($user)) {
 
@@ -199,13 +209,16 @@ if (!is_null($etu_id)) {
 $role = DB::select('select role.libelle from role,role_user as ru where role.id=ru.role_id and ru.user_id=?',[$user->id]);
  $collection = collect($role);
 $plucked = $collection->pluck('libelle');
-$perm=array('');
+$perm=array();
 foreach($roles as $role){
 
 $perm =$perm +DB::select('select permission.name from permission,permission_role as pr where permission.id=pr.permission_id and pr.role_id =? ', [$role['id']]);
-     $collection1 = collect($perm);
+     
+
 }
-$perm1=$collection1->unique()->slice(1);
+
+$collection1 = collect($perm);
+$perm1=$collection1->unique();
 $plucked1 = $perm1->pluck('name');
 
 $response = [

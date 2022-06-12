@@ -18,8 +18,19 @@ class EnseiganteController extends Controller
 
 public function halakat_one_ens($id){
 
-$this->authorize('viewAny', Enseigante::class);
+$user_auth = Auth::user();
+$ens=Enseigante::find($id);
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
 
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('halaka_show')
+&& $ens->personne_id==$user_auth->personne_id)) {
+
+if(is_null($ens)){
+
+         return response()->json(['message'=>'Enseigante not found',404]);
+           }
 $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
 h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
 JOIN ensetudhlk 
@@ -36,15 +47,22 @@ where ensetudhlk.id_ens=?
 group by  h.id',[$id]);
 
                 return response($data,200);
+                }else {
+   return response()->json('You must be admin',403);
+}
 }
 
 public function etudiantes_one_ens($id){
 
-$ens= Enseigante::find($id);
-  $user = Auth::user();
 
- if ($user->can('viewAny', $ens)) {
+$user_auth = Auth::user();
+$ens=Enseigante::find($id);
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
 
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_list')
+&& $ens->personne_id==$user_auth->personne_id)) {
 
 $data = DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
@@ -59,16 +77,17 @@ $data = DB::table('ensetudhlk')
          ->orderBy('etudiante.id', 'asc')
      ->get();
 return response($data,200);
-}else {
-    return response()->json(['error' => 'Not authorized.'],403);
-    }
+  }else {
+   return response()->json('You must be admin',403);
+}
 }
 
 
 
 public function all_enseignate()
 {
-$this->authorize('viewAny', Enseigante::class);
+$user = Auth::user();
+if ($user->hasPermissions('ens_list')) {
 
 $data = DB::select('SELECT enseigante.id, personne.nom,personne.prenom,personne.telephone,count(distinct ensetudhlk.id_hlk) as nbr_hlk
 FROM enseigante
@@ -80,13 +99,17 @@ on enseigante.id = ensetudhlk.id_ens
 group by  enseigante.id');
 
      return response($data,200);
-
+ }else {
+   return response()->json('You must be admin',403);
+}
 }
 
 
 
 public function all_enseignate_names()
 {
+$user = Auth::user();
+if ($user->hasPermissions('ens_list')) {
 
 $data = DB::table('enseigante')
 ->join('personne','personne.id','=','enseigante.personne_id')
@@ -99,7 +122,9 @@ $data = DB::table('enseigante')
      ->get();
                
         return response()->json($data,200);
-}
+}else {
+   return response()->json('You must be admin',403);
+}}
 
 
 
@@ -112,8 +137,15 @@ $data = DB::table('enseigante')
 
 public function show($id)
 {
-        $enseigante=Enseigante::find($id);
 
+$user_auth = Auth::user();
+$enseigante=Enseigante::find($id);
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('ens_show')
+&& $enseigante->personne_id==$user_auth->personne_id)) {
         if(is_null($enseigante)){
 
          return response()->json(['message'=>'Enseigante not found',404]);
@@ -139,7 +171,9 @@ $data = Halaka::join('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
 
 return response()->json([$enseigante,$data],200);
 
-
+}else {
+   return response()->json('You must be admin',403);
+}
 }
 
 
@@ -147,11 +181,15 @@ return response()->json([$enseigante,$data],200);
 
 public function update(Request $request,$id)  {
 
- $ens= Enseigante::find($id);
-  $user = Auth::user();
+ $user_auth = Auth::user();
+$ens=Enseigante::find($id);
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
 
- if ($user->can('update', $ens)) {
 
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('ens_update')
+&& $ens->personne_id==$user_auth->personne_id)) {
+ 
  if(is_null($ens)){
 
            return response()->json(['message'=>'Enseignante not found',404]);
@@ -172,9 +210,9 @@ $personne=DB::table('enseigante as e')
     
           return response([$ens,$personne],201);
 
-  } else {
-    return response()->json(['error' => 'Not authorized.'],403);
-    }
+ }else {
+   return response()->json('You must be admin',403);
+}
     }
  
 
@@ -188,7 +226,9 @@ public function destroy($id)
 
     
  $ens= Enseigante::find($id);
-  $user = Auth::user();
+  
+$user = Auth::user();
+if ($user->hasPermissions('ens_delete')) {
 
  if ($user->can('update', $ens)) {
         if(is_null($ens)){
@@ -228,7 +268,7 @@ $ens->delete();
  return response()->json(['message'=>'Enseignante deleted !',204]);
 
 } else {
-     return response()->json(['error' => 'Not authorized.'],403);
+        return response()->json('You must be admin',403);
     }
 
     }

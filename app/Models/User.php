@@ -75,7 +75,6 @@ class User extends Authenticatable
    
    public function hasPermissions($name){
   
-
         $hp= Role::join('permission_role','permission_role.role_id','role.id')
         ->leftjoin('permission','permission.id','permission_role.permission_id')
         ->leftjoin('role_user','role_user.role_id','role.id')

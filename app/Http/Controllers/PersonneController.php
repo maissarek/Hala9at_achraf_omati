@@ -6,14 +6,11 @@ use App\Models\{Personne,Enseigante,Etudiante,User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class PersonneController extends Controller
 {
- public function hasPermissions(Request $req){
  
-    dd($this->roles()->permissions()->where('name',$name)->exists());
-
-       }
 
 public function index()
     {
@@ -25,8 +22,8 @@ public function index()
 
  public function  save_pers_ens(Request $request){
 
-
-
+   $user = Auth::user();
+ if ($user->hasPermissions('ens_create')) {
         $personne= Personne::create($request->all());
           $ens = new Enseigante;
 
@@ -47,14 +44,18 @@ public function index()
   
          return response([$personne,$user,$ens],201);
 
-       
+  }else {
+   return response()->json('You must be admin',403);
+}     
  }
 
 public function  save_pers_admin(Request $request){
- $user = Auth::user();
-if ($user->hasPermissions('user_list')) {
+
+  $user = Auth::user();
+
+if($user->hasPermissions('user_create')) {
+
          $personne= Personne::create($request->all());
-         
          $user= new User;
          $user->name=$request->nom.'_'.$request->prenom;
          $user->mail=$request->mail;
@@ -64,13 +65,17 @@ if ($user->hasPermissions('user_list')) {
          $user->roles()->attach($request->role_id);
 
          return response([$personne,$user],201);
-else {
-   return response()->json('You must be admin',403);
-}
-       
- }
+
+}else {
+
+return response()->json('You must be admin',403);
+
+}}
+
+
 public function  save_pers_etu(Request $request){
 
+if ($user->hasPermissions('etu_create')) {
              $personne= Personne::create($request->all());
              $etu = new Etudiante;
 
@@ -94,7 +99,9 @@ public function  save_pers_etu(Request $request){
      $user->roles()->attach(3);
 
              return response([$personne,$user,$etu],201);
-            
+ }else {
+   return response()->json('You must be admin',403);
+}           
  }
 
  
