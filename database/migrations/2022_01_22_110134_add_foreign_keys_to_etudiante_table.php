@@ -14,7 +14,7 @@ class AddForeignKeysToEtudianteTable extends Migration
     public function up()
     {
         Schema::table('etudiante', function (Blueprint $table) {
-            $table->foreign('personne_id', 'etudiante_ibfk_1')->references('id')->on('personne');
+            $table->foreign('person_id', 'etudiante_ibfk_1')->references('id')->on('personne');
         });
     }
 

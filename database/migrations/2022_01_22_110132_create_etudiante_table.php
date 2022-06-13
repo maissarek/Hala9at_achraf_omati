@@ -22,7 +22,7 @@ class CreateEtudianteTable extends Migration
             $table->string('ensKhatm', 100)->nullable();
             $table->tinyInteger('teach')->nullable();
             $table->string('teachPlace', 100)->nullable();
-            $table->unsignedInteger('personne_id')->index('personne_id');
+            $table->unsignedInteger('person_id')->index('person_id');
             $table->unsignedInteger('hizb');
             $table->softDeletes();
         });
