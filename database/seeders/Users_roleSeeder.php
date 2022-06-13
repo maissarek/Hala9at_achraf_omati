@@ -39,12 +39,7 @@ $user->roles()->sync([3]);
 $user->roles()->sync([2,3]);
  $user= User::find(12);
 $user->roles()->sync([3]);
- /*$user= User::find(13);
-$user->roles()->sync([3]);
- $user= User::find(14);
-$user->roles()->sync([3]);
- $user= User::find(15);
-$user->roles()->sync([3]);*/
+
 
 }
    }
