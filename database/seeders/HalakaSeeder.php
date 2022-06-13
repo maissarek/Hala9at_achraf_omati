@@ -42,6 +42,8 @@ class HalakaSeeder extends Seeder
            'jour'=> 'السبت',
            'tempsDebut'=> '08:00:00',
            'tempsFin'=> '12:00:00',
+           'fiaMin' =>'/',
+           'fiaMax'=> '/',
              'khatimat' =>'1',
            'id_groupe'=>'1',
            'id_lieu'=>'2',
