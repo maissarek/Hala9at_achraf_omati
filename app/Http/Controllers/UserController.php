@@ -179,30 +179,29 @@ if (!is_null($etu_id)) {
             ], 404);
         }
         $token = $user->createToken('my-app-token')->plainTextToken;
-        $roles=$user->roles()->get();
-       // dd($roles);
-
+        $roles= DB::select('select role.id as nbr from role,role_user where role_user.rol_id=role.id and role_user.user_id=?',[$user->id]);
+     
 
     $work_id1=-1;$work_id2=-1;$work_id3=-1;
-
-        foreach($roles as $role){
-
+  
+       foreach($roles as $role){
+  // dd($role->nbr== 2);
         
-        if ($role['id'] == 2) {
+        if ($role->nbr == 2) {
         
             $work_id2 = DB::select('SELECT id from enseigante where personne_id=?', [$user->perso_id]);
 
-        }elseif ($role['id'] == 3) {
+        }if ($role->nbr == 3) {
         
             $work_id3 = DB::select('SELECT id from etudiante where person_id=?', [$user->perso_id]);
          
-        }else  {
+        }if($role->nbr == 1) {
         $work_id1=$user->perso_id;
         
         }
 	
-}
 
+        }
          $properties = array('idUser' =>$work_id1,'idEns' => $work_id2,'idEtud' => $work_id3);
       
      
@@ -213,7 +212,7 @@ $plucked = $collection->pluck('libelle');
 $perm=array();
 foreach($roles as $role){
 
-$perm =$perm +DB::select('select permission.name from permission,permission_role as pr where permission.id=pr.permission_id and pr.role_id =? ', [$role['id']]);
+$perm =$perm +DB::select('select permission.name from permission,permission_role as pr where permission.id=pr.permission_id and pr.role_id =? ', [$role->nbr]);
      
 
 }

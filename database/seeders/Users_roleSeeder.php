@@ -18,9 +18,13 @@ class Users_roleSeeder extends Seeder
 
     DB::table('role_user')->insert([
       "user_id"=>"1",
-      "rol_id"=>["1","2"]	
+      "rol_id"=>"1"	
              ]);
 
+              DB::table('role_user')->insert([
+      "user_id"=>"1",
+      "rol_id"=>"2"	
+             ]);
 
     DB::table('role_user')->insert([
       "user_id"=>"2",
@@ -36,10 +40,14 @@ class Users_roleSeeder extends Seeder
 
      DB::table('role_user')->insert([
       "user_id"=>"4",
-      "rol_id"=>["1","2"]	
+      "rol_id"=>"1"	
              ]);
 
-$user->roles()->sync();
+    DB::table('role_user')->insert([
+      "user_id"=>"4",
+      "rol_id"=>"2"	
+             ]);
+
 
      DB::table('role_user')->insert([
       "user_id"=>"5",
@@ -61,7 +69,13 @@ $user->roles()->sync();
 
      DB::table('role_user')->insert([
       "user_id"=>"8",
-      "rol_id"=>["1","2"]	
+      "rol_id"=>"1"	
+             ]);
+
+
+             DB::table('role_user')->insert([
+      "user_id"=>"8",
+      "rol_id"=>"2"	
              ]);
 
 
@@ -78,7 +92,12 @@ $user->roles()->sync();
 
      DB::table('role_user')->insert([
       "user_id"=>"11",
-      "rol_id"=>["2","3"]	
+      "rol_id"=>"2"	
+             ]);
+
+               DB::table('role_user')->insert([
+      "user_id"=>"11",
+      "rol_id"=>"3"	
              ]);
 
    DB::table('role_user')->insert([

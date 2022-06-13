@@ -40,7 +40,11 @@ public function index()
        $user->mail=$request->mail;
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
-       $user->roles()->attach(2);
+
+         DB::table('role_user')->insert([
+      "user_id"=>$user->id,
+      "rol_id"=>2	
+             ]);
   
          return response([$personne,$user,$ens],201);
 
@@ -62,8 +66,11 @@ if($user->hasPermissions('user_create')) {
         
          $user->password = Hash::make("achraf_omati_2021");
          $personne->user_relat()->save($user);
-         $user->roles()->attach($request->role_id);
 
+         DB::table('role_user')->insert([
+      "user_id"=>$user->id,
+      "rol_id"=>$request->role_id	
+             ]);
          return response([$personne,$user],201);
 
 }else {
@@ -97,7 +104,11 @@ if ($user->hasPermissions('etu_create')) {
     
        $user->password = Hash::make("achraf_omati_2021");
       $personne->user_relat()->save($user);
-     $user->roles()->attach(3);
+
+         DB::table('role_user')->insert([
+      "user_id"=>$user->id,
+      "rol_id"=>3	
+             ]);
 
              return response([$personne,$user,$etu],201);
  }else {
