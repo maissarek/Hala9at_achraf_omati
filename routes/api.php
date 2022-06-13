@@ -37,14 +37,12 @@ return view('welcome');
 
 Route::post('/user/login',[UserController::class,'login']);
 
-Route::post('/user/add',[PersonneController::class,'save_pers_admin']);
-Route::get('/user/permissions',[User::class,'hasPermissions']);
-
 
 Route::middleware('auth:sanctum')->group( function () {
 //
 //
 
+Route::post('/user/add',[PersonneController::class,'save_pers_admin']);
 Route::get('/users/list',[UserController::class,'all_users']);
 Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}',[UserController::class,'show']);

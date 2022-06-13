@@ -75,6 +75,7 @@ return response()->json('You must be admin',403);
 
 public function  save_pers_etu(Request $request){
 
+  $user = Auth::user();
 if ($user->hasPermissions('etu_create')) {
              $personne= Personne::create($request->all());
              $etu = new Etudiante;
