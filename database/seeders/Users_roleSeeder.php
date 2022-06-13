@@ -15,31 +15,76 @@ class Users_roleSeeder extends Seeder
      */
     public function run()
     {
-   $user= User::find(1);
-$user->roles()->sync([1,2]);
-   $user= User::find(2);
-$user->roles()->sync([2]);
-   $user= User::find(3);
-$user->roles()->sync([2]);
-   $user= User::find(4);
-$user->roles()->sync([1,2]);
-   $user= User::find(5);
-$user->roles()->sync([2]);
-   $user= User::find(6);
-$user->roles()->sync([3]);
-   $user= User::find(7);
-$user->roles()->sync([3]);
-   $user= User::find(8);
-$user->roles()->sync([1,2]);
- $user= User::find(9);
-$user->roles()->sync([3]);
- $user= User::find(10);
-$user->roles()->sync([3]);
-   $user= User::find(11);
-$user->roles()->sync([2,3]);
- $user= User::find(12);
-$user->roles()->sync([3]);
 
+    DB::table('role_user')->insert([
+      "user_id"=>"1",
+      "rol_id"=>["1","2"]	
+             ]);
+
+
+    DB::table('role_user')->insert([
+      "user_id"=>"2",
+      "rol_id"=>"2"	
+             ]);
+
+
+    DB::table('role_user')->insert([
+      "user_id"=>"3",
+      "rol_id"=>"2"	
+             ]);
+
+
+     DB::table('role_user')->insert([
+      "user_id"=>"4",
+      "rol_id"=>["1","2"]	
+             ]);
+
+$user->roles()->sync();
+
+     DB::table('role_user')->insert([
+      "user_id"=>"5",
+      "rol_id"=>"2"	
+             ]);
+
+
+     DB::table('role_user')->insert([
+      "user_id"=>"6",
+      "rol_id"=>"3"	
+             ]);
+
+
+     DB::table('role_user')->insert([
+      "user_id"=>"7",
+      "rol_id"=>"3"	
+             ]);
+
+
+     DB::table('role_user')->insert([
+      "user_id"=>"8",
+      "rol_id"=>["1","2"]	
+             ]);
+
+
+   DB::table('role_user')->insert([
+      "user_id"=>"9",
+      "rol_id"=>"3"	
+             ]);
+
+
+   DB::table('role_user')->insert([
+      "user_id"=>"10",
+      "rol_id"=>"3"	
+             ]);
+
+     DB::table('role_user')->insert([
+      "user_id"=>"11",
+      "rol_id"=>["2","3"]	
+             ]);
+
+   DB::table('role_user')->insert([
+      "user_id"=>"12",
+      "rol_id"=>"3"	
+             ]);
 
 }
    }
