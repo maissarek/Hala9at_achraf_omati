@@ -230,7 +230,6 @@ public function destroy($id)
 $user = Auth::user();
 if ($user->hasPermissions('ens_delete')) {
 
- if ($user->can('update', $ens)) {
         if(is_null($ens)){
 
            return response()->json(['message'=>'Enseignante not found',404]);
