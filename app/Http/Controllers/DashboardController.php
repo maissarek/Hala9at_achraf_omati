@@ -274,8 +274,8 @@ $user = Auth::user();
 if ($user->hasPermissions('Dashboard_TeacherByFonction')) {
 
 $etu=DB::select('SELECT personne.job,count(ens.id) as nbr
-from enseigante,personne
-WHERE enseigante.personne_id=personne.id and personne.quittee=0
+from enseigante as ens,personne
+WHERE ens.personne_id=personne.id and personne.quittee=0
 group by personne.job 
 Order By personne.job ');
 
