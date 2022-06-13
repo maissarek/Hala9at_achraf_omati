@@ -77,7 +77,7 @@ class User extends Authenticatable
   
         $hp= Role::join('permission_role','permission_role.role_id','role.id')
         ->leftjoin('permission','permission.id','permission_role.permission_id')
-        ->leftjoin('role_user','role_user.role_id','role.id')
+        ->leftjoin('role_user','role_user.rol_id','role.id')
          ->leftjoin('users','users.id','role_user.user_id')
         ->where('permission.name','=',$name)
         ->where('users.id','=',$this->id)
