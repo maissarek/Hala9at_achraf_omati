@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Histhalaka,Halaka,Histetudiante,Ensetuhlk,Personne};
+use App\Models\{Histhalaka,Halaka,Enseigante,Histetudiante,Ensetuhlk,Personne};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -14,14 +14,22 @@ class HisthalakaController extends Controller
 
 public function index($id){
 
-$user = Auth::user();
-$halaka=Halaka::find($id);
+ $user_auth = Auth::user();
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->where('ensetudhlk.id_hlk',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
 
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('seance_list')
+&& collect($relation)->isNotEmpty())) {
+$halaka=Halaka::find($id);
 if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
 }
-//  if ($user->can('view', $halaka)) {
  
     $histhalaka = DB::table('histhalaka as hh')
     ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
@@ -38,9 +46,9 @@ if(is_null($halaka)){
 
 return response($histhalaka,200);
 
-/* } else {
+} else {
  return response()->json(['error' => 'Not authorized.'],403);
-    } */
+    } 
 }
 
 
@@ -49,11 +57,22 @@ return response($histhalaka,200);
 public function show($id)
     {
     
-        $user = Auth::user();
+
+
+$user_auth = Auth::user();
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
+->where('Histetudiante.HistHalaka_id',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('seance_show')
+&& collect($relation)->isNotEmpty())) {
+
         $histhalaka1=Histhalaka::find($id);
-
-//  if ($user->can('view', $histhalaka1)) {
-
  if(is_null($histhalaka1)){
 
            return response()->json(['message'=>'history of halaka not found',404]);
@@ -119,9 +138,9 @@ $histhalaka = DB::table('histhalaka as hh')
            return response()->json([$histhalaka,$he],200);
   }
 
-/*    } else {
+    } else {
     return response()->json(['error' => 'Not authorized.'],403);
-    }*/
+    }
   } 
 
 
@@ -130,12 +149,22 @@ $histhalaka = DB::table('histhalaka as hh')
 
 public function update(Request $request,$id)
     {
-        $user = Auth::user();
-        $histhalaka=Histhalaka::find($id);
+       $user_auth = Auth::user();
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
+->where('Histetudiante.HistHalaka_id',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
 
- if ($user->can('update', $histhalaka)) {
-        
 
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('seance_update')
+&& collect($relation)->isNotEmpty())) {
+
+ $histhalaka=Histhalaka::find($id);
+
+ 
         if(is_null($histhalaka)){
 
            return response()->json(['message'=>'Histhalaka not found',404]);
@@ -211,10 +240,22 @@ return response([$histhalaka,$histetudiante],201);
 
 
 public function store(Request $request)
-    {
-    $this->authorize('create', Histhalaka::class);
- 
-    $histhalaka= Histhalaka::create($request->all());
+    {$histhalaka= Histhalaka::create($request->all());
+      $user_auth = Auth::user();
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
+->where('Histetudiante.HistHalaka_id',$histhalaka->id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('seance_create')
+&& collect($relation)->isNotEmpty())) {
+
+
+    
 
  foreach($request->histEtud as $data) 
       {
@@ -236,16 +277,29 @@ public function store(Request $request)
 
     return response()->json(['message'=>'Histhalaka saved !',200]);
 
-    }
+  } else {
+      return response()->json(['error' => 'Not authorized.'],403);
+    }   }
 
 
 
 public function destroy($id)
     {
-         $user = Auth::user();
+      $user_auth = Auth::user();
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
+->where('Histetudiante.HistHalaka_id',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('seance_delete')
+&& collect($relation)->isNotEmpty())) {
+
         $histhalaka=Histhalaka::find($id);
 
- if ($user->can('delete', $histhalaka)) {
         if(is_null($histhalaka)){
 
            return response()->json(['message'=>'Histhalaka not found',404]);

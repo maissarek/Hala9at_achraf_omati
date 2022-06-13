@@ -84,7 +84,10 @@ DB::table('Permission')->insert([
    'name' =>'etu_show',
 'created_at'=>NOW(),'updated_at'=>NOW()
    ]);
-
+ /* DB::table('Permission')->insert([
+   'name' =>'etu_list_names',
+'created_at'=>NOW(),'updated_at'=>NOW()
+   ]); */
    DB::table('Permission')->insert([
    'name' =>'etu_list',
 'created_at'=>NOW(),'updated_at'=>NOW()

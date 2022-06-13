@@ -14,10 +14,19 @@ class EtudianteController extends Controller
 
 public function quitte($id,Request $request){
 
-   $user = Auth::user();
-   $etudiante=Etudiante::find($id);
+   $user_auth = Auth::user();
+        $etudiante=Etudiante::find($id);
 
- if ($user->can('update', $etudiante)) {
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->where('ensetudhlk.id_etud',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_update')
+&& collect($relation)->isNotEmpty())) {
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -28,14 +37,17 @@ DB::table('etudiante as e')
     ->where('e.id','=',$id)
     ->update(['p.quittee'=>'1','p.date_quitté'=>$request->date_quitté]);
 
-    } else {
- return response()->json(['error' => 'Not authorized.'],403);
-    }
+      }else {
+   return response()->json('You must be admin',403);
+}
 
 }
 
 public function all_etudiante_names()
 {
+ $user = Auth::user();
+if ($user->hasPermissions('etu_list')) {
+
 
 $data = DB::table('etudiante')
           ->join('personne','personne.id','=','etudiante.personne_id')
@@ -45,13 +57,19 @@ $data = DB::table('etudiante')
      ->get();
                
         return response()->json($data,200);
+
+         }else {
+   return response()->json('You must be admin',403);
+}
 }
 
 //////////////////////////*** intrface 4 ***//////////////////////////////////////
 
 public function all_etudiante()
 {
-$this->authorize('viewAny', Etudiante::class);
+ $user = Auth::user();
+if ($user->hasPermissions('etu_list')) {
+
 $data = DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
          ->leftJoin('personne','personne.id','=','etudiante.personne_id')
@@ -66,6 +84,10 @@ $data = DB::table('ensetudhlk')
      ->get();
                
         return response($data, 200);
+
+         }else {
+   return response()->json('You must be admin',403);
+}
 }
 
 
@@ -73,6 +95,19 @@ $data = DB::table('ensetudhlk')
 
 
 public function getEtudiantesbyHalakaId($id){
+
+$user_auth = Auth::user();
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->where('ensetudhlk.id_hlk',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_list')
+&& collect($relation)->isNotEmpty())) {
+
 
 $data=DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
@@ -85,16 +120,28 @@ $data=DB::table('ensetudhlk')
 
            return response()->json($data,200);
 
-
+ }else {
+   return response()->json('You must be admin',403);
+}
 }
 
 
 public function show($id)
     {
-        $user = Auth::user();
+
+     $user_auth = Auth::user();
         $etudiante=Etudiante::find($id);
 
- if ($user->can('view', $etudiante)) {
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->where('ensetudhlk.id_etud',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_show')
+&& collect($relation)->isNotEmpty())) {
 
         if(is_null($etudiante)){
 
@@ -114,9 +161,9 @@ $data=DB::table('ensetudhlk')
 
            return response()->json($data,200);
 
-         } else {
-     return response()->json(['error' => 'Not authorized.'],403);
-    }
+      }else {
+   return response()->json('You must be admin',403);
+}
 
            }
 

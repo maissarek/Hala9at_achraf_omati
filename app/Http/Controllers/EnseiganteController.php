@@ -21,16 +21,15 @@ public function halakat_one_ens($id){
 $user_auth = Auth::user();
 $ens=Enseigante::find($id);
 $exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+if(is_null($ens)){
 
+         return response()->json(['message'=>'Enseigante not found',404]);
+           }
 
 
 if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('halaka_show')
 && $ens->personne_id==$user_auth->personne_id)) {
 
-if(is_null($ens)){
-
-         return response()->json(['message'=>'Enseigante not found',404]);
-           }
 $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
 h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
 JOIN ensetudhlk 

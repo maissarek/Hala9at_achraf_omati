@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Halaka,Etudiante,Ensetuhlk};
+use App\Models\{Halaka,Etudiante,Enseigante,Ensetuhlk};
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -13,13 +13,19 @@ class HalakaController extends Controller
 
  public function getHalakatbyGroupeId($id){
 
+ 
+$user = Auth::user();
+if ($user->hasPermissions('halaka_list')) {
+
         $data = Halaka::join('groupe','groupe.id','=','halaka.id_groupe')
        ->where('groupe.id','=',$id)
                 ->select('halaka.id','halaka.name')
                 ->get();
 
                 return response()->json($data,200);
-
+ }else {
+   return response()->json('You must be admin',403);
+}
         }
 
 
@@ -27,26 +33,11 @@ class HalakaController extends Controller
 
      public function index()
     {
-    $this->authorize('viewAny', Halaka::class);
-if (Halaka::find($id)->where('khatimat',1)) {
 
-$data1 = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
-h.tempsFin,lieu.name as lieu,e.id as idEns,
-p.nom as nomEns,p.prenom as prenomEns,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
-JOIN ensetudhlk 
-on h.id = ensetudhlk.id_hlk
-JOIN enseigante as e 
-ON e.id= ensetudhlk.id_ens
-JOIN personne as p
-ON e.personne_id = p.id
-JOIN lieu 
-ON lieu.id = h.id_lieu
-JOIN groupe 
-ON groupe.id = h.id_groupe
+    $user = Auth::user();
+if ($user->hasPermissions('halaka_list')) {
 
-where(p.quittee = 0)
-group by  h.id');
-}
+
 
   $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
 h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,e.id as idEns,
@@ -67,7 +58,9 @@ group by  h.id');
         
         return response()->json($data,200);
 
-
+}else {
+   return response()->json('You must be admin',403);
+}
 
 
         }
@@ -79,6 +72,9 @@ group by  h.id');
 public function store(Request $request)
     {
 
+ $user = Auth::user();
+if ($user->hasPermissions('halaka_create')) {
+
  $halaka = Halaka::create($request->all());
  
  foreach($request->id_etud as $id){
@@ -88,7 +84,9 @@ DB::insert('insert into ensetudhlk (date_affectation, id_ens, id_etud , id_hlk) 
 }
 
  return  response()->json(['message'=>'Halaka saved !',200]);
-
+ }else {
+   return response()->json('You must be admin',403);
+}
 
       }
 
@@ -99,10 +97,20 @@ DB::insert('insert into ensetudhlk (date_affectation, id_ens, id_etud , id_hlk) 
 
 public function show($id)
     {
-          $user = Auth::user();
+          $user_auth = Auth::user();
         $halaka=Halaka::find($id);
 
-//  if ($user->can('view', $halaka)) {
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->where('ensetudhlk.id_hlk',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('halaka_show')
+&& collect($relation)->isNotEmpty())) {
+
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
@@ -133,9 +141,9 @@ $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
 
   return response()->json([$halaka,$data],200);
 
-/*    } else {
-      return response()->json(['error' => 'Not authorized.'],403);
-    } */
+}else {
+   return response()->json('You must be admin',403);
+}
   }
 
 
@@ -144,10 +152,12 @@ $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
 
 public function update(Request $request,$id)
     {
-        $user = Auth::user();
         $halaka=Halaka::find($id);
+        
+$user = Auth::user();
+if ($user->hasPermissions('halaka_update')) {
 
- if ($user->can('view', $halaka)) {
+   
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
@@ -158,9 +168,9 @@ $halaka->update($request->all());
 
 return response($halaka,201);
 
- } else {
-     return response()->json(['error' => 'Not authorized.'],403);
-    }
+}else {
+   return response()->json('You must be admin',403);
+}
 }
 
 
@@ -169,10 +179,12 @@ return response($halaka,201);
 
 public function destroy($id)
     {
-        $user = Auth::user();
         $halaka=Halaka::find($id);
 
- if ($user->can('view', $halaka)) {
+$user = Auth::user();
+if ($user->hasPermissions('halaka_delete')) {
+
+   
         if(is_null($halaka)){
 
            return response()->json(['message'=>'Halaka not found',404]);
@@ -182,9 +194,9 @@ $halaka->delete();
 DB::table('ensetudhlk')->where('id_hlk','=',$id)->delete(); //suppression_physique 
  
 return response()->json(null,204);
- } else {
-     return response()->json(['error' => 'Not authorized.'],403);
-    }
+ }else {
+   return response()->json('You must be admin',403);
+}
 }
 
     /**
