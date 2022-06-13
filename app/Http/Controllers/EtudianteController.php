@@ -15,7 +15,7 @@ class EtudianteController extends Controller
 public function quitte($id,Request $request){
 
    $user = Auth::user();
-        $etudiante=Etudiante::find($id);
+   $etudiante=Etudiante::find($id);
 
  if ($user->can('update', $etudiante)) {
         if(is_null($etudiante)){
@@ -127,10 +127,20 @@ $data=DB::table('ensetudhlk')
 public function update(Request $request,$id)
     {
 
-        $user = Auth::user();
+        $user_auth = Auth::user();
         $etudiante=Etudiante::find($id);
 
- if ($user->can('update', $etudiante)) {
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+->where('ensetudhlk.id_etud',$id)
+->where('Enseigante.personne_id',$user_auth->personne_id)
+->select('ensetudhlk.id')->get();
+$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+
+
+
+if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_update')
+&& collect($relation)->isNotEmpty())) {
+ 
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -139,7 +149,7 @@ public function update(Request $request,$id)
 DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.personne_id')
     ->where('e.id','=',$id)
-       ->where('personne.quittee','=','0')
+       ->where('p.quittee','=','0')
     ->update($request->all());
 
   $etudiante= Etudiante::find($id);
@@ -151,9 +161,9 @@ $personne = DB::table('etudiante as e')
     ->get('p.*');
     
     return response([$etudiante,$personne],201);
- } else {
- return response()->json(['error' => 'Not authorized.'],403);
-    }
+ }else {
+   return response()->json('You must be admin',403);
+}
     }
 
 
@@ -162,11 +172,11 @@ $personne = DB::table('etudiante as e')
 
 public function destroy($id)
     {
-
+     $etudiante= Etudiante::find($id);
  $user = Auth::user();
-        $etudiante=Etudiante::find($id);
+if ($user->hasPermissions('etu_delete')) {
 
- if ($user->can('delete', $etudiante)) {
+    
         if(is_null($etudiante)){
 
            return response()->json(['message'=>'Etudiante not found',404]);
@@ -203,8 +213,9 @@ $etudiante->delete();
 
        return response()->json(['message'=>'Etudiante deleted !',204]);
   } else {
-      return response()->json(['error' => 'Not authorized.'],403);
+        return response()->json('You must be admin',403);
     }
+
 }
 
 

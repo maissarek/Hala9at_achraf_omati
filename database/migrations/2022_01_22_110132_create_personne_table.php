@@ -19,12 +19,12 @@ class CreatePersonneTable extends Migration
             $table->string('prenom', 100);
             $table->date('dateNaiss');
             $table->string('lieuNaiss', 500)->nullable();
-            $table->string('adresse', 1000);
-            $table->integer('telephone');
+            $table->string('adresse', 1000)->nullable();
+            $table->integer('telephone')->nullable();
             $table->string('email', 500)->nullable();
-            $table->tinyInteger('job');
+            $table->tinyInteger('job')->nullable();
             $table->string('fonction', 500)->nullable();
-            $table->string('niveauScolaire', 50);
+            $table->string('niveauScolaire', 50)->nullable();
             $table->string('statusSocial', 500)->nullable();
             $table->tinyInteger('quittee')->default('0');
             $table->date('dateQuittee')->nullable();
