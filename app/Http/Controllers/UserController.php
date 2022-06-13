@@ -202,7 +202,7 @@ if (!is_null($etu_id)) {
 	
 }
 
-         $properties = array('id1' =>$work_id1,'id2' => $work_id2,'id3' => $work_id3);
+         $properties = array('idUser' =>$work_id1,'idEns' => $work_id2,'idEtud' => $work_id3);
       
      
 
