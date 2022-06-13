@@ -21,7 +21,7 @@ class Etudiante extends Model
        'ensKhatm',
        'teach',
        'teachPlace','khatima',
-       'hizb','personne_id'
+       'hizb','person_id'
        ];
 
          public function personne()

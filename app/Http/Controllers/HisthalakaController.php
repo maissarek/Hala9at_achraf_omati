@@ -19,7 +19,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_hlk',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -65,7 +65,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('Histetudiante.HistHalaka_id',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -124,7 +124,7 @@ $histhalaka = DB::table('histhalaka as hh')
         ->join('histetudiante as he','hh.id','=','he.HistHalaka_id')
         ->join('ensetudhlk','ensetudhlk.id','=','he.ensetudhlk_id')
         ->rightjoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-        ->leftjoin('personne','personne.id','=','etudiante.personne_id')
+        ->leftjoin('personne','personne.id','=','etudiante.person_id')
   ->where('personne.quittee','=','0')
         ->where('hh.id','=',$id)
         ->whereNull('hh.deleted_at')
@@ -155,7 +155,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('Histetudiante.HistHalaka_id',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -247,7 +247,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('Histetudiante.HistHalaka_id',$histhalaka->id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -291,7 +291,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('Histetudiante.HistHalaka_id',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 

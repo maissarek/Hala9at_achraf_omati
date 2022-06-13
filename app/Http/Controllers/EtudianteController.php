@@ -21,7 +21,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_etud',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -33,7 +33,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_update')
 }
 
 DB::table('etudiante as e')
-    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->join('personne as p', 'p.id', '=', 'e.person_id')
     ->where('e.id','=',$id)
     ->update(['p.quittee'=>'1','p.date_quitté'=>$request->date_quitté]);
 
@@ -50,7 +50,7 @@ if ($user->hasPermissions('etu_list')) {
 
 
 $data = DB::table('etudiante')
-          ->join('personne','personne.id','=','etudiante.personne_id')
+          ->join('personne','personne.id','=','etudiante.person_id')
          ->select('etudiante.id','personne.prenom','personne.nom')
             ->where('personne.quittee','=','0')
    ->distinct()
@@ -72,7 +72,7 @@ if ($user->hasPermissions('etu_list')) {
 
 $data = DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-         ->leftJoin('personne','personne.id','=','etudiante.personne_id')
+         ->leftJoin('personne','personne.id','=','etudiante.person_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
         ->select('etudiante.id','personne.nom','personne.prenom',
@@ -101,7 +101,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_hlk',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -111,7 +111,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_list')
 
 $data=DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-         ->leftJoin('personne','personne.id','=','etudiante.personne_id')
+         ->leftJoin('personne','personne.id','=','etudiante.person_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->where('halaka.id','=',$id)
             ->where('personne.quittee','=','0')
@@ -136,7 +136,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_etud',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -150,8 +150,8 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_show')
 
 $data=DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-         ->leftJoin('personne','personne.id','=','etudiante.personne_id')
-          ->leftjoin('users as u','u.personne_id','=','etudiante.personne_id')
+         ->leftJoin('personne','personne.id','=','etudiante.person_id')
+          ->leftjoin('users as u','u.perso_id','=','etudiante.person_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
          ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
          ->where('etudiante.id','=',$id)
@@ -181,7 +181,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_etud',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -194,7 +194,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_update')
 }
 
 DB::table('etudiante as e')
-    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->join('personne as p', 'p.id', '=', 'e.person_id')
     ->where('e.id','=',$id)
        ->where('p.quittee','=','0')
     ->update($request->all());
@@ -202,7 +202,7 @@ DB::table('etudiante as e')
   $etudiante= Etudiante::find($id);
 
 $personne = DB::table('etudiante as e')
-    ->join('personne as p', 'p.id', '=', 'e.personne_id')
+    ->join('personne as p', 'p.id', '=', 'e.person_id')
    ->where('e.id','=',$id)
       ->where('p.quittee','=','0')
     ->get('p.*');

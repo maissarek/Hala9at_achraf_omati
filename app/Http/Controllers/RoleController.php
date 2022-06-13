@@ -9,15 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
- /*if (Auth::user()->can('do-everything')) {
-    // the user can do everything
-}
-
-if (Auth::user()->can('do-one-thing')) {
-    // the user can just do one thing
-}
-*/
-
+ 
 
 public function index()
     {

@@ -20,7 +20,7 @@ public function halakat_one_ens($id){
 
 $user_auth = Auth::user();
 $ens=Enseigante::find($id);
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 if(is_null($ens)){
 
          return response()->json(['message'=>'Enseigante not found',404]);
@@ -31,7 +31,8 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('halaka_show')
 && $ens->personne_id==$user_auth->personne_id)) {
 
 $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
-h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
+h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,count(distinct ensetudhlk.id_etud) as nbr_etud
+FROM halaka as h
 JOIN ensetudhlk 
 on h.id = ensetudhlk.id_hlk
 JOIN enseigante as e 
@@ -56,7 +57,7 @@ public function etudiantes_one_ens($id){
 
 $user_auth = Auth::user();
 $ens=Enseigante::find($id);
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -65,7 +66,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_list')
 
 $data = DB::table('ensetudhlk')
 ->rightJoin('etudiante','etudiante.id','=','ensetudhlk.id_etud')
-         ->leftJoin('personne','personne.id','=','etudiante.personne_id')
+         ->leftJoin('personne','personne.id','=','etudiante.person_id')
         ->leftJoin('halaka','halaka.id','=','ensetudhlk.id_hlk')
         ->leftJoin('groupe','groupe.id','=','halaka.id_groupe')
         ->select('etudiante.id','personne.nom','personne.prenom',
@@ -139,7 +140,7 @@ public function show($id)
 
 $user_auth = Auth::user();
 $enseigante=Enseigante::find($id);
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -182,7 +183,7 @@ public function update(Request $request,$id)  {
 
  $user_auth = Auth::user();
 $ens=Enseigante::find($id);
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 

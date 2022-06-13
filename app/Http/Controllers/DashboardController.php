@@ -19,8 +19,8 @@ if ($user->hasPermissions('Dashboard_total')) {
   
 $tot= DB::select('select
 (SELECT count(enseigante.id)  from enseigante,personne where enseigante.personne_id=personne.id and personne.quittee=0)as total_ens
-,(select count(etudiante.id)  from etudiante,personne where etudiante.personne_id=personne.id and personne.quittee=0)as total_etu
-,(select count(users.id) from users,personne where users.personne_id=personne.id and personne.quittee=0)as total_user
+,(select count(etudiante.id)  from etudiante,personne where etudiante.person_id=personne.id and personne.quittee=0)as total_etu
+,(select count(users.id) from users,personne where users.perso_id=personne.id and personne.quittee=0)as total_user
 ,
 (select count(halaka.id) from halaka ) as total_halaka
 from  DUAL');
@@ -55,7 +55,7 @@ on ensetudhlk.id_hlk=halaka.id
 join etudiante 
 on ensetudhlk.id_etud=etudiante.id
 join personne
-on etudiante.personne_id=personne.id
+on etudiante.person_id=personne.id
 where(halaka.id_groupe=? and personne.quittee=0 )
  group by(halaka.id)
 ',[$idg]);
@@ -130,7 +130,7 @@ $user = Auth::user();
 if ($user->hasPermissions('Dashboard_totalSkipStudentByYY')) {
 
 $etu=DB::select('select EXTRACT(YEAR FROM personne.dateQuittee) as year,count(etudiante.id) as total_etu
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=1
+from personne,etudiante where etudiante.person_id=personne.id and personne.quittee=1
 group By (EXTRACT(YEAR FROM personne.dateQuittee))');
 
 
@@ -153,7 +153,7 @@ $user = Auth::user();
 if ($user->hasPermissions('Dashboard_totalNewStudentByYY')) {
 
 $etu=DB::select('select EXTRACT(YEAR FROM personne.dateEntree) as year,count(etudiante.id) as total_etu
-from personne,etudiante where etudiante.personne_id=personne.id 
+from personne,etudiante where etudiante.person_id=personne.id 
 group By (EXTRACT(YEAR FROM personne.dateEntree))
 ');
 
@@ -175,7 +175,7 @@ $user = Auth::user();
 if ($user->hasPermissions('Dashboard_StudentByHizb')) {
 
 $etu=DB::select('select count(etudiante.id) as total_etu,etudiante.hizb
-from personne,etudiante where etudiante.personne_id=personne.id and personne.quittee=0 
+from personne,etudiante where etudiante.person_id=personne.id and personne.quittee=0 
 group By (etudiante.hizb)
 Order BY hizb
 ');
@@ -198,7 +198,7 @@ if ($user->hasPermissions('Dashboard_StudentByAge')) {
 
 $etu=DB::select('SELECT floor(DATEDIFF(CURDATE(),personne.dateNaiss)/365.25) AS Age,count(etudiante.id) as nbr
 from etudiante,personne
-WHERE etudiante.personne_id=personne.id and personne.quittee=0
+WHERE etudiante.person_id=personne.id and personne.quittee=0
 group by age 
 Order By age ');
 
@@ -250,7 +250,7 @@ if ($user->hasPermissions('Dashboard_StudentByFonction')) {
 
 $etu=DB::select('SELECT personne.job,count(etudiante.id) as nbr
 from etudiante,personne
-WHERE etudiante.personne_id=personne.id and personne.quittee=0
+WHERE etudiante.person_id=personne.id and personne.quittee=0
 group by personne.job 
 Order By personne.job ');
 
@@ -300,7 +300,7 @@ if ($user->hasPermissions('Dashboard_StudentByAhkam')) {
 
 $etu=DB::select('SELECT count(etudiante.id) as nbr,etudiante.niveauAhkam
 from etudiante,personne
-WHERE etudiante.personne_id=personne.id and personne.quittee=0
+WHERE etudiante.person_id=personne.id and personne.quittee=0
 group by(etudiante.niveauAhkam)');
 
 
@@ -328,7 +328,7 @@ $rate = DB::select('
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
-join personne on etudiante.personne_id=personne.id
+join personne on etudiante.person_id=personne.id
 WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)))*100)
  
  
@@ -338,7 +338,7 @@ from histetudiante
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
-join personne on etudiante.personne_id=personne.id
+join personne on etudiante.person_id=personne.id
 WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)
      GROUP BY histetudiante.retard  ',[$req->date_b,$req->date_f,$req->date_b,$req->date_f]);
 
@@ -348,7 +348,7 @@ from histetudiante
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
-join personne on etudiante.personne_id=personne.id
+join personne on etudiante.person_id=personne.id
 WHERE (histhalaka.date between ? and ?) and (personne.quittee=0)
      GROUP BY histetudiante.retard',[$req->date_b,$req->date_f]);
 
@@ -461,7 +461,7 @@ from histetudiante
 join histhalaka on histetudiante.HistHalaka_id=histhalaka.id
 join ensetudhlk on histetudiante.ensEtudHlk_id=ensetudhlk.id
 join etudiante on ensetudhlk.id_etud=etudiante.id
-join personne on etudiante.personne_id=personne.id
+join personne on etudiante.person_id=personne.id
 WHERE (histhalaka.date between ? and ?) 
      GROUP BY histetudiante.absent',[$req->date_b,$req->date_f]);
 

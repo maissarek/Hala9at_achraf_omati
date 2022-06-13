@@ -28,7 +28,7 @@ class UserController extends Controller
 if ($user->hasPermissions('user_list')) {
 
      
-    $data = DB::select('select users.id,users.name as username,users.mail,personne.nom, personne.prenom,personne.telephone,GROUP_CONCAT(role.libelle) as role from users join personne on users.personne_id=personne.id join role_user on role_user.user_id=users.id JOIN role on role.id=role_user.role_id group by users.id');
+    $data = DB::select('select users.id,users.name as username,users.mail,personne.nom, personne.prenom,personne.telephone,GROUP_CONCAT(role.libelle) as role from users join personne on users.perso_id=personne.id join role_user on role_user.user_id=users.id JOIN role on role.id=role_user.rol_id group by users.id');
 
     return response($data, 200);
     }else {
@@ -45,7 +45,7 @@ if ($user->hasPermissions('user_list')) {
      
 
        $user = User::find($id);
-  $exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+  $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -56,12 +56,13 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('user_show')&&
                 return response()->json(['message' => 'User not found', 404]);
             }
 
-            $user = DB::select('select users.*,personne.*,GROUP_CONCAT(role.libelle) as role
+            $user = DB::select('select users.*,personne.*,GROUP_CONCAT(role.libelle)
+            as role
  from users
  
-LEFT JOIN personne on users.personne_id=personne.id
+LEFT JOIN personne on users.perso_id=personne.id
  LEFT JOIN role_user on role_user.user_id=users.id
- LEFT JOIN role on role.id=role_user.role_id
+ LEFT JOIN role on role.id=role_user.rol_id
  where users.id=?',[$id]);
 
 
@@ -76,7 +77,7 @@ LEFT JOIN personne on users.personne_id=personne.id
     {
         $user_auth = Auth::user();
        $user = User::find($id);
-       $exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+       $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -88,7 +89,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('user_update')
             }
 
             DB::table('users as u')
-                ->join('personne as p', 'p.id', '=', 'u.personne_id')
+                ->join('personne as p', 'p.id', '=', 'u.perso_id')
                 ->where('u.id', $id)
                 ->update([
                     'p.nom' => $request->nom,
@@ -128,8 +129,8 @@ if ($user_auth->hasPermissions('user_delete')) {
                 return response()->json(['message' => 'User not found', 404]);
             }
 
-            $ens_id =  Enseigante::select('id')->where('personne_id', '=', $user->personne_id)->first();
-            $etu_id = Etudiante::select('id')->where('personne_id', '=', $user->personne_id)->first();
+            $ens_id =  Enseigante::select('id')->where('personne_id', '=', $user->perso_id)->first();
+            $etu_id = Etudiante::select('id')->where('person_id', '=', $user->perso_id)->first();
 
               if (!is_null($ens_id)) {
 	DB::table('enseigante as p')
@@ -146,7 +147,7 @@ if (!is_null($etu_id)) {
             if (is_null($ens_id) && is_null($etu_id)) {
 
                 DB::table('personne as p')
-                    ->where('p.id', '=', $user->personne_id)
+                    ->where('p.id', '=', $user->perso_id)
                     ->where('p.quittee', '=', '0')
                     ->update(array('deleted_at' => NOW()));
             }
@@ -189,14 +190,14 @@ if (!is_null($etu_id)) {
         
         if ($role['id'] == 2) {
         
-            $work_id2 = DB::select('SELECT id from enseigante where personne_id=?', [$user->personne_id]);
+            $work_id2 = DB::select('SELECT id from enseigante where personne_id=?', [$user->perso_id]);
 
         }elseif ($role['id'] == 3) {
         
-            $work_id3 = DB::select('SELECT id from etudiante where personne_id=?', [$user->personne_id]);
+            $work_id3 = DB::select('SELECT id from etudiante where person_id=?', [$user->perso_id]);
          
         }else  {
-        $work_id1=$user->personne_id;
+        $work_id1=$user->perso_id;
         
         }
 	
@@ -206,7 +207,7 @@ if (!is_null($etu_id)) {
       
      
 
-$role = DB::select('select role.libelle from role,role_user as ru where role.id=ru.role_id and ru.user_id=?',[$user->id]);
+$role = DB::select('select role.libelle from role,role_user as ru where role.id=ru.rol_id and ru.user_id=?',[$user->id]);
  $collection = collect($role);
 $plucked = $collection->pluck('libelle');
 $perm=array();

@@ -41,7 +41,8 @@ if ($user->hasPermissions('halaka_list')) {
 
   $data = DB::select('SELECT h.id,groupe.name as groupe,h.name,h.jour,h.tempsDebut,
 h.tempsFin,h.fiaMin,h.fiaMax,lieu.name as lieu,e.id as idEns,
-p.nom as nomEns,p.prenom as prenomEns,count(distinct ensetudhlk.id_etud) as nbr_etud FROM halaka as h
+p.nom as nomEns,p.prenom as prenomEns,count(distinct ensetudhlk.id_etud) as nbr_etud
+FROM halaka as h
 JOIN ensetudhlk 
 on h.id = ensetudhlk.id_hlk
 JOIN enseigante as e 
@@ -104,7 +105,7 @@ $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_hlk',$id)
 ->where('Enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
-$exists = DB::select('select id from role_user where user_id=? and role_id=1',[$user_auth->id]);
+$exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
 
 
@@ -133,7 +134,7 @@ $halaka=Halaka::leftjoin('ensetudhlk','ensetudhlk.id_hlk','=','halaka.id')
   ->first();
 
 $data = Etudiante::join('ensetudhlk','ensetudhlk.id_etud','=','etudiante.id')
-  ->join('personne as p','p.id','=','etudiante.personne_id')
+  ->join('personne as p','p.id','=','etudiante.person_id')
   ->where('ensetudhlk.id_hlk','=',$id)
   ->where('p.quittee','=','0')
   ->select('ensetudhlk.id as ensetudhlk_id','etudiante.id','p.nom','p.prenom','p.dateNaiss','p.adresse','niveauAhkam','hizb','ensetudhlk.date_affectation')
