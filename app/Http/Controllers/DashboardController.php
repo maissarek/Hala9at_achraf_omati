@@ -257,12 +257,12 @@ Order By personne.job ');
 
 
 $collection0 = collect($etu);
-$collection1 = collect($etu);
 $plucked0 = $collection0->pluck('nbr');
-$plucked1 = $collection1->pluck('job');
 
-
-return response([$plucked1->all(),$plucked0->all()],200);
+return response()->json([
+    ['غير موظفات','موظفات'],
+    $plucked0->all()
+]);
 } else {
      return response()->json('You must be admin',403);
 }}
@@ -280,14 +280,15 @@ group by personne.job
 Order By personne.job ');
 
 
-
 $collection0 = collect($etu);
-$collection1 = collect($etu);
 $plucked0 = $collection0->pluck('nbr');
-$plucked1 = $collection1->pluck('job');
 
+return response()->json([
+    ['غير موظفات','موظفات'],
+    $plucked0->all()
+]);
 
-return response([$plucked1->all(),$plucked0->all()],200);
+//return response([$plucked1->all(),],200);
 } else {
      return response()->json('You must be admin',403);
 }}
