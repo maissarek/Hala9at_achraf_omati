@@ -145,7 +145,7 @@ $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$u
 
 
 if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('ens_show')
-&& $enseigante->personne_id==$user_auth->personne_id)) {
+&& $enseigante->personne_id==$user_auth->perso_id)) {
         if(is_null($enseigante)){
 
          return response()->json(['message'=>'Enseigante not found',404]);
@@ -154,7 +154,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('ens_show')
 
         $enseigante=DB::table('enseigante as e')
     ->leftjoin('personne as p', 'p.id', '=', 'e.personne_id')
-    ->leftjoin('users as u','u.personne_id','=','e.personne_id')
+    ->leftjoin('users as u','u.perso_id','=','e.personne_id')
     ->where('e.id','=',$id)
       ->where('p.quittee','=','0')
     ->select('u.name as username','p.nom',
