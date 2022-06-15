@@ -104,7 +104,8 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('user_update')
                     'p.statusSocial' => $request->statusSocial,
                     'p.lieuNaiss' => $request->lieuNaiss,
                     'p.dateEntree' => $request->dateEntree,
-                    'u.name' => $request->name, 'u.mail' => $request->mail, 'u.password' => Hash::make($request->password)
+                    'u.name' => $request->name, 'u.mail' => $request->mail,
+                    'u.password' => Hash::make($request->password)
                 ]);
             $user = User::find($id);
 

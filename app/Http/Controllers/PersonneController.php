@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\{Personne,Enseigante,Etudiante,User};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -58,19 +59,22 @@ public function  save_pers_admin(Request $request){
   $user = Auth::user();
 
 if($user->hasPermissions('user_create')) {
-
+//dd($request->all());
          $personne= Personne::create($request->all());
          $user= new User;
          $user->name=$request->nom.'_'.$request->prenom;
          $user->mail=$request->mail;
-        
+        $user->perso_id=$personne->id;
          $user->password = Hash::make("achraf_omati_2021");
-         $personne->user_relat()->save($user);
+         $user->save();
 
-         DB::table('role_user')->insert([
+   foreach($request->role_id as $data) {
+       DB::table('role_user')->insert([
       "user_id"=>$user->id,
-      "rol_id"=>$request->role_id	
+      "rol_id"=>$data	
              ]);
+             }
+
          return response([$personne,$user],201);
 
 }else {
@@ -95,15 +99,17 @@ if ($user->hasPermissions('etu_create')) {
              $etu->teachPlace = $request->teachPlace;
              $etu->hizb = $request->hizb;
              $etu->khatima = $request->khatima;
-             
-             $personne->Etu_relat()->save($etu);
+             $etu->person_id=$personne->id;
+             $etu->save();
+             //$personne->Etu_relat()->save($etu);
 
  $user= new User;
      $user->name=$request->nom.'_'.$request->prenom;
        $user->mail=$request->mail;
     
        $user->password = Hash::make("achraf_omati_2021");
-      $personne->user_relat()->save($user);
+       $user->perso_id = $personne->id;
+       $user->save();
 
          DB::table('role_user')->insert([
       "user_id"=>$user->id,
