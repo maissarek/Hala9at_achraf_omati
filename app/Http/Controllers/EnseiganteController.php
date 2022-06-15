@@ -249,7 +249,7 @@ DB::table('ensetudhlk as e')
 
 }
 
-$user = User::select('id')->where('personne_id','=',$ens->personne_id)->first();
+$user = User::select('id')->where('perso_id','=',$ens->personne_id)->first();
 
 if(is_null($user)){
 

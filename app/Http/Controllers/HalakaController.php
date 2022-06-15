@@ -190,10 +190,12 @@ if ($user->hasPermissions('halaka_delete')) {
 
            return response()->json(['message'=>'Halaka not found',404]);
 }
-$halaka->delete();
 
+DB::table('histetudiante')
+->join('ensetudhlk','ensetudhlk.id','=','histetudiante.ensEtudHlk_id')
+->where('ensetudhlk.id_hlk','=',$id)->delete();
 DB::table('ensetudhlk')->where('id_hlk','=',$id)->delete(); //suppression_physique 
- 
+ $halaka->delete();
 return response()->json(null,204);
  }else {
    return response()->json('You must be admin',403);

@@ -306,7 +306,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('seance_delete
 }
 
 $id_histetudiante=Histetudiante::where('HistHalaka_id','=',$histhalaka->id)->get('id');
-echo $id_histetudiante;
+
 foreach ($id_histetudiante as $id1) {
 
 Histetudiante::where('id','=',$id1->id)

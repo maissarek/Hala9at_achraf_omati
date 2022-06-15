@@ -19,7 +19,7 @@ public function quitte($id,Request $request){
 
 $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_etud',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('Enseigante.personne_id',$user_auth->perso_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -35,7 +35,7 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('etu_update')
 DB::table('etudiante as e')
     ->join('personne as p', 'p.id', '=', 'e.person_id')
     ->where('e.id','=',$id)
-    ->update(['p.quittee'=>'1','p.date_quitté'=>$request->date_quitté]);
+    ->update(['p.quittee'=>'1','p.dateQuittee'=>$request->date_quitte]);
 
       }else {
    return response()->json('You must be admin',403);
@@ -99,7 +99,7 @@ public function getEtudiantesbyHalakaId($id){
 $user_auth = Auth::user();
 $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_hlk',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('Enseigante.personne_id',$user_auth->perso_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -134,7 +134,7 @@ public function show($id)
 
 $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_etud',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('Enseigante.personne_id',$user_auth->perso_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -179,7 +179,7 @@ public function update(Request $request,$id)
 
 $relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
 ->where('ensetudhlk.id_etud',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('Enseigante.personne_id',$user_auth->perso_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -242,12 +242,12 @@ DB::table('ensetudhlk as e')
 
 
 }
-$user = User::select('id')->where('personne_id','=',$etudiante->personne_id)->first();
+$user = User::select('id')->where('perso_id','=',$etudiante->person_id)->first();
 
 if(is_null($user)){
 
  DB::table('personne as p')
- ->where('p.id','=',$etudiante->personne_id)
+ ->where('p.id','=',$etudiante->person_id)
     ->where('p.quittee','=','0')
  ->update(array('deleted_at'=>NOW()));
 
