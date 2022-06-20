@@ -113,10 +113,7 @@ if ($user->hasPermissions('ens_list')) {
 
 $data = DB::table('enseigante')
 ->join('personne','personne.id','=','enseigante.personne_id')
-
-          
-         ->select('enseigante.id','personne.prenom','personne.nom')
-         ->where('enseigante.Remplace','=','0')
+ ->select('enseigante.id','personne.prenom','personne.nom')
         ->where('personne.quittee','=','0')
          ->distinct()
      ->get();

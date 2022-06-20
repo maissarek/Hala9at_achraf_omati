@@ -15,9 +15,9 @@ class HisthalakaController extends Controller
 public function index($id){
 
  $user_auth = Auth::user();
-$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
 ->where('ensetudhlk.id_hlk',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -60,10 +60,10 @@ public function show($id)
 
 
 $user_auth = Auth::user();
-$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
 ->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
 ->where('Histetudiante.HistHalaka_id',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -150,10 +150,10 @@ $histhalaka = DB::table('histhalaka as hh')
 public function update(Request $request,$id)
     {
        $user_auth = Auth::user();
-$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
 ->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
 ->where('Histetudiante.HistHalaka_id',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -242,10 +242,10 @@ return response([$histhalaka,$histetudiante],201);
 public function store(Request $request)
     {$histhalaka= Histhalaka::create($request->all());
       $user_auth = Auth::user();
-$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
 ->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
 ->where('Histetudiante.HistHalaka_id',$histhalaka->id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
@@ -286,10 +286,10 @@ if ((collect($exists)->isNotEmpty())||($user_auth->hasPermissions('seance_create
 public function destroy($id)
     {
       $user_auth = Auth::user();
-$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
 ->join('Histetudiante','Histetudiante.ensEtudHlk_id','=','ensetudhlk.id')
 ->where('Histetudiante.HistHalaka_id',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 

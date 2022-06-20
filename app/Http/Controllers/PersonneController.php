@@ -39,7 +39,7 @@ public function index()
           $user= new User;
        $user->name=$request->nom.'_'.$request->prenom;
        $user->mail=$request->mail;
-       $user->password = Hash::make("achraf_omati_2021");
+       $user->password = Hash::make("password");
       $personne->user_relat()->save($user);
 
          DB::table('role_user')->insert([
@@ -65,7 +65,7 @@ if($user->hasPermissions('user_create')) {
          $user->name=$request->nom.'_'.$request->prenom;
          $user->mail=$request->mail;
         $user->perso_id=$personne->id;
-         $user->password = Hash::make("achraf_omati_2021");
+         $user->password = Hash::make("password");
          $user->save();
 
    foreach($request->role_id as $data) {
@@ -107,7 +107,7 @@ if ($user->hasPermissions('etu_create')) {
      $user->name=$request->nom.'_'.$request->prenom;
        $user->mail=$request->mail;
     
-       $user->password = Hash::make("achraf_omati_2021");
+       $user->password = Hash::make("password");
        $user->perso_id = $personne->id;
        $user->save();
 

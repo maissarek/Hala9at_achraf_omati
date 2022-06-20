@@ -101,9 +101,9 @@ public function show($id)
           $user_auth = Auth::user();
         $halaka=Halaka::find($id);
 
-$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','Enseigante.id')
+$relation=Enseigante::join('ensetudhlk','ensetudhlk.id_ens','=','enseigante.id')
 ->where('ensetudhlk.id_hlk',$id)
-->where('Enseigante.personne_id',$user_auth->personne_id)
+->where('enseigante.personne_id',$user_auth->personne_id)
 ->select('ensetudhlk.id')->get();
 $exists = DB::select('select id from role_user where user_id=? and rol_id=1',[$user_auth->id]);
 
