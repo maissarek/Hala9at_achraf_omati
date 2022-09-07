@@ -28,7 +28,13 @@ class UserController extends Controller
 if ($user->hasPermissions('user_list')) {
 
      
-    $data = DB::select('select users.id,users.name as username,users.mail,personne.nom, personne.prenom,personne.telephone,GROUP_CONCAT(role.libelle) as role from users join personne on users.perso_id=personne.id join role_user on role_user.user_id=users.id JOIN role on role.id=role_user.rol_id group by users.id');
+    $data = DB::select('select users.id,users.name as username,users.mail,personne.nom, personne.prenom,personne.telephone,GROUP_CONCAT(role.libelle) as role
+    from users
+    join personne on users.perso_id=personne.id
+    join role_user on role_user.user_id=users.id
+    JOIN role on role.id=role_user.rol_id
+    where users.deleted_at=NULL or personne.deleted_at=NULL
+    group by users.id');
 
     return response($data, 200);
     }else {

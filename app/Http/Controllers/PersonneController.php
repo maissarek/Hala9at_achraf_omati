@@ -40,7 +40,8 @@ public function index()
        $user->name=$request->nom.'_'.$request->prenom;
        $user->mail=$request->mail;
        $user->password = Hash::make("password");
-      $personne->user_relat()->save($user);
+        $user->perso_id = $personne->id;
+        $user->save();
 
          DB::table('role_user')->insert([
       "user_id"=>$user->id,
@@ -73,6 +74,7 @@ if($user->hasPermissions('user_create')) {
       "user_id"=>$user->id,
       "rol_id"=>$data	
              ]);
+
              }
 
          return response([$personne,$user],201);
