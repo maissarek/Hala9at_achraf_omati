@@ -150,7 +150,7 @@ return response([$plucked1->all(),$plucked->all()],200);
 public function totalSkipStudentByMM(){
 
 $user = Auth::user();
-if ($user->hasPermissions('Dashboard_totalSkipStudentByMM')) {
+if ($user->hasPermissions('Dashboard_totalSkipStudentByYY')) {
 
 $etu=DB::select('select EXTRACT(MONTH FROM personne.dateQuittee) as month,count(etudiante.id) as total_etu
 from personne,etudiante where etudiante.person_id=personne.id and personne.quittee=1
@@ -191,6 +191,31 @@ return response([$plucked1->all(),$plucked->all()],200);
 } else {
      return response()->json('You must be admin',403);
 }}
+
+
+public function totalNewStudentByMM(){
+
+$user = Auth::user();
+if ($user->hasPermissions('Dashboard_totalNewStudentByYY')) {
+
+$etu=DB::select('select EXTRACT(MONTH FROM personne.dateEntree) as month,count(etudiante.id) as total_etu
+from personne,etudiante where etudiante.person_id=personne.id 
+group By (EXTRACT(MONTH FROM personne.dateEntree))
+');
+
+
+$collection = collect($etu);
+$collection1 = collect($etu);
+$plucked = $collection->pluck('total_etu');
+$plucked1 = $collection1->pluck('month');
+
+
+return response([$plucked1->all(),$plucked->all()],200);
+} else {
+     return response()->json('You must be admin',403);
+}}
+
+
 
 public function StudentByHizb(){
 
