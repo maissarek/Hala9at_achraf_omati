@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
- Gate::define('', function ($user) {
+ /*Gate::define('', function ($user) {
         return $user->hasPermission('');
     });
  Gate::define('', function ($user) {
@@ -96,12 +96,12 @@ class AuthServiceProvider extends ServiceProvider
     });
  Gate::define('', function ($user) {
         return $user->hasPermission('');
+    });*/
+ Gate::define('Dashboard_totalSkipStudentByMM', function ($user) {
+        return $user->hasPermission('Dashboard_totalSkipStudentByMM');
     });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
-    });
- Gate::define('', function ($user) {
-        return $user->hasPermission('');
+ Gate::define('Dashboard_totalNewStudentByMM', function ($user) {
+        return $user->hasPermission('Dashboard_totalNewStudentByMM');
     });  
  Gate::define('Dashboard_total', function ($user) {
         return $user->hasPermission('Dashboard_total');

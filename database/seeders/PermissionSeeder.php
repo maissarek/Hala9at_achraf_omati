@@ -63,7 +63,7 @@ DB::table('permission')->insert([
    DB::table('permission')->insert([
    'name' =>'ens_list',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);//
+   ]);//10
 
    DB::table('permission')->insert([
    'name' =>'etu_create',
@@ -84,10 +84,7 @@ DB::table('permission')->insert([
    'name' =>'etu_show',
 'created_at'=>NOW(),'updated_at'=>NOW()
    ]);
- /* DB::table('permission')->insert([
-   'name' =>'etu_list_names',
-'created_at'=>NOW(),'updated_at'=>NOW()
-   ]); */
+
    DB::table('permission')->insert([
    'name' =>'etu_list',
 'created_at'=>NOW(),'updated_at'=>NOW()
@@ -116,7 +113,7 @@ DB::table('permission')->insert([
    DB::table('permission')->insert([
    'name' =>'halaka_list',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//20
 
    DB::table('permission')->insert([
    'name' =>'seance_create',
@@ -170,7 +167,7 @@ DB::table('permission')->insert([
    DB::table('permission')->insert([
    'name' =>'Dashboard_totalSkipStudentByYY',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//30
 
 
    DB::table('permission')->insert([
@@ -229,7 +226,7 @@ DB::table('permission')->insert([
    DB::table('permission')->insert([
    'name' =>'Dashboard_StudentsAbsencesGlobal',
 'created_at'=>NOW(),'updated_at'=>NOW()
-   ]);
+   ]);//40
 
 
    DB::table('permission')->insert([
@@ -249,8 +246,14 @@ DB::table('permission')->insert([
    'name' =>'Dashboard_StudentByFonction',
 'created_at'=>NOW(),'updated_at'=>NOW()
    ]);
-
-
+DB::table('permission')->insert([
+   'name' =>'Dashboard_totalSkipStudentByMM',
+'created_at'=>NOW(),'updated_at'=>NOW()
+   ]);//44
+DB::table('permission')->insert([
+   'name' =>'Dashboard_totalNewStudentByMM',
+'created_at'=>NOW(),'updated_at'=>NOW()
+   ]);
    
 
 
