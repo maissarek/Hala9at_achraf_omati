@@ -85,6 +85,15 @@ DB::table('enseigante')->insert([
    'ensKhatm'=> 'الأستاذة سعيدة مكي',
    'Remplace'=>'1','dateDebut'=>'2007-01-01',
    'personne_id'=>'2'
+             ]);
+
+              DB::table('enseigante')->insert([
+           'experienceTeaching' => '10 سنوات',
+   'lieuKhatm'=>'مسجد بن بولعيد',
+   'dateKhatm'=>'2008-06-01',
+   'ensKhatm'=> 'الأستاذة سعيدة مكي',
+   'Remplace'=>'1','dateDebut'=>'2007-01-01',
+   'personne_id'=>'16'
              ]); 
              }
 }

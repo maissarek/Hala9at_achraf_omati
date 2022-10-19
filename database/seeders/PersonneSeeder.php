@@ -59,7 +59,7 @@ DB::table('personne')->insert([
 'adresse'=> 'بوفاريك',
 'telephone'=>'0770664510',
 'email'=> 'ikram_3@gmail.com',
-'job'=> '0',
+'job'=> '2',
 'fonction'=>'ماكثة بالبيت',
 'niveauScolaire'=>'جامعي',
 'statusSocial'=> 'عازبة',
@@ -125,7 +125,7 @@ DB::table('personne')->insert([
 'adresse'=> 'بن بولعيد',
 'telephone'=>'0543774541',
 'email'=> 'houda_7@gmail.com',
-'job'=> '0',
+'job'=> '2',
 'fonction'=>'',
 'niveauScolaire'=>'ثانوي',
 'statusSocial'=> 'عازبة',
@@ -202,8 +202,8 @@ DB::table('personne')->insert([
 'adresse'=> 'بن بولعيد',
 'telephone'=>'0543774541',
 'email'=> 'z.leila@gmail.com',
-'job'=> '0',
-'fonction'=>'',
+'job'=> '1',
+'fonction'=>'أستاذة',
 'niveauScolaire'=>'ثانوي',
 'statusSocial'=> 'عازبة',
 'lieuNaiss'=> 'البليدة',
@@ -251,7 +251,7 @@ DB::table('personne')->insert([
 'dateNaiss'=>'1997-01-01',
 'adresse'=> 'بن بولعيد',
 'telephone'=>'0770774541',
-'email'=> 'kanza_1@gmail.com',
+'email'=> 'houriaa_1@gmail.com',
 'job'=> '1',
 'fonction'=>'/',
 'niveauScolaire'=>'جامعي',
@@ -260,6 +260,24 @@ DB::table('personne')->insert([
 'dateEntree'=> '2007-01-01',
 'dateQuittee'=> '2010-01-23'  , 
 'quittee'=>'1'
+]);
+
+
+DB::table('personne')->insert([
+ 'nom'=>' فاطمة الزهراء',
+'prenom'=> 'بناي',
+'dateNaiss'=>'1975-01-01',
+'adresse'=> 'بن بولعيد',
+'telephone'=>'07713134541',
+'email'=> 'fzbnay_1@gmail.com',
+'job'=> '0',
+'fonction'=>'ماكثة بالبيت',
+'niveauScolaire'=>'جامعي',
+'statusSocial'=> 'متزوجة',
+'lieuNaiss'=> 'البليدة',
+'dateEntree'=> '2007-01-01',
+'dateQuittee'=> '2015-01-01'   ,
+'quittee'=>'0'
 ]);
 }
 }
