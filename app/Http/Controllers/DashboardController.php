@@ -307,14 +307,10 @@ group by personne.job
 Order By personne.job ');
 
 
-
-$collection = collect($etu);
-$plucked = $collection->pluck('job');
 $collection0 = collect($etu);
 $plucked0 = $collection0->pluck('nbr');
 
 return response()->json([
-$plucked->all(),
     ['غير موظفات','موظفات','متمدرسات'],
     $plucked0->all()
 ]);
@@ -335,13 +331,10 @@ group by personne.job
 Order By personne.job ');
 
 
-$collection = collect($etu);
-$plucked = $collection->pluck('job');
 $collection0 = collect($etu);
 $plucked0 = $collection0->pluck('nbr');
 
 return response()->json([
-$plucked->all(),
     ['غير موظفات','موظفات','متمدرسات'],
     $plucked0->all()
 ]);
