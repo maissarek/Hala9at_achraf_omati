@@ -4,8 +4,9 @@
     "\\app",
     "\\app\\Http",
     "\\app\\Http\\Controllers",
-    "\\database"
+    "\\database",
+    "\\database\\seeders"
   ],
-  "SelectedNode": "\\database\\migrations",
+  "SelectedNode": "\\app\\Http\\Controllers\\DashboardController.php",
   "PreviewInSolutionExplorer": false
 }
